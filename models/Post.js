@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var PostSchema = new Schema({
   slug: String,
-  title: String,
-  body: String,
+  title: {type: String, required: true},
+  body: {type: String, required: true},
   time: {type: Date, default: Date.now}
 });
 
