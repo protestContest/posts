@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var creds = require('./credentials');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -49,6 +50,9 @@ if (app.get('env') === 'development') {
         });
     });
     mongoose.connect("mongodb://localhost/dev");
+} else if (app.get('env') === 'production') {
+    console.log('Connecting to mongodb: ' + process.env.MONGO_URI);
+    mongoose.connect(process.env.MONGO_URI);
 }
 
 // production error handler
