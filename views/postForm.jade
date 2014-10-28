@@ -1,14 +1,7 @@
 extends layout
 
 block content
-  h1 Posts
-
-  if postList
-    ul
-      each post in postList
-        li: a(href='/posts/' + post.slug)= post.title
-
-  h2 New Post
+  h1 New Post
 
   form(method='post')
     label Title
