@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var PostSchema = new Schema({
   slug: String,
   title: String,
-  body: String
+  body: String,
+  time: {type: Date, default: Date.now}
 });
 
 
