@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
+var Post = require('../models/Post');
 
-/* GET home page. */
 router.get('/', function(req, res) {
-  res.render('index', { title: 'Express' });
+  Post.find({}, function(err, posts) {
+    if (err) return res.send(err);
+
+    res.render('postList', posts);
+  });
 });
 
 module.exports = router;
