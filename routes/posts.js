@@ -6,7 +6,7 @@ var markdown = require('markdown').markdown;
 
 router.get('/:slug', function(req, res) {
   Post.findOne({slug: req.params.slug}, function(err, post) {
-    if (err) return res.send(500, err);
+    if (err) return res.status(500).send(err);
 
     post.body = markdown.toHTML(post.body);
 
@@ -22,7 +22,7 @@ router.post('/', function(req, res) {
   post.slug = slug(post.title);
 
   post.save(function(err) {
-    if (err) return res.send(500, err);
+    if (err) return res.status(500).send(err);
 
     res.redirect('/posts');
   });
@@ -30,7 +30,7 @@ router.post('/', function(req, res) {
 
 router.get('/', function(req, res) {
   Post.find({}, function(err, posts) {
-    if (err) return res.send(500, err);
+    if (err) return res.status(500).send(err);
 
     res.render('postForm', {postList: posts});
   });
