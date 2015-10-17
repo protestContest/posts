@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Post = require('../models/Post');
+var passport = require('passport');
 
 router.get('/', function(req, res) {
   Post.find({}, function(err, posts) {
@@ -9,5 +10,7 @@ router.get('/', function(req, res) {
     res.render('postList', {postList: posts});
   });
 });
+
+router.post('login', passport.authenticate('local'));
 
 module.exports = router;

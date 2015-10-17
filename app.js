@@ -5,9 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+var User = require('./models/User');
 
 var routes = require('./routes/index');
 var posts = require('./routes/posts');
+var users = require('./routes/users');
 
 var app = express();
 
@@ -24,8 +28,26 @@ app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req, res, next) {
+    req.data = {};
+    next();
+});
+
+passport.use(new LocalStrategy(
+    function(username, password, done) {
+        User.findOne({username: username}, function(err, user) {
+            if (err) return done(err);
+            if (!user) return done(null, false, {message: 'No such user'});
+            if (!user.validPassword(password)) return done(null, false, {message: 'Bad password'});
+
+                return done(null, user);
+        });
+    })
+);
+
 app.use('/', routes);
 app.use('/posts', posts);
+app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
