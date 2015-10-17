@@ -1,20 +1,18 @@
 var express = require('express');
 var router = express.Router();
 var Post = require('../models/Post');
-var slug = require('slug');
 var markdown = require('markdown').markdown;
 
-router.get('/:slug\.:ext?', function(req, res) {
+router.get('/:slug', function(req, res) {
   Post.findOne({slug: req.params.slug}, function(err, post) {
     if (err) return res.status(500).send(err);
+    if (!post) return res.status(404).end();
 
-    if (req.params.ext && (req.params.ext === 'md')) {
-      res.send(post.body);
-    } else if (req.params.ext && req.params.ext === 'json') {
-      res.json({ 'post': post });
-    } else {
+    if (req.accepts('html')) {
       post.body = markdown.toHTML(post.body);
       res.render('post', { post: post });
+    } else {
+      res.json({post: post});
     }
   });
 });
@@ -24,7 +22,6 @@ router.post('/', function(req, res) {
     title: req.body.title,
     body: req.body.body
   });
-  post.slug = slug(post.title);
 
   post.save(function(err) {
     if (err) return res.status(500).send(err);

@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var slug = require('slug');
 
 var PostSchema = new Schema({
   slug: String,
@@ -8,6 +9,10 @@ var PostSchema = new Schema({
   time: {type: Date, default: Date.now}
 });
 
+PostSchema.pre('save', function(next) {
+  this.slug = slug(this.title);
+  next();
+});
 
 mongoose.model('Post', PostSchema);
 var Post = mongoose.model('Post');
