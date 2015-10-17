@@ -21,4 +21,9 @@ router.put('/:slug',
   posts.update,
   posts.sendOne);
 
+router.delete('/:slug',
+  posts.loadBySlug,
+  posts.remove,
+  posts.end);
+
 module.exports = router;

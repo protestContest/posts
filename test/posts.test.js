@@ -154,4 +154,17 @@ describe('Posts routes', function() {
     });
   });
 
+  describe('DELETE /posts/:slug', function() {
+    it('should remove the post', function(done) {
+      request(app)
+        .delete('/posts/' + testPost.slug)
+        .accept('json')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          done();
+        });
+    });
+  });
+
 });
