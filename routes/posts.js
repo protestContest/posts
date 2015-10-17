@@ -29,7 +29,11 @@ router.post('/', function(req, res) {
   post.save(function(err) {
     if (err) return res.status(500).send(err);
 
-    res.redirect('/posts');
+    if (req.accepts('html')) {
+      res.redirect('/posts/' + post.slug);
+    } else {
+      res.json({post: {url: '/posts/' + post.slug}});
+    }
   });
 });
 
