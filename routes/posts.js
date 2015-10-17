@@ -4,7 +4,7 @@ var Post = require('../models/Post');
 var posts = require('../lib/Posts');
 
 router.get('/:slug',
-  posts.loadPostBySlug,
+  posts.loadBySlug,
   posts.checkAuth,
   posts.sendOne);
 
@@ -15,5 +15,10 @@ router.post('/',
 router.get('/',
   posts.loadAll,
   posts.sendAll);
+
+router.put('/:slug',
+  posts.loadBySlug,
+  posts.update,
+  posts.sendOne);
 
 module.exports = router;

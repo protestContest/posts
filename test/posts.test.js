@@ -7,6 +7,7 @@ mongoose.models = {};
 mongoose.modelSchemas = {};
 
 describe('Posts routes', function() {
+  var testPost;
 
   before(function(done) {
     mongoose.connect('mongodb://localhost/test', done);
@@ -14,6 +15,19 @@ describe('Posts routes', function() {
 
   after(function(done) {
     mongoose.disconnect(done);
+  });
+
+  beforeEach(function(done) {
+    testPost = new Post({
+      "title": "Test Post",
+      "body": "Please ignore."
+    });
+
+    testPost.save(done);
+  });
+
+  afterEach(function(done) {
+    testPost.remove(done);
   });
 
   describe('POST /posts/', function() {
@@ -28,7 +42,8 @@ describe('Posts routes', function() {
         .send({ title: "Test Post", body: "Please ignore." })
         .expect(200)
         .end(function(err, res) {
-          should.not.exist(err);
+          if (err) return done(err);
+
           done();
         });
     });
@@ -46,27 +61,20 @@ describe('Posts routes', function() {
   });
 
   describe('GET /posts/:postId', function() {
-    var testPost, privatePost;
+    var privatePost;
 
     before(function(done) {
-      testPost = new Post({
-        "title": "Test Post",
-        "body": "Please ignore."
-      });
-
       privatePost = new Post({
         "title": "Private Post",
         "body": "Don't look.",
-        "private": true
+        "isPrivate": true
       });
 
-      testPost.save(function() {
-        privatePost.save(done);
-      });
+      privatePost.save(done);
     });
 
     after(function(done) {
-      testPost.remove(done);
+      privatePost.remove(done);
     });
 
     it('should get a post', function(done) {
@@ -74,7 +82,8 @@ describe('Posts routes', function() {
         .get('/posts/' + testPost.slug)
         .accept('json')
         .end(function(err, res) {
-          should.not.exist(err);
+          if (err) return done(err);
+
           res.body.post.title.should.equal(testPost.title);
           res.body.post.body.should.equal(testPost.body);
           done();
@@ -87,7 +96,8 @@ describe('Posts routes', function() {
         .accept('json')
         .expect(401)
         .end(function(err, res) {
-          should.not.exist(err);
+          if (err) return done(err);
+
           done();
         });
     });
@@ -112,8 +122,33 @@ describe('Posts routes', function() {
         .accept('json')
         .expect(200)
         .end(function(err, res) {
-          should.not.exist(err);
+          if (err) return done(err);
+
           should.exist(res.body.posts);
+          done();
+        });
+    });
+  });
+
+  describe('PUT /posts/:slug', function() {
+    it('should update an existing post', function(done) {
+      var updates = {
+        title: "Updated Title",
+        body: "Updated body.",
+        isPrivate: true
+      };
+
+      request(app)
+        .put('/posts/' + testPost.slug)
+        .send(updates)
+        .accept('json')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          res.body.post.title.should.equal(updates.title);
+          res.body.post.body.should.equal(updates.body);
+          res.body.post.isPrivate.should.equal(updates.isPrivate);
           done();
         });
     });
