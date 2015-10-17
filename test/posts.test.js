@@ -2,8 +2,19 @@ var request = require('supertest');
 var app = require('../app');
 var should = require('chai').should();
 var Post = require('../models/Post');
+var mongoose = require('mongoose');
+mongoose.models = {};
+mongoose.modelSchemas = {};
 
 describe('Posts routes', function() {
+
+  before(function(done) {
+    mongoose.connect('mongodb://localhost/test', done);
+  });
+
+  after(function(done) {
+    mongoose.disconnect(done);
+  });
 
   describe('POST /posts/', function() {
     after(function(done) {

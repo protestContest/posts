@@ -46,10 +46,6 @@ if (app.get('env') === 'development') {
             error: err
         });
     });
-    mongoose.connect("mongodb://localhost/dev");
-} else if (app.get('env') === 'production') {
-    console.log('Connecting to mongodb: ' + process.env.MONGO_URI);
-    mongoose.connect(process.env.MONGO_URI);
 }
 
 // production error handler
