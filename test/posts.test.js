@@ -39,14 +39,14 @@ describe('Posts routes', function() {
         .accept('json')
         .send({ title: "Test Post", body: "Please ignore." })
         .end(function(err, res) {
-          should.exist(res.body.post.url);
+          should.exist(res.body.url);
           done();
         });
     });
   });
 
   describe('GET /posts/:postId', function() {
-    var testPost;
+    var testPost, privatePost;
 
     before(function(done) {
       testPost = new Post({
@@ -54,25 +54,22 @@ describe('Posts routes', function() {
         "body": "Please ignore."
       });
 
-      testPost.save(done);
+      privatePost = new Post({
+        "title": "Private Post",
+        "body": "Don't look.",
+        "private": true
+      });
+
+      testPost.save(function() {
+        privatePost.save(done);
+      });
     });
 
     after(function(done) {
       testPost.remove(done);
     });
 
-    it('should get a post html by default', function(done) {
-      request(app)
-        .get('/posts/' + testPost.slug)
-        .end(function(err, res) {
-          should.not.exist(err);
-          should.not.exist(res.body.post);
-          should.exist(res.text);
-          done();
-        });
-    });
-
-    it('should get a post JSON with the .json extension', function(done) {
+    it('should get a post', function(done) {
       request(app)
         .get('/posts/' + testPost.slug)
         .accept('json')
@@ -83,6 +80,18 @@ describe('Posts routes', function() {
           done();
         });
     });
+
+    it('should not get a private post', function(done) {
+      request(app)
+        .get('/posts/' + privatePost.slug)
+        .accept('json')
+        .expect(401)
+        .end(function(err, res) {
+          should.not.exist(err);
+          done();
+        });
+    });
+
   });
 
   describe('GET /posts', function() {
