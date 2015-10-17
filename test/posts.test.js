@@ -6,6 +6,10 @@ var Post = require('../models/Post');
 describe('Posts routes', function() {
 
   describe('POST /posts/', function() {
+    after(function(done) {
+      Post.remove({}, done);
+    });
+
     it('should return HTTP 200', function(done) {
       request(app)
         .post('/posts/')
@@ -42,6 +46,10 @@ describe('Posts routes', function() {
       testPost.save(done);
     });
 
+    after(function(done) {
+      testPost.remove(done);
+    });
+
     it('should get a post html by default', function(done) {
       request(app)
         .get('/posts/' + testPost.slug)
@@ -61,6 +69,31 @@ describe('Posts routes', function() {
           should.not.exist(err);
           res.body.post.title.should.equal(testPost.title);
           res.body.post.body.should.equal(testPost.body);
+          done();
+        });
+    });
+  });
+
+  describe('GET /posts', function() {
+    before(function(done) {
+      Post.create([
+        { title: "Post 1", body: "asdf" },
+        { title: "Post 2", body: "qwer" }
+      ], done);
+    });
+
+    after(function(done) {
+      Post.remove({}, done);
+    });
+
+    it('should get a list of all posts', function(done) {
+      request(app)
+        .get('/posts/')
+        .accept('json')
+        .expect(200)
+        .end(function(err, res) {
+          should.not.exist(err);
+          should.exist(res.body.posts);
           done();
         });
     });

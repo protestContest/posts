@@ -38,7 +38,11 @@ router.get('/', function(req, res) {
   Post.find({}, function(err, posts) {
     if (err) return res.status(500).send(err);
 
-    res.render('postForm', {postList: posts});
+    if (req.accepts('html')) {
+      res.render('postForm', {postList: posts});
+    } else {
+      res.json({posts: posts});
+    }
   });
 });
 
