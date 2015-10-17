@@ -4,13 +4,18 @@ var Post = require('../models/Post');
 var slug = require('slug');
 var markdown = require('markdown').markdown;
 
-router.get('/:slug', function(req, res) {
+router.get('/:slug\.:ext?', function(req, res) {
   Post.findOne({slug: req.params.slug}, function(err, post) {
     if (err) return res.status(500).send(err);
 
-    post.body = markdown.toHTML(post.body);
-
-    res.render('post', { post: post });
+    if (req.params.ext && (req.params.ext === 'md')) {
+      res.send(post.body);
+    } else if (req.params.ext && req.params.ext === 'json') {
+      res.json({ 'post': post });
+    } else {
+      post.body = markdown.toHTML(post.body);
+      res.render('post', { post: post });
+    }
   });
 });
 
