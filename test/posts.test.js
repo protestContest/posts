@@ -206,9 +206,9 @@ describe('Posts routes', function() {
         isPrivate: true
       };
 
-      request(app)
-        .put('/posts/' + testPost.slug)
-        .send(updates)
+      var req = request(app).put('/posts/' + testPost._id);
+      req.cookies = cookies;
+      req.send(updates)
         .accept('json')
         .expect(200)
         .end(function(err, res) {

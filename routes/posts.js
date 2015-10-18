@@ -16,8 +16,8 @@ router.get('/',
   post.loadAllPublic,
   post.sendAll);
 
-router.put('/:slug',
-  post.loadBySlug,
+router.put('/:postIdentifier',
+  post.loadById,
   post.update,
   post.sendOne);
 
