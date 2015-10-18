@@ -11,6 +11,12 @@ router.get('/', function(req, res) {
   });
 });
 
-router.post('login', passport.authenticate('local'));
+router.post('/login', passport.authenticate('local'), function(req, res) {
+  res.end();
+});
+
+router.get('/login', function(req, res) {
+  res.render('loginForm');
+});
 
 module.exports = router;

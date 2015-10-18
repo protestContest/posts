@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/User');
@@ -27,6 +28,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({secret:'oddfellows'}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use(function(req, res, next) {
     req.data = {};
@@ -40,10 +44,20 @@ passport.use(new LocalStrategy(
             if (!user) return done(null, false, {message: 'No such user'});
             if (!user.validPassword(password)) return done(null, false, {message: 'Bad password'});
 
-                return done(null, user);
+            return done(null, user);
         });
     })
 );
+
+passport.serializeUser(function(user, done) {
+    done(null, user._id);
+});
+
+passport.deserializeUser(function(id, done) {
+    User.findById(id, function(err, user) {
+        done(err, user);
+    });
+});
 
 app.use('/', routes);
 app.use('/posts', posts);

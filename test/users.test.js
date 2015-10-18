@@ -136,4 +136,19 @@ describe('User routes', function() {
     });
   });
 
+  describe('POST /login', function() {
+    it('should log in an existing user', function(done) {
+      request(app)
+        .post('/login')
+        .send({username: testUser.username, password: testUser.password})
+        .accept('json')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          done();
+        });
+    });
+  });
+
 });
