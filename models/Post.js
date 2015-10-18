@@ -6,7 +6,7 @@ var PostSchema = new Schema({
   slug: String,
   title: {type: String, required: true},
   body: {type: String, required: true},
-  time: {type: Date, default: Date.now},
+  created: {type: Date, default: Date.now},
   isPrivate: {type: Boolean, default: false}
 });
 
