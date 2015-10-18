@@ -22,24 +22,19 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(__dirname + '/public/favicon.ico'));
-app.use(logger('dev'));
+// app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser('oddfellows'));
 app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
     secret:'oddfellows',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
 }));
 app.use(passport.initialize());
 app.use(passport.session());
-
-app.use(function(req, res, next) {
-    req.data = {};
-    next();
-});
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
@@ -61,6 +56,11 @@ passport.deserializeUser(function(id, done) {
     User.findById(id, function(err, user) {
         done(err, user);
     });
+});
+
+app.use(function(req, res, next) {
+    req.data = {};
+    next();
 });
 
 app.use('/', routes);

@@ -9,7 +9,7 @@ mongoose.models = {};
 mongoose.modelSchemas = {};
 
 describe('Posts routes', function() {
-  var testPost, testUser;
+  var testPost, testUser, cookies;
 
   before(function(done) {
     mongoose.connect('mongodb://localhost/test', done);
@@ -22,6 +22,7 @@ describe('Posts routes', function() {
   beforeEach(function(done) {
     testUser = new User({
       username: 'testUser',
+      password: 'asdf'
     });
 
     testPost = new Post({
@@ -30,7 +31,12 @@ describe('Posts routes', function() {
     });
 
     testUser.save(function(err) {
-      testPost.save(done);
+      testUtils.loginUser(app, testUser, function(err, sessionCookies) {
+        testPost.save(function(err) {
+          cookies = sessionCookies;
+          done();
+        });
+      });
     });
   });
 
@@ -44,15 +50,15 @@ describe('Posts routes', function() {
     });
 
     it('should allow a logged in user to post', function(done) {
-      request(app)
-        .post('/posts/')
-        .accept('json')
+      var req = request(app).post('/posts/');
+      req.cookies = cookies;
+      req.accept('json')
         .send({ title: "Test Post", body: "Please ignore." })
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
 
-          res.body.post.owner.should.equal(testUser._id);
+          res.body.post.owner.should.equal(testUser._id.toString());
           done();
         });
     });
@@ -71,11 +77,13 @@ describe('Posts routes', function() {
     });
 
     it('should return the URL of the new post', function(done) {
-      request(app)
-        .post('/posts/')
-        .accept('json')
+      var req = request(app).post('/posts/');
+      req.cookies = cookies;
+      req.accept('json')
         .send({ title: "Test Post", body: "Please ignore." })
         .end(function(err, res) {
+          if (err) return done(err);
+
           should.exist(res.body.url);
           done();
         });
@@ -123,7 +131,7 @@ describe('Posts routes', function() {
         });
     });
 
-    it.skip('should get a post by id', function(done) {
+    it('should get a post by id', function(done) {
       request(app)
         .get('/posts/' + testPost._id)
         .accept('json')
@@ -147,10 +155,10 @@ describe('Posts routes', function() {
         });
     });
 
-    it.skip('should get a private post if logged in user owns it', function(done) {
-      request(app)
-        .get('/posts/' + privatePost.slug)
-        .accept('json')
+    it('should get a private post if logged in user owns it', function(done) {
+      var req = request(app).get('/posts/' + privateOwnPost.slug);
+      req.cookies = cookies;
+      req.accept('json')
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
@@ -172,7 +180,7 @@ describe('Posts routes', function() {
       Post.remove({}, done);
     });
 
-    it('should get a list of all posts', function(done) {
+    it('should get a list of all public posts', function(done) {
       request(app)
         .get('/posts/')
         .accept('json')
@@ -181,6 +189,8 @@ describe('Posts routes', function() {
           if (err) return done(err);
 
           should.exist(res.body.posts);
+          res.body.posts.length.should.equal(1);
+          res.body.posts[0].isPrivate.should.equal(false);
           done();
         });
     });
