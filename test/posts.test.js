@@ -2,12 +2,14 @@ var request = require('supertest');
 var app = require('../app');
 var should = require('chai').should();
 var Post = require('../models/Post');
+var User = require('../models/User');
 var mongoose = require('mongoose');
+var testUtils = require('./testUtils');
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
 describe('Posts routes', function() {
-  var testPost;
+  var testPost, testUser;
 
   before(function(done) {
     mongoose.connect('mongodb://localhost/test', done);
@@ -18,12 +20,18 @@ describe('Posts routes', function() {
   });
 
   beforeEach(function(done) {
+    testUser = new User({
+      username: 'testUser',
+    });
+
     testPost = new Post({
       "title": "Test Post",
       "body": "Please ignore."
     });
 
-    testPost.save(done);
+    testUser.save(function(err) {
+      testPost.save(done);
+    });
   });
 
   afterEach(function(done) {
@@ -35,12 +43,26 @@ describe('Posts routes', function() {
       Post.remove({}, done);
     });
 
-    it('should return HTTP 200', function(done) {
+    it('should allow a logged in user to post', function(done) {
       request(app)
         .post('/posts/')
         .accept('json')
         .send({ title: "Test Post", body: "Please ignore." })
         .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          res.body.post.owner.should.equal(testUser._id);
+          done();
+        });
+    });
+
+    it('should not allow posting when not logged in', function(done) {
+      request(app)
+        .post('/posts/')
+        .accept('json')
+        .send({ title: "Test Post", body: "Please ignore." })
+        .expect(401)
         .end(function(err, res) {
           if (err) return done(err);
 
@@ -60,8 +82,8 @@ describe('Posts routes', function() {
     });
   });
 
-  describe('GET /posts/:postId', function() {
-    var privatePost;
+  describe('GET /posts/:slugOrId', function() {
+    var privatePost, privateOwnPost;
 
     before(function(done) {
       privatePost = new Post({
@@ -70,16 +92,40 @@ describe('Posts routes', function() {
         "isPrivate": true
       });
 
-      privatePost.save(done);
+      privateOwnPost = new Post({
+        "title": "My Private Post",
+        "body": "My secrets.",
+        "isPrivate": true,
+        "owner": testUser._id
+      });
+
+      privatePost.save(function(err) {
+        privateOwnPost.save(done);
+      });
     });
 
     after(function(done) {
-      privatePost.remove(done);
+      Post.remove({}, function(err) {
+        User.remove({}, done);
+      });
     });
 
-    it('should get a post', function(done) {
+    it('should get a post by slug', function(done) {
       request(app)
         .get('/posts/' + testPost.slug)
+        .accept('json')
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          res.body.post.title.should.equal(testPost.title);
+          res.body.post.body.should.equal(testPost.body);
+          done();
+        });
+    });
+
+    it.skip('should get a post by id', function(done) {
+      request(app)
+        .get('/posts/' + testPost._id)
         .accept('json')
         .end(function(err, res) {
           if (err) return done(err);
@@ -97,7 +143,17 @@ describe('Posts routes', function() {
         .expect(401)
         .end(function(err, res) {
           if (err) return done(err);
+          done();
+        });
+    });
 
+    it.skip('should get a private post if logged in user owns it', function(done) {
+      request(app)
+        .get('/posts/' + privatePost.slug)
+        .accept('json')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
           done();
         });
     });
@@ -152,14 +208,29 @@ describe('Posts routes', function() {
           done();
         });
     });
+
+    it.skip('should not update a post the logged in user does not own', function(done) {
+
+    });
   });
 
   describe('DELETE /posts/:slug', function() {
-    it('should remove the post', function(done) {
+    it('should remove the post if owned', function(done) {
       request(app)
         .delete('/posts/' + testPost.slug)
         .accept('json')
         .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+          done();
+        });
+    });
+
+    it('should not remove the post if not owned', function(done) {
+      request(app)
+        .delete('/posts/' + testPost.slug)
+        .accept('json')
+        .expect(401)
         .end(function(err, res) {
           if (err) return done(err);
           done();

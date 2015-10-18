@@ -77,6 +77,16 @@ describe('User routes', function() {
 
   });
 
+  describe('GET /user/:username/posts', function() {
+    it.skip('should get all public posts by a user', function(done) {
+
+    });
+
+    it.skip('should get all posts by user if user is logged in', function(done) {
+
+    });
+  });
+
   describe('GET /users', function() {
     before(function(done) {
       User.create([
