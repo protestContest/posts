@@ -1,28 +1,30 @@
 var express = require('express');
 var router = express.Router();
-var posts = require('../lib/PostController');
+var post = require('../lib/PostController');
+var user = require('../lib/UserController');
 
 router.get('/:slug',
-  posts.loadBySlug,
-  posts.checkAuth,
-  posts.sendOne);
+  post.loadBySlug,
+  post.publicOrOwned,
+  post.sendOne);
 
 router.post('/',
-  posts.create,
-  posts.sendOne);
+  post.create,
+  post.sendOne);
 
 router.get('/',
-  posts.loadAll,
-  posts.sendAll);
+  post.loadAll,
+  post.sendAll);
 
 router.put('/:slug',
-  posts.loadBySlug,
-  posts.update,
-  posts.sendOne);
+  post.loadBySlug,
+  post.update,
+  post.sendOne);
 
 router.delete('/:slug',
-  posts.loadBySlug,
-  posts.remove,
-  posts.end);
+  post.ownedByUser,
+  post.loadBySlug,
+  post.remove,
+  post.end);
 
 module.exports = router;
