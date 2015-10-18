@@ -198,7 +198,7 @@ describe('Posts routes', function() {
     });
   });
 
-  describe('PUT /posts/:slug', function() {
+  describe('PUT /posts/:id', function() {
     it('should update an existing post', function(done) {
       var updates = {
         title: "Updated Title",
@@ -226,11 +226,27 @@ describe('Posts routes', function() {
     });
   });
 
-  describe('DELETE /posts/:slug', function() {
+  describe('DELETE /posts/:id', function() {
+    var ownPost;
+
+    beforeEach(function(done) {
+      ownPost = new Post({
+        title: "My Post",
+        body: "asdf",
+        owner: testUser._id
+      });
+
+      ownPost.save(done);
+    });
+
+    afterEach(function(done) {
+      ownPost.remove(done);
+    });
+
     it('should remove the post if owned', function(done) {
-      request(app)
-        .delete('/posts/' + testPost.slug)
-        .accept('json')
+      var req = request(app).delete('/posts/' + ownPost._id);
+      req.cookies = cookies;
+      req.accept('json')
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
@@ -240,7 +256,7 @@ describe('Posts routes', function() {
 
     it('should not remove the post if not owned', function(done) {
       request(app)
-        .delete('/posts/' + testPost.slug)
+        .delete('/posts/' + testPost._id)
         .accept('json')
         .expect(401)
         .end(function(err, res) {

@@ -21,9 +21,9 @@ router.put('/:postIdentifier',
   post.update,
   post.sendOne);
 
-router.delete('/:slug',
+router.delete('/:postIdentifier',
+  post.loadById,
   post.ownedByUser,
-  post.loadBySlug,
   post.remove,
   post.end);
 
