@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
   username: { type: String, unique: true },
-  password: String
+  password: String,
+  created: {type: Date, default: Date.now}
 });
 
 UserSchema.method('validPassword', function(password) {
