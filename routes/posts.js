@@ -13,7 +13,7 @@ router.post('/',
   post.sendOne);
 
 router.get('/',
-  post.loadAll,
+  post.loadAllPublic,
   post.sendAll);
 
 router.put('/:slug',

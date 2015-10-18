@@ -173,7 +173,8 @@ describe('Posts routes', function() {
     before(function(done) {
       Post.create([
         { title: "Post 1", body: "asdf" },
-        { title: "Post 2", body: "qwer" }
+        { title: "Post 2", body: "qwer" },
+        { title: "Post 3", body: "zxcv", isPrivate: true }
       ], done);
     });
 
@@ -190,7 +191,7 @@ describe('Posts routes', function() {
           if (err) return done(err);
 
           should.exist(res.body.posts);
-          res.body.posts.length.should.equal(1);
+          res.body.posts.length.should.equal(3);
           res.body.posts[0].isPrivate.should.equal(false);
           done();
         });
