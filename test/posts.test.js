@@ -12,7 +12,20 @@ describe('Posts routes', function() {
   var testPost, testUser, cookies;
 
   before(function(done) {
-    mongoose.connect('mongodb://localhost/test', done);
+    mongoose.connect('mongodb://localhost/test', function() {
+      testUser = new User({
+        username: 'testUser',
+        password: 'asdf'
+      });
+
+      testUser.save(function(err) {
+        testUtils.loginUser(app, testUser, function(err, sessionCookies) {
+          cookies = sessionCookies;
+          done();
+        });
+      });
+
+    });
   });
 
   after(function(done) {
@@ -20,24 +33,12 @@ describe('Posts routes', function() {
   });
 
   beforeEach(function(done) {
-    testUser = new User({
-      username: 'testUser',
-      password: 'asdf'
-    });
-
     testPost = new Post({
       "title": "Test Post",
       "body": "Please ignore."
     });
 
-    testUser.save(function(err) {
-      testUtils.loginUser(app, testUser, function(err, sessionCookies) {
-        testPost.save(function(err) {
-          cookies = sessionCookies;
-          done();
-        });
-      });
-    });
+    testPost.save(done);
   });
 
   afterEach(function(done) {
