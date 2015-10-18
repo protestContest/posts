@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Post = require('../models/Post');
-var posts = require('../lib/Posts');
+var posts = require('../lib/PostController');
 
 router.get('/:slug',
   posts.loadBySlug,

@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/User');
-var users = require('../lib/Users');
+var users = require('../lib/UserController');
 
 router.get('/:username',
   users.loadByUsername,
