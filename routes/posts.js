@@ -3,8 +3,8 @@ var router = express.Router();
 var post = require('../lib/PostController');
 var user = require('../lib/UserController');
 
-router.get('/:slug',
-  post.loadBySlug,
+router.get('/:postIdentifier',
+  post.loadByIdentifier,
   post.publicOrOwned,
   post.sendOne);
 
