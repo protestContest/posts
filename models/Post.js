@@ -7,7 +7,8 @@ var PostSchema = new Schema({
   title: {type: String, required: true},
   body: {type: String, required: true},
   created: {type: Date, default: Date.now},
-  isPrivate: {type: Boolean, default: false}
+  isPrivate: {type: Boolean, default: false},
+  owner: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 
 PostSchema.pre('save', function(next) {
