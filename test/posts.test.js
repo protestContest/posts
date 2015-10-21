@@ -244,14 +244,35 @@ describe('Posts routes', function() {
     });
 
     it('should remove the post if owned', function(done) {
-      var req = request(app).delete('/posts/' + ownPost._id);
-      req.cookies = cookies;
-      req.accept('json')
-        .expect(200)
-        .end(function(err, res) {
-          if (err) return done(err);
-          done();
+      var newUser = new User({
+        username: "asdfasdfasdf",
+        password: "asdf"
+      });
+      var newPost = new Post({
+        title: 'asdvadfg',
+        body: 'akdhfb',
+        owner: newUser._id
+      });
+      newUser.save(function(err) {
+        if(err) return done(err);
+
+        newPost.save(function(err) {
+          if(err) return done(err);
+
+          testUtils.loginUser(app, newUser, function(err, sessionCookies) {
+
+            var req = request(app).delete('/posts/' + newPost._id);
+            req.cookies = sessionCookies;
+            req.accept('json')
+              .expect(200)
+              .end(function(err, res) {
+                if (err) return done(err);
+                done();
+              });
+
+          });
         });
+      });
     });
 
     it('should not remove the post if not owned', function(done) {
