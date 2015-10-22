@@ -8,22 +8,12 @@ var testUtils = require('./testUtils');
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
-describe('Posts routes', function() {
-  var testPost, testUser, cookies;
+describe('Post routes', function() {
+  var testPost, ownPost, testUser, cookies;
 
   before(function(done) {
     mongoose.connect('mongodb://localhost/test', function() {
-      testUser = new User({
-        username: 'testUser',
-        password: 'asdf'
-      });
-
-      testUser.save(function(err) {
-        testUtils.loginUser(app, testUser, function(err, sessionCookies) {
-          cookies = sessionCookies;
-          done();
-        });
-      });
+      done();
 
     });
   });
@@ -33,12 +23,33 @@ describe('Posts routes', function() {
   });
 
   beforeEach(function(done) {
-    testPost = new Post({
-      "title": "Test Post",
-      "body": "Please ignore."
+    testUser = new User({
+      username: 'testUser',
+      password: 'asdf'
     });
 
-    testPost.save(done);
+    testUser.save(function(err) {
+      testUtils.loginUser(app, testUser, function(err, sessionCookies) {
+        cookies = sessionCookies;
+
+        testPost = new Post({
+          "title": "Test Post",
+          "body": "Please ignore.",
+          "owner": new mongoose.Types.ObjectId()
+        });
+
+        testPost.save(function(err) {
+          ownPost = new Post({
+            title: "My Post",
+            body: "asdf",
+            owner: testUser._id
+          });
+
+          ownPost.save(done);
+        });
+      });
+    });
+
   });
 
   afterEach(function(done) {
@@ -94,7 +105,7 @@ describe('Posts routes', function() {
   describe('GET /posts/:slugOrId', function() {
     var privatePost, privateOwnPost;
 
-    before(function(done) {
+    beforeEach(function(done) {
       privatePost = new Post({
         "title": "Private Post",
         "body": "Don't look.",
@@ -113,7 +124,7 @@ describe('Posts routes', function() {
       });
     });
 
-    after(function(done) {
+    afterEach(function(done) {
       Post.remove({}, function(err) {
         User.remove({}, done);
       });
@@ -191,7 +202,12 @@ describe('Posts routes', function() {
           if (err) return done(err);
 
           should.exist(res.body.posts);
-          res.body.posts.length.should.equal(3);
+
+          // count up the private posts we got back
+          res.body.posts.reduce(function(val, item) {
+            return val + (item.isPrivate ? 1 : 0);
+          }, 0).should.equal(0);
+
           res.body.posts[0].isPrivate.should.equal(false);
           done();
         });
@@ -227,21 +243,6 @@ describe('Posts routes', function() {
   });
 
   describe('DELETE /posts/:id', function() {
-    var ownPost;
-
-    beforeEach(function(done) {
-      ownPost = new Post({
-        title: "My Post",
-        body: "asdf",
-        owner: testUser._id
-      });
-
-      ownPost.save(done);
-    });
-
-    afterEach(function(done) {
-      ownPost.remove(done);
-    });
 
     it('should remove the post if owned', function(done) {
       var newUser = new User({
