@@ -18,6 +18,7 @@ router.get('/',
 
 router.put('/:postIdentifier',
   post.loadById,
+  post.ownedByUser,
   post.update,
   post.sendOne);
 

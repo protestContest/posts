@@ -53,7 +53,9 @@ describe('Post routes', function() {
   });
 
   afterEach(function(done) {
-    testPost.remove(done);
+    testUser.remove(function(err) {
+      testPost.remove(done);
+    });
   });
 
   describe('POST /posts/', function() {
@@ -215,14 +217,14 @@ describe('Post routes', function() {
   });
 
   describe('PUT /posts/:id', function() {
-    it('should update an existing post', function(done) {
+    it('should update an existing, owned post', function(done) {
       var updates = {
         title: "Updated Title",
         body: "Updated body.",
         isPrivate: true
       };
 
-      var req = request(app).put('/posts/' + testPost._id);
+      var req = request(app).put('/posts/' + ownPost._id);
       req.cookies = cookies;
       req.send(updates)
         .accept('json')
@@ -237,8 +239,23 @@ describe('Post routes', function() {
         });
     });
 
-    it.skip('should not update a post the logged in user does not own', function(done) {
+    it('should not update a post the logged in user does not own', function(done) {
+      var updates = {
+        title: "Updated Title",
+        body: "Updated body.",
+        isPrivate: true
+      };
 
+      var req = request(app).put('/posts/' + testPost._id);
+      req.cookies = cookies;
+      req.send(updates)
+        .accept('json')
+        .expect(403)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          done();
+        });
     });
   });
 
