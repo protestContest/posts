@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var users = require('../lib/UserController');
+var posts = require('../lib/PostController');
 
 router.get('/:username',
   users.loadByUsername,
@@ -13,6 +14,11 @@ router.post('/',
 router.get('/',
   users.loadAll,
   users.sendAll);
+
+router.get('/:username/posts',
+  users.loadByUsername,
+  posts.loadByUser,
+  posts.sendAll);
 
 router.put('/:username',
   users.loadByUsername,
