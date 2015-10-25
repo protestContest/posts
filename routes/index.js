@@ -2,12 +2,15 @@ var express = require('express');
 var router = express.Router();
 var Post = require('../models/Post');
 var passport = require('passport');
+var React = require('react');
+var ReactDOM = require('react-dom/server');
+var components = require('../public/components');
+
+var HelloMessage = React.createFactory(components.HelloMessage);
 
 router.get('/', function(req, res) {
-  Post.find({}, function(err, posts) {
-    if (err) return res.send(err);
-
-    res.render('postList', {postList: posts});
+  res.render('index', {
+    react: ReactDOM.renderToString(HelloMessage({name: 'Zack'}))
   });
 });
 
