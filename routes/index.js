@@ -6,12 +6,10 @@ var React = require('react');
 var ReactDOM = require('react-dom/server');
 var components = require('../public/components');
 
-var HelloMessage = React.createFactory(components.HelloMessage);
+var LoginPage = React.createFactory(components.LoginPage);
 
 router.get('/', function(req, res) {
-  res.render('index', {
-    react: ReactDOM.renderToString(HelloMessage({name: 'Zack'}))
-  });
+  res.render('index');
 });
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
@@ -19,7 +17,9 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-  res.render('loginForm');
+  res.render('page', {
+    react: ReactDOM.renderToString(LoginPage())
+  });
 });
 
 module.exports = router;
