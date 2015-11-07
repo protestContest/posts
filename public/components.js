@@ -19,74 +19,80 @@ var HelloMessage = React.createClass({
   }
 });
 
-module.exports = {
+module.exports.LoginPage = React.createClass({
+  displayName: 'LoginPage',
 
-  LoginPage: React.createClass({
-    displayName: 'LoginPage',
+  render: function render() {
+    var style = {
+      content: {
+        'width': '100%',
+        'height': '100%',
+        'display': "flex",
+        'flex-direction': "column",
+        'align-items': "center"
+      },
+      title: {
+        'flex': 1,
+        'display': 'flex',
+        'flex-direction': 'column',
+        'justify-content': 'center'
+      },
+      form: {
+        'flex': 1
+      }
+    };
 
-    render: function render() {
-      var style = {
-        content: {
-          'width': '100%',
-          'height': '100%',
-          'display': "flex",
-          'flex-direction': "column",
-          'align-items': "center"
-        },
-        title: {
-          'flex': 1,
-          'display': 'flex',
-          'flex-direction': 'column',
-          'justify-content': 'center'
-        },
-        form: {
-          'flex': 1
-        }
-      };
-
-      return React.createElement(
+    return React.createElement(
+      'div',
+      { id: 'content', style: style.content },
+      React.createElement(
         'div',
-        { id: 'content', style: style.content },
+        { style: style.title },
         React.createElement(
-          'div',
-          { style: style.title },
-          React.createElement(
-            'h1',
-            null,
-            'Log in'
-          )
-        ),
+          'h1',
+          null,
+          'Log in'
+        )
+      ),
+      React.createElement(
+        'div',
+        { style: style.form },
         React.createElement(
-          'div',
-          { style: style.form },
+          'form',
+          { method: 'post' },
           React.createElement(
-            'form',
-            { method: 'post' },
+            'div',
+            { 'class': 'form-row' },
             React.createElement(
-              'div',
-              { 'class': 'form-row' },
-              React.createElement(
-                'label',
-                null,
-                'Username',
-                React.createElement('input', { type: 'text', name: 'username' })
-              )
-            ),
+              'label',
+              null,
+              'Username',
+              React.createElement('input', { type: 'text', name: 'username' })
+            )
+          ),
+          React.createElement(
+            'div',
+            { 'class': 'form-row' },
             React.createElement(
-              'div',
-              { 'class': 'form-row' },
-              React.createElement(
-                'label',
-                null,
-                'Password',
-                React.createElement('input', { type: 'password', name: 'password' })
-              )
+              'label',
+              null,
+              'Password',
+              React.createElement('input', { type: 'password', name: 'password' })
             )
           )
         )
-      );
-    }
-  })
+      )
+    );
+  }
+});
 
-};
+module.exports.HomePage = React.createClass({
+  displayName: 'HomePage',
+
+  render: function render() {
+
+    return React.createElement('div', { id: 'content' });
+  }
+
+});
 
