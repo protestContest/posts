@@ -3,9 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
-var components = require('../public/components');
+var components = require('../public/scripts/components');
 
-// var LoginPage = React.createFactory(components.LoginPage);
+var LoginPage = React.createFactory(components.LoginPage);
 var HomePage = React.createFactory(components.HomePage);
 
 router.get('/', function(req, res) {
@@ -14,7 +14,9 @@ router.get('/', function(req, res) {
       react: ReactDOM.renderToString(HomePage())
     });
   } else {
-    res.render('index');
+    res.render('page', {
+      react: ReactDOM.renderToString(LoginPage())
+    });
   }
 });
 
@@ -27,7 +29,9 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 });
 
 router.get('/login', function(req, res) {
-  res.render('index');
+  res.render('page', {
+    react: ReactDOM.renderToString(LoginPage())
+  });
 });
 
 router.get('/logout', function(req, res) {
