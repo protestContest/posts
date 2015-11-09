@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var post = require('../lib/PostController');
-var user = require('../lib/UserController');
 
 router.get('/:postIdentifier',
   post.loadByIdentifier,

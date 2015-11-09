@@ -21,8 +21,8 @@ describe('User routes', function() {
 
   beforeEach(function(done) {
     testUser = new User({
-      username: "testUser",
-      password: "asdf"
+      username: 'testUser',
+      password: 'asdf'
     });
 
     testUser.save(function(err) {
@@ -48,9 +48,9 @@ describe('User routes', function() {
       request(app)
         .post('/users/')
         .accept('json')
-        .send({ username: "newUser", password: "asdf" })
+        .send({ username: 'newUser', password: 'asdf' })
         .expect(200)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) return done(err);
           done();
         });
@@ -60,11 +60,11 @@ describe('User routes', function() {
       request(app)
         .post('/users/')
         .accept('json')
-        .send({ username: testUser.username, password: "qwer" })
+        .send({ username: testUser.username, password: 'qwer' })
         .expect(400)
         .end(function(err, res) {
           if (err) return done(err);
-          res.text.should.equal("User exists");
+          res.text.should.equal('User exists');
           done();
         });
     });
@@ -92,17 +92,17 @@ describe('User routes', function() {
     beforeEach(function(done) {
       post1 = {
         title: 'Post 1',
-        body: "asdf",
+        body: 'asdf',
         owner: testUser._id
       };
       post2 = {
         title: 'Post 2',
-        body: "asdf",
+        body: 'asdf',
         owner: testUser._id
       };
       post3 = {
         title: 'Post 3',
-        body: "asdf",
+        body: 'asdf',
         owner: testUser._id,
         isPrivate: true
       };
@@ -145,8 +145,8 @@ describe('User routes', function() {
   describe('GET /users', function() {
     before(function(done) {
       User.create([
-        { username: "User_1", password: "asdf" },
-        { username: "User_2", password: "qwer" }
+        { username: 'User_1', password: 'asdf' },
+        { username: 'User_2', password: 'qwer' }
       ], done);
     });
 
@@ -171,7 +171,7 @@ describe('User routes', function() {
   describe('PUT /users/:username', function() {
     it('should update an existing user', function(done) {
       var updates = {
-        password: "newPassword"
+        password: 'newPassword'
       };
 
       request(app)
@@ -194,7 +194,7 @@ describe('User routes', function() {
         .delete('/users/' + testUser.username)
         .accept('json')
         .expect(200)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) return done(err);
           done();
         });
@@ -208,7 +208,7 @@ describe('User routes', function() {
         .send({username: testUser.username, password: testUser.password})
         .accept('json')
         .expect(200)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) return done(err);
           done();
         });

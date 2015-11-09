@@ -29,19 +29,25 @@ describe('Post routes', function() {
     });
 
     testUser.save(function(err) {
+      if (err) return done(err);
+
       testUtils.loginUser(app, testUser, function(err, sessionCookies) {
+        if (err) return done(err);
+
         cookies = sessionCookies;
 
         testPost = new Post({
-          "title": "Test Post",
-          "body": "Please ignore.",
-          "owner": new mongoose.Types.ObjectId()
+          'title': 'Test Post',
+          'body': 'Please ignore.',
+          'owner': new mongoose.Types.ObjectId()
         });
 
         testPost.save(function(err) {
+          if (err) return done(err);
+
           ownPost = new Post({
-            title: "My Post",
-            body: "asdf",
+            title: 'My Post',
+            body: 'asdf',
             owner: testUser._id
           });
 
@@ -54,6 +60,8 @@ describe('Post routes', function() {
 
   afterEach(function(done) {
     testUser.remove(function(err) {
+      if (err) return done(err);
+
       testPost.remove(done);
     });
   });
@@ -67,7 +75,7 @@ describe('Post routes', function() {
       var req = request(app).post('/posts/');
       req.cookies = cookies;
       req.accept('json')
-        .send({ title: "Test Post", body: "Please ignore." })
+        .send({ title: 'Test Post', body: 'Please ignore.' })
         .expect(200)
         .end(function(err, res) {
           if (err) return done(err);
@@ -81,9 +89,9 @@ describe('Post routes', function() {
       request(app)
         .post('/posts/')
         .accept('json')
-        .send({ title: "Test Post", body: "Please ignore." })
+        .send({ title: 'Test Post', body: 'Please ignore.' })
         .expect(401)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) return done(err);
 
           done();
@@ -94,7 +102,7 @@ describe('Post routes', function() {
       var req = request(app).post('/posts/');
       req.cookies = cookies;
       req.accept('json')
-        .send({ title: "Test Post", body: "Please ignore." })
+        .send({ title: 'Test Post', body: 'Please ignore.' })
         .end(function(err, res) {
           if (err) return done(err);
 
@@ -109,25 +117,29 @@ describe('Post routes', function() {
 
     beforeEach(function(done) {
       privatePost = new Post({
-        "title": "Private Post",
-        "body": "Don't look.",
-        "isPrivate": true
+        'title': 'Private Post',
+        'body': 'Don\'t look.',
+        'isPrivate': true
       });
 
       privateOwnPost = new Post({
-        "title": "My Private Post",
-        "body": "My secrets.",
-        "isPrivate": true,
-        "owner": testUser._id
+        'title': 'My Private Post',
+        'body': 'My secrets.',
+        'isPrivate': true,
+        'owner': testUser._id
       });
 
       privatePost.save(function(err) {
+        if (err) return done(err);
+
         privateOwnPost.save(done);
       });
     });
 
     afterEach(function(done) {
       Post.remove({}, function(err) {
+        if (err) return done(err);
+
         User.remove({}, done);
       });
     });
@@ -163,7 +175,7 @@ describe('Post routes', function() {
         .get('/posts/' + privatePost.slug)
         .accept('json')
         .expect(401)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) return done(err);
           done();
         });
@@ -174,7 +186,7 @@ describe('Post routes', function() {
       req.cookies = cookies;
       req.accept('json')
         .expect(200)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) return done(err);
           done();
         });
@@ -185,9 +197,9 @@ describe('Post routes', function() {
   describe('GET /posts', function() {
     before(function(done) {
       Post.create([
-        { title: "Post 1", body: "asdf" },
-        { title: "Post 2", body: "qwer" },
-        { title: "Post 3", body: "zxcv", isPrivate: true }
+        { title: 'Post 1', body: 'asdf' },
+        { title: 'Post 2', body: 'qwer' },
+        { title: 'Post 3', body: 'zxcv', isPrivate: true }
       ], done);
     });
 
@@ -219,8 +231,8 @@ describe('Post routes', function() {
   describe('PUT /posts/:id', function() {
     it('should update an existing, owned post', function(done) {
       var updates = {
-        title: "Updated Title",
-        body: "Updated body.",
+        title: 'Updated Title',
+        body: 'Updated body.',
         isPrivate: true
       };
 
@@ -241,8 +253,8 @@ describe('Post routes', function() {
 
     it('should not update a post the logged in user does not own', function(done) {
       var updates = {
-        title: "Updated Title",
-        body: "Updated body.",
+        title: 'Updated Title',
+        body: 'Updated body.',
         isPrivate: true
       };
 
@@ -251,7 +263,7 @@ describe('Post routes', function() {
       req.send(updates)
         .accept('json')
         .expect(403)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) return done(err);
 
           done();
@@ -263,8 +275,8 @@ describe('Post routes', function() {
 
     it('should remove the post if owned', function(done) {
       var newUser = new User({
-        username: "asdfasdfasdf",
-        password: "asdf"
+        username: 'asdfasdfasdf',
+        password: 'asdf'
       });
       var newPost = new Post({
         title: 'asdvadfg',
@@ -283,7 +295,7 @@ describe('Post routes', function() {
             req.cookies = sessionCookies;
             req.accept('json')
               .expect(200)
-              .end(function(err, res) {
+              .end(function(err) {
                 if (err) return done(err);
                 done();
               });
@@ -298,7 +310,7 @@ describe('Post routes', function() {
         .delete('/posts/' + testPost._id)
         .accept('json')
         .expect(401)
-        .end(function(err, res) {
+        .end(function(err) {
           if (err) return done(err);
           done();
         });

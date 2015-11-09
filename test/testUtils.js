@@ -11,7 +11,7 @@ module.exports = {
         .end(function(err, res) {
           if (err) return next(err);
 
-          cookies = res.headers['set-cookie'].pop().split(';')[0];
+          var cookies = res.headers['set-cookie'].pop().split(';')[0];
           next(null, cookies);
         });
   }

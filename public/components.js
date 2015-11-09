@@ -2,23 +2,6 @@
 
 var React = require('react');
 
-var HelloMessage = React.createClass({
-  displayName: 'HelloMessage',
-
-  handleClick: function handleClick() {
-    alert('you clicked!');
-  },
-
-  render: function render() {
-    return React.createElement(
-      'div',
-      { onClick: this.handleClick },
-      'Hello ',
-      this.props.name
-    );
-  }
-});
-
 module.exports.LoginPage = React.createClass({
   displayName: 'LoginPage',
 

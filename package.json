@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "clean": "rm -f public/*.js public/stylesheets/*.css",
+    "prelint": "npm run clean",
+    "lint": "./node_modules/.bin/eslint .",
+    "prebuild": "npm -s run lint",
     "build": "npm -s run build:js && npm run build:css",
     "build:css": "for f in public/stylesheets/components/*.less; do ./node_modules/.bin/lessc $f; done | ./node_modules/.bin/cleancss > public/stylesheets/style.css",
     "build:js": "./node_modules/.bin/babel public/*.jsx > public/components.js",
@@ -35,6 +39,7 @@
   },
   "devDependencies": {
     "chai": "^3.3.0",
+    "eslint-plugin-react": "^3.8.0",
     "mocha": "^2.3.3",
     "supertest": "^1.1.0"
   }
