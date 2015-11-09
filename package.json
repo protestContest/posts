@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "./node_modules/.bin/babel public/*.jsx > public/components.js",
+    "build": "npm run build:js && npm run build:css",
+    "build:css": "for f in public/stylesheets/components/*.less; do ./node_modules/.bin/lessc $f; done | ./node_modules/.bin/cleancss > public/stylesheets/style.css",
+    "build:js": "./node_modules/.bin/babel public/*.jsx > public/components.js",
     "prestart": "npm run build",
     "start": "node ./bin/www",
     "pretest": "npm run build",
@@ -18,7 +20,6 @@
     "express": "~4.9.0",
     "express-session": "^1.11.3",
     "jade": "~1.6.0",
-    "less-middleware": "1.0.x",
     "markdown": "^0.5.0",
     "mongoose": "^3.8.18",
     "morgan": "~1.3.0",

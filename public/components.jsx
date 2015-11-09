@@ -32,7 +32,7 @@ module.exports.LoginPage = React.createClass({
     };
 
     return (
-      <div id="content" style={style.content}>
+      <div style={style.content}>
         <div style={style.title}>
           <h1>Log in</h1>
         </div>
@@ -60,7 +60,7 @@ module.exports.HomePage = React.createClass({
   render: function() {
 
     return (
-      <div id="content">
+      <div>
 
       </div>
     );

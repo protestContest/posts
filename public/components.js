@@ -44,7 +44,7 @@ module.exports.LoginPage = React.createClass({
 
     return React.createElement(
       'div',
-      { id: 'content', style: style.content },
+      { style: style.content },
       React.createElement(
         'div',
         { style: style.title },
@@ -91,7 +91,7 @@ module.exports.HomePage = React.createClass({
 
   render: function render() {
 
-    return React.createElement('div', { id: 'content' });
+    return React.createElement('div', null);
   }
 
 });
