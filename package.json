@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "npm run build:js && npm run build:css",
+    "build": "npm -s run build:js && npm run build:css",
     "build:css": "for f in public/stylesheets/components/*.less; do ./node_modules/.bin/lessc $f; done | ./node_modules/.bin/cleancss > public/stylesheets/style.css",
     "build:js": "./node_modules/.bin/babel public/*.jsx > public/components.js",
-    "prestart": "npm run build",
+    "prestart": "npm -s run build",
     "start": "node ./bin/www",
-    "pretest": "npm run build",
+    "pretest": "npm -s run build",
     "test": "./node_modules/.bin/mocha",
     "test:watch": "./node_modules/.bin/mocha -w"
   },
