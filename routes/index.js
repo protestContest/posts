@@ -3,10 +3,9 @@ var router = express.Router();
 var passport = require('passport');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
-var components = require('../public/scripts/components');
 
-var LoginPage = React.createFactory(components.LoginPage);
-var HomePage = React.createFactory(components.HomePage);
+var LoginPage = React.createFactory(require('../components/LoginPage'));
+var HomePage = React.createFactory(require('../components/HomePage'));
 
 router.get('/', function(req, res) {
   if (req.user) {

@@ -1,6 +1,6 @@
 var React = require('react');
 
-module.exports.HomePage = React.createClass({
+module.exports = React.createClass({
 
   render: function() {
 

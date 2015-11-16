@@ -1,6 +1,7 @@
 var React = require('react');
+var LoginForm = require('./LoginForm');
 
-module.exports.LoginPage = React.createClass({
+module.exports = React.createClass({
   render: function() {
     return (
       <div id="content" className="index-layout">
