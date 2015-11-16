@@ -4,8 +4,8 @@ var passport = require('passport');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 
-var LoginPage = React.createFactory(require('../components/LoginPage'));
-var HomePage = React.createFactory(require('../components/HomePage'));
+var LoginPage = React.createFactory(require('../components/dist/LoginPage'));
+var HomePage = React.createFactory(require('../components/dist/HomePage'));
 
 router.get('/', function(req, res) {
   if (req.user) {

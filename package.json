@@ -3,19 +3,22 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "clean": "rm -f public/scripts/* components/*.js public/stylesheets/*.css",
+    "clean": "rm -f public/scripts/* public/styles/* & rm -rf components/dist",
     "prelint": "npm -s run clean",
     "lint": "./node_modules/.bin/eslint . --ext .js --ext .jsx",
     "prebuild": "npm -s run lint",
     "build": "npm -s run build:js && npm -s run build:css",
-    "build:css": "for f in public/stylesheets/components/*.less; do ./node_modules/.bin/lessc $f; done | ./node_modules/.bin/cleancss > public/stylesheets/style.css",
+    "build:css": "for f in components/src/styles/*.less; do ./node_modules/.bin/lessc $f; done | ./node_modules/.bin/cleancss > public/styles/style.css",
+    "build:css:watch": "./node_modules/.bin/watch 'npm run build:css' components/src/styles",
     "prebuild:js": "npm -s run build:jsx",
-    "build:js": "webpack -d components/*.js public/scripts/components.js",
-    "build:jsx": "for f in components/*.jsx; do ./node_modules/.bin/babel $f > components/`basename $f | sed 's/jsx$/js/'`; done",
+    "build:js": "webpack -d components/dist/*.js public/scripts/components.js",
+    "build:js:watch": "./node_modules/.bin/watch 'npm run build:js' components/src/scripts",
+    "build:jsx": "mkdir -p components/dist && for f in components/src/scripts/*.jsx; do ./node_modules/.bin/babel $f > components/dist/`basename $f | sed 's/jsx$/js/'`; done",
     "prestart": "npm -s run build",
     "start": "node ./bin/www",
-
-
+    "prestart:dev": "npm -s run build",
+    "start:dev": "npm -s run build:css:watch & npm -s run build:js:watch & nodemon --watch lib --watch models --watch routes bin/www",
+    "poststart:dev": "npm -s run clean",
     "pretest": "npm -s run build",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha",
     "pretest:watch": "npm -s run build",
@@ -34,7 +37,7 @@
     "morgan": "~1.3.0",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0",
-       "react": "^0.14.0",
+    "react": "^0.14.0",
     "react-dom": "^0.14.0",
     "serve-favicon": "~2.1.3",
     "slug": "^0.8.0"
@@ -47,7 +50,9 @@
     "eslint-plugin-react": "^3.8.0",
     "less": "^2.5.3",
     "mocha": "^2.3.3",
+    "nodemon": "^1.8.1",
     "supertest": "^1.1.0",
+    "watch": "^0.16.0",
     "webpack": "^1.12.6"
   }
 }
