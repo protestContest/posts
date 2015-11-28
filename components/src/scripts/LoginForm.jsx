@@ -5,15 +5,15 @@ var LoginForm = React.createClass({
     return (
       <form className="login-form" method="post" action="/login">
         <div className="inputrow">
-          <label className="label" for="ipt-username">Username</label>
+          <label className="label" htmlFor="ipt-username">Username</label>
           <input className="text" id="ipt-username" name="username" required />
         </div>
         <div className="inputrow">
-          <label className="label" for="ipt-password">Password</label>
+          <label className="label" htmlFor="ipt-password">Password</label>
           <input className="text" id="ipt-password" name="password" type="password" required />
         </div>
         <div className="submitrow">
-        <button className="submit" type="submit">Log in</button>
+          <button className="submit" type="submit">Log in</button>
         </div>
       </form>
     );
