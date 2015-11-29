@@ -15,7 +15,8 @@
         "semi": [
             2,
             "always"
-        ]
+        ],
+        "no-debugger": 1
     },
     "env": {
         "es6": true,
