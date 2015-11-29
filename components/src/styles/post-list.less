@@ -2,9 +2,32 @@
 
 .post-list {
   display: block;
-  font-size: 18px;
   font-family: 'Times';
-  margin: 0px;
-  padding: 8px;
+  padding: 0px;
   overflow: scroll;
+  background-color: @c-background;
+
+  > .postrow {
+    width: 100%;
+    margin: 0px;
+    box-sizing: border-box;
+
+    display: block;
+    font-size: 24px;
+    line-height: 18px;
+    font-family: 'Times';
+    padding: 14px;
+    text-decoration: none;
+    border-bottom: 2px solid #ddd;
+    color: black;
+
+    &:active {
+      background-color: #ddd;
+    }
+  }
+
+  > .postrow > .postdate {
+    font-size: 0.6em;
+    color: @c-muted;
+  }
 }

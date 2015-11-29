@@ -8,7 +8,7 @@ module.exports = React.createClass({
     return (
       <div id="content" className="home-layout">
         <h1 className="page-title">Posts</h1>
-        <PostList />
+        <PostList posts={this.props.posts} />
         <a className="full-button" href="/posts/new">+ New Post</a>
       </div>
     );
