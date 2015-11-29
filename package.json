@@ -17,7 +17,7 @@
     "prestart": "npm -s run build",
     "start": "node ./bin/www",
     "prestart:watch": "npm -s run build",
-    "start:watch": "npm -s run build:css:watch & npm -s run build:js:watch & nodemon --watch lib --watch models --watch routes bin/www",
+    "start:watch": "npm -s run build:css:watch & npm -s run build:js:watch & nodemon --watch lib --watch models --watch routes --watch components/src/scripts bin/www",
     "poststart:watch": "npm -s run clean",
     "prestart:debug": "npm -s run build",
     "start:debug": "node debug ./bin/www",
