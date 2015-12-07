@@ -1,5 +1,6 @@
 var React = require('react');
 var PostList = require('./PostList');
+if (process.env.BROWSER) require('../../styles/home-layout.less');
 
 module.exports = React.createClass({
 

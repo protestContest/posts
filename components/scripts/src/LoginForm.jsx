@@ -1,4 +1,5 @@
 var React = require('react');
+if (process.env.BROWSER) require('../../styles/login-form.less');
 
 var LoginForm = React.createClass({
   render: function() {

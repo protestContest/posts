@@ -6,8 +6,8 @@ var ReactDOM = require('react-dom/server');
 var PostController = require('../lib/PostController');
 var UserController = require('../lib/UserController');
 
-var LoginPage = React.createFactory(require('../components/dist/LoginPage'));
-var HomePage = React.createFactory(require('../components/dist/HomePage'));
+var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
+var HomePage = React.createFactory(require('../components/scripts/dist/HomePage'));
 
 router.get('/', function(req, res) {
   if (req.user) {

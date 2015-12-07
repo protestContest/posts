@@ -3,6 +3,8 @@ var debug = require('debug')('app');
 var app = require('../app');
 var mongoose = require('mongoose');
 
+delete process.env.BROWSER;
+
 app.set('port', process.env.PORT || 3000);
 
 if (app.get('env') === 'development') {
