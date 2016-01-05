@@ -1,6 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var post = require('../lib/PostController');
+var user = require('../lib/UserController');
+var util = require('../lib/util');
+
+router.get('/new',
+  user.loginOrContinue,
+  user.loadLoggedInUser,
+  util.renderPage('CreatePostPage'));
 
 router.get('/:postIdentifier',
   post.loadByIdentifier,

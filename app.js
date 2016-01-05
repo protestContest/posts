@@ -8,6 +8,7 @@ var session = require('express-session');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/User');
+var ReactDOM = require('react-dom/server');
 
 var routes = require('./routes/index');
 var posts = require('./routes/posts');
@@ -58,8 +59,16 @@ passport.deserializeUser(function(id, done) {
   });
 });
 
+/* Custom request initialization */
 app.use(function(req, res, next) {
   req.data = {};
+
+  res.renderReact = function(Page, data) {
+    this.render('page', {
+      react: ReactDOM.renderToString(Page(data))
+    });
+  };
+
   next();
 });
 

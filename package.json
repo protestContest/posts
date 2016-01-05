@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "clean": "rm -f public/dist/* & rm -rf components/scripts/dist",
-    "lint": "./node_modules/.bin/eslint . --ext .js --ext .jsx --ignore-pattern './node_modules/*'",
+    "lint": "./node_modules/.bin/eslint . --ext .js --ext .jsx --ignore-pattern './node_modules/*' --ignore-pattern './public/*' --ignore-pattern './components/scripts/dist/*'",
     "prebuild": "npm -s run lint",
     "build": "npm -s run build:js",
     "prebuild:js": "npm -s run build:jsx",
