@@ -1,5 +1,5 @@
 var React = require('react');
-if (process.env.BROWSER) require('../../styles/home-layout.less');
+if (process.env.BROWSER) require('../../styles/viewpost-layout.less');
 
 module.exports = React.createClass({
 
@@ -8,7 +8,7 @@ module.exports = React.createClass({
     return (
       <div id="content" className="viewpost-layout">
         <h1 className="page-title">{this.props.post.title}</h1>
-        {this.props.post.body}
+        <div className="post-text" dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
       </div>
     );
   }
