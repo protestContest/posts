@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var RedisStore = require('connect-redis')(session);
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/User');
@@ -31,6 +32,7 @@ app.use(cookieParser('oddfellows'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   secret:'oddfellows',
+  store: new RedisStore(),
   resave: false,
   saveUninitialized: true
 }));
