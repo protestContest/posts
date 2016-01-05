@@ -1,9 +1,10 @@
 @import 'base';
 
 .full-button {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  font-size: 32px;
   font-family: 'Times';
   margin: 0px;
   padding: 8px;
@@ -13,10 +14,11 @@
   text-decoration: none;
 
   &:active {
-    color: black;
+    color: #eee;
+    background-color: @c-primary-dark;
   }
 
   &:visited {
-    color: black;
+    color: #eee;
   }
 }
