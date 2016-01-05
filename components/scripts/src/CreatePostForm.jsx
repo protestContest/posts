@@ -5,7 +5,7 @@ var CreatePostForm = React.createClass({
   render: function() {
     return (
       <form id={this.props.id} className="createpost-form" method="post" action="/posts">
-        <textarea className="text" name="body"></textarea>
+        <textarea className="text" name="body" required></textarea>
       </form>
     );
   }
