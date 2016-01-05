@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 var RedisStore = require('connect-redis')(session);
+var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/User');
@@ -28,6 +29,14 @@ if (app.get('env') === 'development') {
 }
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(methodOverride(function(req){
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    // look in urlencoded POST bodies and delete it
+    var method = req.body._method;
+    delete req.body._method;
+    return method;
+  }
+}));
 app.use(cookieParser('oddfellows'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
@@ -63,6 +72,7 @@ passport.deserializeUser(function(id, done) {
 
 /* Custom request initialization */
 app.use(function(req, res, next) {
+  debugger;
   req.data = {};
 
   res.renderReact = function(Page, data) {

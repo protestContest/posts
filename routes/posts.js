@@ -9,6 +9,12 @@ router.get('/new',
   user.loadLoggedInUser,
   util.renderPage('CreatePostPage'));
 
+router.get('/:postIdentifier/edit',
+  user.loginOrContinue,
+  post.loadByIdentifier,
+  post.ownedByUser,
+  util.renderPage('EditPostPage'));
+
 router.get('/:postIdentifier',
   post.loadByIdentifier,
   post.publicOrOwned,
