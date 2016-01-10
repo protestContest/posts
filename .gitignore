@@ -2,3 +2,5 @@ node_modules
 *.css
 credentials.js
 npm-debug.log
+public/dist
+components/scripts/dist
