@@ -12,6 +12,7 @@ module.exports = React.createClass({
     return (
       <div className="post-list">
         {this.props.posts.map(createRow)}
+        <NewPostRow />
       </div>
     );
   }
@@ -25,6 +26,16 @@ var PostRow = React.createClass({
       <a className="postrow" href={this.props.href}>
         {this.props.post.title}<br/>
         <small className="postdate">{created}</small>
+      </a>
+    );
+  }
+});
+
+var NewPostRow = React.createClass({
+  render: function() {
+    return (
+      <a className="postrow -newpost" href="/posts/new">
+        + New Post
       </a>
     );
   }
