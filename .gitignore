@@ -4,3 +4,4 @@ credentials.js
 npm-debug.log
 public/dist
 components/scripts/dist
+*sublime*
