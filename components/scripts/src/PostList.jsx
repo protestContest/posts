@@ -76,6 +76,9 @@ var PostRow = React.createClass({
   },
 
   onTouchMove: function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    
     if (!this.state.dragging) return;
 
     var elem = ReactDOM.findDOMNode(this);
@@ -126,8 +129,8 @@ var PostRow = React.createClass({
           <small className='postdate'>{created}</small>
         </a>
         <div ref='buttons' className='buttons'>
-          <PostButton label='Edit' href={this.props.href + '/edit'} />
-          <PostButton label='Delete' href={this.props.href + '/delete'} type='danger' />
+          <PostButton label='Edit' icon='fa-pencil' href={this.props.href + '/edit'} />
+          <PostButton label='Delete' icon='fa-trash' href={this.props.href + '/delete'} type='danger' />
         </div>
       </div>
     );
@@ -141,6 +144,7 @@ var PostButton = React.createClass({
 
     return (
       <a href={this.props.href} className={classes}>
+        <i className={'fa fa-2x ' + this.props.icon}></i><br/>
         {this.props.label}
       </a>
     );

@@ -48,26 +48,24 @@
     display: flex;
     height: 100%;
     border-bottom: 2px solid #ddd;
+    border-left: 1px solid #ddd;
     box-sizing: border-box;
   }
 
   > .postrow > .buttons > .button {
-    display: inline-flex;
     flex: 1;
     padding: 14px;
-    justify-content: center;
-    align-items: center;
     height: 100%;
-    border-left: 1px solid #ddd;
     box-sizing: border-box;
-    background: #ccc;
-    color: #333;
+    color: #999;
     text-decoration: none;
+    font-size: 11px;
+    font-family: Arial;
+    text-align: center;
   }
 
   > .postrow > .buttons > .button.-danger {
-    background: @c-primary;
-    color: white;
+    color: @c-primary;
   }
 }
 
