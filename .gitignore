@@ -4,3 +4,4 @@ credentials.js
 npm-debug.log
 *sublime*
 *dist*
+.vagrant
