@@ -23,14 +23,25 @@ module.exports = React.createClass({
 });
 
 var PostRow = React.createClass({
+  getDefaultProps: function() {
+    return {
+      post: {
+        title: "", created: new Date()
+      },
+      href: "#"
+    };
+  },
+
   getInitialState: function() {
-    return { dragging: false, offset: 0, rel: 0, open: false };
+    return { dragging: false,
+      offset: 0,
+      rel: 0,
+      open: false,
+      buttonWidth: 0
+    };
   },
 
   onTouchStart: function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
     var pageX = e.touches[0].pageX;
 
     this.setState({
@@ -40,15 +51,50 @@ var PostRow = React.createClass({
     });
   },
 
-  onTouchEnd: function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    
+  onTouchEnd: function(e) {    
     this.setState({
       dragging: false,
       rel: 0
     });
     
+    var elem = ReactDOM.findDOMNode(this);
+    var buttons = ReactDOM.findDOMNode(this.refs.buttons);
+    var buttonsWidth = buttons.offsetWidth;
+
+    if ( (!this.state.open && this.state.offset > -(0.25*buttonsWidth)) ||
+         (this.state.open && this.state.offset > -(0.75*buttonsWidth)) ) {
+      this.close();
+    } else {
+      this.open();
+    }
+
+    if (this.state.open || Math.abs(this.state.offset) > 10) {
+      e.stopPropagation();
+      e.preventDefault();
+    }
+
+  },
+
+  onTouchMove: function(e) {
+    if (!this.state.dragging) return;
+
+    var elem = ReactDOM.findDOMNode(this);
+    var buttons = ReactDOM.findDOMNode(this.refs.buttons);
+
+    var offset = e.touches[0].pageX - this.state.rel;
+    offset = Math.min(0, Math.max(-buttons.offsetWidth, offset));
+
+    this.setState({
+      offset: offset
+    });
+
+    elem.style.transform = "translate(" + offset + "px)";
+  },
+
+  onClick: function(e) {
+  },
+
+  close: function() {
     var elem = ReactDOM.findDOMNode(this);
 
     elem.addEventListener('transitionend', function() {
@@ -56,43 +102,49 @@ var PostRow = React.createClass({
     });
     elem.style.transition = "transform 0.5s";
 
-    if ( (!this.state.open && this.state.offset > -25) ||
-         (this.state.open && this.state.offset > -75) ) {
-      elem.style.transform = "translate(0)";
-      this.setState({ open: false });
-    } else {
-      elem.style.transform = "translate(-100px)";
-      this.setState({ open: true });
-    }
+    elem.style.transform = "translate(0)";
+    this.setState({ open: false });
   },
 
-  onTouchMove: function(e) {
-    e.stopPropagation();
-    e.preventDefault();
-    if (!this.state.dragging) return;
-
-    var offset = e.touches[0].pageX - this.state.rel;
-    offset = Math.min(0, Math.max(-100, offset));
-
-    this.setState({
-      offset: offset
-    });
-
+  open: function() {
     var elem = ReactDOM.findDOMNode(this);
-    elem.style.transform = "translate(" + offset + "px)";
-  },
+    var buttons = ReactDOM.findDOMNode(this.refs.buttons);
+    var buttonsWidth = buttons.offsetWidth;
 
-  onClick: function(e) {
-    e.stopPropagation();
-    e.preventDefault();
+    elem.addEventListener('transitionend', function() {
+      elem.style.transition = "none";
+    });
+    elem.style.transition = "transform 0.5s";
+
+    elem.style.transform = "translate(-" + buttonsWidth + "px)";
+    this.setState({ open: true });
   },
 
   render: function() {
     var created = this.props.post.created.toDateString();
     return (
-      <a onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove} onClick={this.onClick} className="postrow" href={this.props.href}>
-        {this.props.post.title}<br/>
-        <small className="postdate">{created}</small>
+      <div className="postrow">
+        <a className="title" href={this.props.href} onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
+          {this.props.post.title}<br/>
+          <small className="postdate">{created}</small>
+        </a>
+        <div ref="buttons" className="buttons">
+          <PostButton label="Edit" href={this.props.href + "/edit"} />
+          <PostButton label="Delete" href={this.props.href + "/delete"} type="danger" />
+        </div>
+      </div>
+    );
+  }
+});
+
+var PostButton = React.createClass({
+  render: function() {
+    var classes = "button";
+    classes = classes + (this.props.type === "danger" ? " -danger" : "");
+
+    return (
+      <a href={this.props.href} className={classes}>
+        {this.props.label}
       </a>
     );
   }
@@ -101,9 +153,11 @@ var PostRow = React.createClass({
 var NewPostRow = React.createClass({
   render: function() {
     return (
-      <a className="postrow -newpost" href="/posts/new">
-        + New Post
-      </a>
+      <div className="postrow -newpost">
+        <a className="title" href="/posts/new">
+          + New Post
+        </a>
+      </div>
     );
   }
 });

@@ -4,16 +4,21 @@
   display: block;
   font-family: 'Times';
   padding: 0px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background-color: @c-background;
 
   > .postrow {
+    display: flex;
+    position: relative;
+  }
+
+  > .postrow > .title {
     width: 100%;
     margin: 0px;
     box-sizing: border-box;
     animation-fill-mode: forwards;
 
-    display: block;
     font-size: 24px;
     line-height: 18px;
     font-family: 'Times';
@@ -27,15 +32,42 @@
     }
   }
 
-  > .postrow > .postdate {
+  > .postrow > .title > .postdate {
     font-size: 0.6em;
     color: @c-muted;
   }
 
-  > .postrow.-newpost {
+  > .postrow.-newpost > .title {
     text-align: center;
     color: @c-muted;
     border-bottom: none;
+  }
+
+  > .postrow > .buttons {
+    position: absolute;
+    display: flex;
+    height: 100%;
+    border-bottom: 2px solid #ddd;
+    box-sizing: border-box;
+  }
+
+  > .postrow > .buttons > .button {
+    display: inline-flex;
+    flex: 1;
+    padding: 14px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border-left: 1px solid #ddd;
+    box-sizing: border-box;
+    background: #ccc;
+    color: #333;
+    text-decoration: none;
+  }
+
+  > .postrow > .buttons > .button.-danger {
+    background: @c-primary;
+    color: white;
   }
 }
 
