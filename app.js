@@ -77,7 +77,8 @@ app.use(function(req, res, next) {
 
   res.renderReact = function(Page, data) {
     this.render('page', {
-      react: ReactDOM.renderToString(Page(data))
+      react: ReactDOM.renderToString(Page(data)),
+      data: data
     });
   };
 

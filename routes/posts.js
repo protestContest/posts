@@ -7,7 +7,7 @@ var util = require('../lib/util');
 router.get('/new',
   user.loginOrContinue,
   user.loadLoggedInUser,
-  util.renderPage('CreatePostPage'));
+  util.renderPage('EditPostPage'));
 
 router.get('/:postIdentifier/edit',
   user.loginOrContinue,
