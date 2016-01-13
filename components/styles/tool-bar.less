@@ -1,11 +1,13 @@
-@import 'base';
+@import (reference) 'base';
 
 .tool-bar {
+  display: -webkit-flex;
   display: flex;
   border-top: 1px solid #ddd;
 
   > .toolbutton {
     display: block;
+    -webkit-flex: 1;
     flex: 1;
     text-decoration: none;
     color: #999;

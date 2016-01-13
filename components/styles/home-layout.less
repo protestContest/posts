@@ -1,10 +1,13 @@
+@import 'base';
 @import 'page-title';
 @import 'post-list';
-@import 'full-button';
 
 .home-layout {
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-align-items: center;
   align-items: center;
 
   > .page-title {
@@ -13,13 +16,8 @@
   }
 
   > .post-list {
+    -webkit-flex: 1;
     flex: 1;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  > .full-button {
-    height: 38px;
     width: 100%;
     box-sizing: border-box;
   }
