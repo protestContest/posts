@@ -93,11 +93,13 @@ describe('User routes', function() {
       post1 = {
         title: 'Post 1',
         body: 'asdf',
+        isPrivate: false,
         owner: testUser._id
       };
       post2 = {
         title: 'Post 2',
         body: 'asdf',
+        isPrivate: false,
         owner: testUser._id
       };
       post3 = {

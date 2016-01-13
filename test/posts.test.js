@@ -39,6 +39,7 @@ describe('Post routes', function() {
         testPost = new Post({
           'title': 'Test Post',
           'body': 'Please ignore.',
+          'isPrivate': false,
           'owner': new mongoose.Types.ObjectId()
         });
 
