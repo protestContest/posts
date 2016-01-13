@@ -14,7 +14,7 @@
     "build:jsx:watch": "./node_modules/.bin/babel components/scripts/src --out-dir components/scripts/dist -w",
     "prestart": "npm -s run build",
     "start": "node ./bin/www",
-    "dev": "npm -s run build:jsx:watch & npm -s run build:js:watch & sleep 5; ./node_modules/.bin/nodemon ./bin/www",
+    "dev": "npm -s run build:jsx:watch & sleep 1; npm -s run build:js:watch & sleep 5; ./node_modules/.bin/nodemon ./bin/www",
     "prestart:debug": "npm -s run build",
     "start:debug": "node debug ./bin/www",
     "poststart:debug": "npm -s run clean",
