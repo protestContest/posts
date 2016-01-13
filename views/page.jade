@@ -3,5 +3,7 @@ extends layout
 block content
   div(id='react-root')!= react
 
-  script(src='https://fb.me/react-0.14.0.js')
-  script(src='https://fb.me/react-dom-0.14.0.js')
+  script window.data = !{data}
+  script(src='/dist/components.js')
+  script.
+    window.addEventListener("contextmenu", function(e) { e.preventDefault(); });

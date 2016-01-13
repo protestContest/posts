@@ -27,7 +27,8 @@ function(req, res) {
   res.render('page', {
     react: ReactDOM.renderToString(HomePage({
       posts: req.data.posts
-    }))
+    })),
+    data: JSON.stringify(req.data)
   });
 });
 
