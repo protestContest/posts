@@ -13,7 +13,7 @@ module.exports = React.createClass({
     };
 
     return (
-      <div className="post-list">
+      <div className='post-list'>
         {posts.map(createRow)}
         <NewPostRow />
       </div>
@@ -26,9 +26,10 @@ var PostRow = React.createClass({
   getDefaultProps: function() {
     return {
       post: {
-        title: "", created: new Date()
+        title: '',
+        created: new Date()
       },
-      href: "#"
+      href: '#'
     };
   },
 
@@ -57,7 +58,6 @@ var PostRow = React.createClass({
       rel: 0
     });
     
-    var elem = ReactDOM.findDOMNode(this);
     var buttons = ReactDOM.findDOMNode(this.refs.buttons);
     var buttonsWidth = buttons.offsetWidth;
 
@@ -88,21 +88,18 @@ var PostRow = React.createClass({
       offset: offset
     });
 
-    elem.style.transform = "translate(" + offset + "px)";
-  },
-
-  onClick: function(e) {
+    elem.style.transform = 'translate(' + offset + 'px)';
   },
 
   close: function() {
     var elem = ReactDOM.findDOMNode(this);
 
     elem.addEventListener('transitionend', function() {
-      elem.style.transition = "none";
+      elem.style.transition = 'none';
     });
-    elem.style.transition = "transform 0.5s";
+    elem.style.transition = 'transform 0.5s';
 
-    elem.style.transform = "translate(0)";
+    elem.style.transform = 'translate(0)';
     this.setState({ open: false });
   },
 
@@ -112,25 +109,25 @@ var PostRow = React.createClass({
     var buttonsWidth = buttons.offsetWidth;
 
     elem.addEventListener('transitionend', function() {
-      elem.style.transition = "none";
+      elem.style.transition = 'none';
     });
-    elem.style.transition = "transform 0.5s";
+    elem.style.transition = 'transform 0.5s';
 
-    elem.style.transform = "translate(-" + buttonsWidth + "px)";
+    elem.style.transform = 'translate(-' + buttonsWidth + 'px)';
     this.setState({ open: true });
   },
 
   render: function() {
     var created = this.props.post.created.toDateString();
     return (
-      <div className="postrow">
-        <a className="title" href={this.props.href} onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
+      <div className='postrow'>
+        <a className='title' href={this.props.href} onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
           {this.props.post.title}<br/>
-          <small className="postdate">{created}</small>
+          <small className='postdate'>{created}</small>
         </a>
-        <div ref="buttons" className="buttons">
-          <PostButton label="Edit" href={this.props.href + "/edit"} />
-          <PostButton label="Delete" href={this.props.href + "/delete"} type="danger" />
+        <div ref='buttons' className='buttons'>
+          <PostButton label='Edit' href={this.props.href + '/edit'} />
+          <PostButton label='Delete' href={this.props.href + '/delete'} type='danger' />
         </div>
       </div>
     );
@@ -139,8 +136,8 @@ var PostRow = React.createClass({
 
 var PostButton = React.createClass({
   render: function() {
-    var classes = "button";
-    classes = classes + (this.props.type === "danger" ? " -danger" : "");
+    var classes = 'button';
+    classes = classes + (this.props.type === 'danger' ? ' -danger' : '');
 
     return (
       <a href={this.props.href} className={classes}>
@@ -153,8 +150,8 @@ var PostButton = React.createClass({
 var NewPostRow = React.createClass({
   render: function() {
     return (
-      <div className="postrow -newpost">
-        <a className="title" href="/posts/new">
+      <div className='postrow -newpost'>
+        <a className='title' href='/posts/new'>
           + New Post
         </a>
       </div>

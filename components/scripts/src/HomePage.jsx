@@ -1,3 +1,5 @@
+/*global data*/
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var PostList = require('./PostList');
@@ -14,8 +16,8 @@ var HomePage = module.exports = React.createClass({
 
   render: function() {
     return (
-      <div id="content" className="home-layout">
-        <h1 className="page-title">Posts</h1>
+      <div id='content' className='home-layout'>
+        <h1 className='page-title'>Posts</h1>
         <PostList posts={this.props.posts} />
       </div>
     );
@@ -24,5 +26,5 @@ var HomePage = module.exports = React.createClass({
 });
 
 if (typeof window !== 'undefined') {
-	ReactDOM.render(<HomePage posts={data.posts} />, document.getElementById('react-root'));
+  ReactDOM.render(<HomePage posts={data.posts} />, document.getElementById('react-root'));
 }

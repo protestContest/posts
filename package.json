@@ -7,12 +7,13 @@
     "lint": "./node_modules/.bin/eslint . --ext .js --ext .jsx --ignore-pattern './node_modules/*' --ignore-pattern './public/*' --ignore-pattern './components/scripts/dist/*'",
     "prebuild": "npm -s run lint",
     "build": "npm -s run build:js",
+    "build:production": "npm -s run build:js",
     "prebuild:js": "npm -s run build:jsx",
-    "build:js": "webpack -d components/scripts/dist/*.js public/dist/components.js",
+    "build:js": "./node_modules/.bin/webpack -d components/scripts/dist/*.js public/dist/components.js",
     "build:js:watch": "webpack -d components/scripts/dist/*.js public/dist/components.js -w",
     "build:jsx": "mkdir -p components/scripts/dist && ./node_modules/.bin/babel components/scripts/src --out-dir components/scripts/dist",
     "build:jsx:watch": "./node_modules/.bin/babel components/scripts/src --out-dir components/scripts/dist -w",
-    "prestart": "npm -s run build",
+    "prestart": "npm -s run build:production",
     "start": "node ./bin/www",
     "dev": "npm -s run build:jsx:watch & sleep 1; npm -s run build:js:watch & sleep 5; ./node_modules/.bin/nodemon ./bin/www",
     "prestart:debug": "npm -s run build",
@@ -36,15 +37,20 @@
     "jade": "~1.6.0",
     "markdown": "^0.5.0",
     "method-override": "^2.3.5",
-    "mongoose": "^3.8.18",
+    "mongoose": "^4.0.0",
     "morgan": "~1.3.0",
     "passport": "^0.3.0",
     "passport-local": "^1.0.0",
+    "less-loader": "^2.2.2",
     "react": "^0.14.0",
     "react-dom": "^0.14.0",
+    "eslint": "^1.10.3",
     "redis": "^2.4.2",
+    "css-loader": "^0.23.0",
     "serve-favicon": "~2.1.3",
-    "slug": "^0.8.0"
+    "slug": "^0.8.0",
+    "style-loader": "^0.13.0",
+    "webpack": "^1.12.6"
   },
   "engines": {
     "node": "0.12.x"
@@ -52,18 +58,13 @@
   "devDependencies": {
     "chai": "^3.3.0",
     "clean-css": "^3.4.8",
-    "css-loader": "^0.23.0",
-    "eslint": "^1.10.3",
     "eslint-plugin-react": "^3.8.0",
     "less": "^2.5.3",
-    "less-loader": "^2.2.2",
     "mocha": "^2.3.3",
     "node-notifier": "^4.4.0",
     "nodemon": "^1.8.1",
     "parallelshell": "^2.0.0",
-    "style-loader": "^0.13.0",
     "supertest": "^1.1.0",
-    "watch": "^0.16.0",
-    "webpack": "^1.12.6"
+    "watch": "^0.16.0"
   }
 }

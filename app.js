@@ -39,9 +39,15 @@ app.use(methodOverride(function(req){
 }));
 app.use(cookieParser('oddfellows'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+var redisUrl = 'redis://localhost:6379';
+if (app.get('env') === 'production') {
+  redisUrl = process.env.REDIS_URL;
+}
+
 app.use(session({
   secret:'oddfellows',
-  store: new RedisStore(),
+  store: new RedisStore({ url: redisUrl }),
   resave: false,
   saveUninitialized: true
 }));
@@ -72,7 +78,6 @@ passport.deserializeUser(function(id, done) {
 
 /* Custom request initialization */
 app.use(function(req, res, next) {
-  debugger;
   req.data = {};
 
   res.renderReact = function(Page, data) {
