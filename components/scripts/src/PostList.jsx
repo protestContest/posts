@@ -76,8 +76,6 @@ var PostRow = React.createClass({
   },
 
   onTouchMove: function(e) {
-    e.preventDefault();
-    e.stopPropagation();
     
     if (!this.state.dragging) return;
 
