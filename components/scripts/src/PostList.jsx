@@ -120,11 +120,13 @@ var PostRow = React.createClass({
 
   render: function() {
     var created = this.props.post.created.toDateString();
+    var publicText = this.props.post.isPrivate ? '' : ' · Public';
+
     return (
       <div className='postrow'>
         <a className='title' href={this.props.href} onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
           {this.props.post.title}<br/>
-          <small className='postdate'>{created}</small>
+          <small className='postdate'>{created}{publicText}</small>
         </a>
         <div ref='buttons' className='tool-bar -offcanvas'>
           <a href={this.props.href + '/edit'} className='toolbutton'>
