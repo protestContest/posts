@@ -15,6 +15,12 @@ router.get('/:postIdentifier/edit',
   post.ownedByUser,
   util.renderPage('EditPostPage'));
 
+router.get('/:postIdentifier/delete',
+  user.loginOrContinue,
+  post.loadByIdentifier,
+  post.ownedByUser,
+  util.renderPage('DeletePostPage'));
+
 router.get('/:postIdentifier',
   post.loadByIdentifier,
   post.publicOrOwned,
@@ -38,6 +44,6 @@ router.delete('/:postIdentifier',
   post.loadById,
   post.ownedByUser,
   post.remove,
-  post.end);
+  post.endOrRedirect('/'));
 
 module.exports = router;
