@@ -1,12 +1,12 @@
 var React = require('react');
-if (process.env.BROWSER) require('../../styles/delete-layout.less');
+if (process.env.BROWSER) require('../../styles/message-layout.less');
 
 module.exports = React.createClass({
   render: function() {
     return (
       <div id='content' className='delete-layout'>
         <div className='full-message'>
-          <h1 className='title'>Are you sure you want to delete {this.props.post.title}?</h1>
+          <h1 className='title'>Are you sure you want to delete <em>{this.props.post.title}</em>?</h1>
         </div>
         <div className='tool-bar'>
           <button type='submit' form='deleteForm' className='toolbutton -danger-inverted' href='/home'>

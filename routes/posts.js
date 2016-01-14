@@ -21,6 +21,12 @@ router.get('/:postIdentifier/delete',
   post.ownedByUser,
   util.renderPage('DeletePostPage'));
 
+router.get('/:postIdentifier/publish',
+  user.loginOrContinue,
+  post.loadByIdentifier,
+  post.ownedByUser,
+  util.renderPage('PublishPostPage'));
+
 router.get('/:postIdentifier',
   post.loadByIdentifier,
   post.publicOrOwned,
@@ -38,12 +44,14 @@ router.put('/:postIdentifier',
   post.loadById,
   post.ownedByUser,
   post.update,
+  post.showPost,
   post.sendOne);
 
 router.delete('/:postIdentifier',
   post.loadById,
   post.ownedByUser,
   post.remove,
-  post.endOrRedirect('/'));
+  post.redirect('/'),
+  post.end);
 
 module.exports = router;
