@@ -100,7 +100,7 @@ var PostRow = React.createClass({
     elem.addEventListener('transitionend', function() {
       elem.style.transition = 'none';
     });
-    elem.style.transition = 'transform 0.5s';
+    elem.style.transition = 'transform 0.3s';
 
     elem.style.transform = 'translate(0)';
     this.setState({ open: false });
@@ -114,7 +114,7 @@ var PostRow = React.createClass({
     elem.addEventListener('transitionend', function() {
       elem.style.transition = 'none';
     });
-    elem.style.transition = 'transform 0.5s';
+    elem.style.transition = 'transform 0.3s';
 
     elem.style.transform = 'translate(-' + buttonsWidth + 'px)';
     this.setState({ open: true });
@@ -144,7 +144,7 @@ var PostButton = React.createClass({
 
     return (
       <a href={this.props.href} className={classes}>
-        <i className={'fa fa-2x ' + this.props.icon}></i><br/>
+        <i className={'fa fa-2x ' + this.props.icon}></i>
         {this.props.label}
       </a>
     );
