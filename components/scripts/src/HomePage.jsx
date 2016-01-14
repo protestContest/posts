@@ -17,7 +17,15 @@ var HomePage = module.exports = React.createClass({
   render: function() {
     return (
       <div id='content' className='home-layout'>
-        <h1 className='page-title'>Posts</h1>
+        <div className='page-title'>
+          <h1 className='title'>Posts</h1>
+          <div className='tool-bar'>
+            <a href='/logout' className='toolbutton'>
+              <i className='fa fa-2x fa-sign-out'></i>
+              Log out
+            </a>
+          </div>
+        </div>
         <PostList posts={this.props.posts} />
       </div>
     );

@@ -22,11 +22,11 @@ module.exports = React.createClass({
         <EditPostForm id='editpostform' post={this.props.post} />
         <div className='tool-bar'>
           <button className='toolbutton' type='submit' form='editpostform'>
-            <i className='fa fa-2x fa-floppy-o'></i><br />
+            <i className='fa fa-2x fa-floppy-o'></i>
             Save
           </button>
           <a className='toolbutton' href={'/posts/' + this.props.post._id}>
-            <i className='fa fa-2x fa-times'></i><br/>
+            <i className='fa fa-2x fa-times'></i>
             Cancel
           </a>
         </div>

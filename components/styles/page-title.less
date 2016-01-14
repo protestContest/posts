@@ -1,12 +1,19 @@
 @import (reference) 'base';
 
 .page-title {
-  font-size: 32px;
-  font-family: 'Times';
-  font-weight: 400;
-  margin: 0;
-  padding: 16px 8px 12px 8px;
+  display: -webkit-flex;
+  display: flex;
   border-bottom: 4px solid @c-primary;
   background-color: @c-background;
   box-sizing: border-box;
+
+  > .title {
+    -webkit-flex: 1;
+    flex: 1;
+    font-size: 32px;
+    font-family: 'Times';
+    font-weight: 400;
+    margin: 0;
+    padding: 16px 8px 12px 8px;
+  }
 }

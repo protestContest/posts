@@ -128,25 +128,17 @@ var PostRow = React.createClass({
           {this.props.post.title}<br/>
           <small className='postdate'>{created}</small>
         </a>
-        <div ref='buttons' className='buttons'>
-          <PostButton label='Edit' icon='fa-pencil' href={this.props.href + '/edit'} />
-          <PostButton label='Delete' icon='fa-trash' href={this.props.href + '/delete'} type='danger' />
+        <div ref='buttons' className='tool-bar -offcanvas'>
+          <a href={this.props.href + '/edit'} className='toolbutton'>
+            <i className='fa fa-2x fa-pencil'></i>
+            Edit
+          </a>
+          <a href={this.props.href + '/delete'} className='toolbutton -danger'>
+            <i className='fa fa-2x fa-trash'></i>
+            Delete
+          </a>
         </div>
       </div>
-    );
-  }
-});
-
-var PostButton = React.createClass({
-  render: function() {
-    var classes = 'button';
-    classes = classes + (this.props.type === 'danger' ? ' -danger' : '');
-
-    return (
-      <a href={this.props.href} className={classes}>
-        <i className={'fa fa-2x ' + this.props.icon}></i>
-        {this.props.label}
-      </a>
     );
   }
 });
