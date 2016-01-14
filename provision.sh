@@ -1,6 +1,7 @@
 #!/bin/sh
 
 curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 apt-get -y install vim zsh git build-essential redis-server redis-tools mongodb nodejs
 npm install -g express-generator mocha gulp bower
 
