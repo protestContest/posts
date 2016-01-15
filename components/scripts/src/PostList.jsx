@@ -8,7 +8,7 @@ module.exports = React.createClass({
     var posts = this.props.posts || [];
 
     var createRow = function(post) {
-      var href = '/posts/' + post._id;
+      var href = '/posts/' + post.slug;
       return (<PostRow post={post} href={href} />);
     };
 

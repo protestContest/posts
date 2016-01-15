@@ -23,15 +23,15 @@ module.exports = React.createClass({
             <i className='fa fa-2x fa-list'></i>
             Posts
           </a>
-          <a className='toolbutton' href={this.props.post._id + '/edit'}>
+          <a className='toolbutton' href={this.props.post.slug + '/edit'}>
             <i className='fa fa-2x fa-pencil'></i>
             Edit
           </a>
-          <a className='toolbutton' href={this.props.post._id + '/publish'}>
+          <a className='toolbutton' href={this.props.post.slug + '/publish'}>
             <i className={'fa fa-2x fa-' + publishIcon}></i>
             {publishLabel}
           </a>
-          <a className='toolbutton -danger' href={this.props.post._id + '/delete'}>
+          <a className='toolbutton -danger' href={this.props.post.slug + '/delete'}>
             <i className='fa fa-2x fa-trash'></i>
             Delete
           </a>

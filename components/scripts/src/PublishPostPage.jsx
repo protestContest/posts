@@ -19,7 +19,7 @@ module.exports = React.createClass({
             <i className={'fa fa-2x ' + actionIcon}></i>
             {actionText}
           </button>
-          <a className='toolbutton' href={'/posts/' + this.props.post._id}>
+          <a className='toolbutton' href={'/posts/' + this.props.post.slug}>
             <i className='fa fa-2x fa-times'></i>
             Cancel
           </a>
