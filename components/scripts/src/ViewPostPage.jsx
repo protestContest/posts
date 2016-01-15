@@ -31,26 +31,6 @@ module.exports = React.createClass({
             <i className={'fa fa-2x fa-' + publishIcon}></i>
             {publishLabel}
           </a>
-          <a className='toolbutton' href={this.props.post._id + '/history'}>
-            <i className='fa fa-2x fa-history'></i>
-            History
-          </a>
-          <a className='toolbutton' href={this.props.post._id + '/share'}>
-            <i className='fa fa-2x fa-share-alt'></i>
-            Share
-          </a>
-          <a className='toolbutton' href={this.props.post._id + '/burn'}>
-            <i className='fa fa-2x fa-fire'></i>
-            Burn
-          </a>
-          <a className='toolbutton' href={this.props.post._id + '/dislike'}>
-            <i className='fa fa-2x fa-thumbs-down'></i>
-            Dislike
-          </a>
-          <a className='toolbutton' href={this.props.post._id + '/eat'}>
-            <i className='fa fa-2x fa-cutlery'></i>
-            Eat
-          </a>
           <a className='toolbutton -danger' href={this.props.post._id + '/delete'}>
             <i className='fa fa-2x fa-trash'></i>
             Delete
