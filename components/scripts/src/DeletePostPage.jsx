@@ -4,7 +4,7 @@ if (process.env.BROWSER) require('../../styles/message-layout.less');
 module.exports = React.createClass({
   render: function() {
     return (
-      <div id='content' className='delete-layout'>
+      <div id='content' className='message-layout'>
         <div className='full-message'>
           <h1 className='title'>Are you sure you want to delete <em>{this.props.post.title}</em>?</h1>
         </div>
