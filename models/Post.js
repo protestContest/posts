@@ -7,6 +7,7 @@ var PostSchema = new Schema({
   title: {type: String, required: true},
   body: {type: String, required: true},
   created: {type: Date, default: Date.now},
+  updated: {type: Date, default: Date.now},
   isPrivate: {type: Boolean, default: true},
   owner: {type: Schema.Types.ObjectId, ref: 'User'}
 });

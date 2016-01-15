@@ -75,8 +75,7 @@ var PostRow = React.createClass({
 
   },
 
-  onTouchMove: function(e) {
-    
+  onTouchMove: function(e) {    
     if (!this.state.dragging) return;
 
     var elem = ReactDOM.findDOMNode(this);
@@ -120,7 +119,6 @@ var PostRow = React.createClass({
 
   render: function() {
     var created = this.props.post.created.toDateString();
-    var publicText = this.props.post.isPrivate ? '' : ' · Public';
     var hidePublicIcon = this.props.post.isPrivate ? '_hidden' : '';
     
     return (
