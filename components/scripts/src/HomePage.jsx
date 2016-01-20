@@ -14,6 +14,10 @@ var HomePage = module.exports = React.createClass({
     };
   },
 
+  componentDidMount: function() {
+    // console.log('Viewing home page');
+  },
+
   render: function() {
     return (
       <div id='content' className='home-layout'>
@@ -35,6 +39,6 @@ var HomePage = module.exports = React.createClass({
 
 });
 
-if (typeof window !== 'undefined') {
+if (typeof window !== 'undefined' && data.pageName === 'HomePage') {
   ReactDOM.render(<HomePage posts={data.posts} />, document.getElementById('react-root'));
 }

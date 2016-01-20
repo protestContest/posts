@@ -5,9 +5,9 @@ var React = require('react');
 var ReactDOM = require('react-dom/server');
 var PostController = require('../lib/PostController');
 var UserController = require('../lib/UserController');
+var util = require('../lib/util');
 
 var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
-var HomePage = React.createFactory(require('../components/scripts/dist/HomePage'));
 
 router.get('/', function(req, res) {
   if (req.user) {
@@ -23,14 +23,7 @@ router.get('/home',
   UserController.loginOrContinue,
   UserController.loadLoggedInUser,
   PostController.loadByUser,
-function(req, res) {
-  res.render('page', {
-    react: ReactDOM.renderToString(HomePage({
-      posts: req.data.posts
-    })),
-    data: JSON.stringify(req.data)
-  });
-});
+  util.renderPage('HomePage'));
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
   if (req.accepts('html')) {

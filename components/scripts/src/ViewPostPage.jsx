@@ -1,7 +1,14 @@
+/*global data*/
+
 var React = require('react');
+var ReactDOM = require('react-dom');
 if (process.env.BROWSER) require('../../styles/viewpost-layout.less');
 
-module.exports = React.createClass({
+var ViewPostPage = module.exports = React.createClass({
+
+  componentDidMount: function() {
+    // console.log('Viewing post page');
+  },
 
   render: function() {
     var publishIcon = this.props.post.isPrivate ? 'paragraph' : 'eye-slash';
@@ -41,3 +48,7 @@ module.exports = React.createClass({
   }
 
 });
+
+if (typeof window !== 'undefined' && data.pageName === 'ViewPostPage') {
+  ReactDOM.render(<ViewPostPage post={data.post} />, document.getElementById('react-root'));
+}
