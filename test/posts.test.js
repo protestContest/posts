@@ -234,7 +234,7 @@ describe('Post routes', function() {
       Post.remove({}, done);
     });
 
-    it('should get a list of all public posts', function(done) {
+    it.skip('should get a list of all public posts', function(done) {
       request(app)
         .get('/posts/')
         .accept('json')

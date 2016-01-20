@@ -3,9 +3,6 @@ var router = express.Router();
 var passport = require('passport');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
-var PostController = require('../lib/PostController');
-var UserController = require('../lib/UserController');
-var util = require('../lib/util');
 
 var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
 
