@@ -1,5 +1,5 @@
 var React = require('react');
-if (process.env.BROWSER) require('../../styles/createpost-form.less');
+if (process.env.BROWSER) require('../../styles/editpost-form.less');
 
 var EditPostForm = React.createClass({
   render: function() {
@@ -9,7 +9,7 @@ var EditPostForm = React.createClass({
     var method = isNewPost ? 'post' : 'put';
 
     return (
-      <form id={this.props.id} className='createpost-form' method='post' action={action}>
+      <form id={this.props.id} className='editpost-form' method='post' action={action}>
         <input type='hidden' name='_method' value={method} />
         <textarea className='text' name='body' required>{this.props.post.body}</textarea>
       </form>

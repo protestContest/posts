@@ -1,7 +1,7 @@
 var React = require('react');
 var InputTitle = require('./InputTitle');
 var EditPostForm = require('./EditPostForm');
-if (process.env.BROWSER) require('../../styles/createpostpage-layout.less');
+if (process.env.BROWSER) require('../../styles/editpostpage-layout.less');
 
 module.exports = React.createClass({
   getDefaultProps: function() {
@@ -17,7 +17,7 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div id='content' className='createpostpage-layout'>
+      <div id='content' className='editpostpage-layout'>
         <InputTitle form='editpostform' name='title' value={this.props.post.title} placeholder='My New Post' required />
         <EditPostForm id='editpostform' post={this.props.post} />
         <div className='tool-bar'>
