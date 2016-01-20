@@ -1,17 +1,22 @@
-@import 'page-title';
+@import 'page-header';
 @import 'post-text';
+@import 'tool-bar';
 
 .viewpost-layout {
-  max-width:320px;
+  -webkit-align-items: center;
   align-items: center;
 
-  > .page-title {
+  > .page-header {
     width: 100%;
   }
 
   > .post-text {
+    -webkit-flex: 1;
     flex: 1;
     width: 100%;
-    background: #fff;
+  }
+
+  > .tool-bar {
+    width: 100%;
   }
 }

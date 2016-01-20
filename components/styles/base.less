@@ -8,7 +8,7 @@ body, html {
   margin: 0px;
   height: 100%;
   width: 100%;
-  background-image: url('/images/lined_paper.png');
+  background: @c-background;
 }
 
 #react-root {
@@ -19,9 +19,14 @@ body, html {
 #content {
   width: 100%;
   height: 100%;
-  margin: auto;
-  max-width: 320px;
+  display: -webkit-flex;
   display: flex;
+  -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-align-items: center;
   align-items: center;
+}
+
+._hidden {
+  display: none !important;
 }

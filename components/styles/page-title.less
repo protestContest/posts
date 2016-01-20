@@ -1,12 +1,24 @@
-@import 'base';
+@import (reference) 'base';
 
 .page-title {
-  font-size: 32px;
-  font-family: 'Times';
-  font-weight: 400;
-  margin: 0;
-  padding: 16px 8px 12px 8px;
-  border-bottom: 4px solid @c-primary;
-  background-color: @c-background;
-  box-sizing: border-box;
+  padding: 8px;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-justify-content: flex-end;
+  justify-content: flex-end;
+
+  > .title {
+    font-size: 32px;
+    font-family: 'Times';
+    font-weight: 400;
+    margin: 0px;
+  }
+
+  > .info {
+    font-family: Arial;
+    font-size: 11px;
+    color: @c-muted;
+  }
 }

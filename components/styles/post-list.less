@@ -1,18 +1,24 @@
-@import 'base';
+@import (reference) 'base';
 
 .post-list {
   display: block;
   font-family: 'Times';
   padding: 0px;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
   background-color: @c-background;
 
   > .postrow {
+    display: -webkit-flex;
+    display: flex;
+    position: relative;
+  }
+
+  > .postrow > .title {
     width: 100%;
     margin: 0px;
     box-sizing: border-box;
 
-    display: block;
     font-size: 24px;
     line-height: 18px;
     font-family: 'Times';
@@ -20,18 +26,14 @@
     text-decoration: none;
     border-bottom: 2px solid #ddd;
     color: black;
-
-    &:active {
-      background-color: #ddd;
-    }
   }
 
-  > .postrow > .postdate {
+  > .postrow > .title > .postdate {
     font-size: 0.6em;
     color: @c-muted;
   }
 
-  > .postrow.-newpost {
+  > .postrow.-newpost > .title {
     text-align: center;
     color: @c-muted;
     border-bottom: none;

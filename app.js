@@ -10,6 +10,7 @@ var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var User = require('./models/User');
+var React = require('react');
 var ReactDOM = require('react-dom/server');
 
 var routes = require('./routes/index');
@@ -39,9 +40,15 @@ app.use(methodOverride(function(req){
 }));
 app.use(cookieParser('oddfellows'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+var redisUrl = 'redis://localhost:6379';
+if (app.get('env') === 'production') {
+  redisUrl = process.env.REDIS_URL;
+}
+
 app.use(session({
   secret:'oddfellows',
-  store: new RedisStore(),
+  store: new RedisStore({ url: redisUrl }),
   resave: false,
   saveUninitialized: true
 }));
@@ -72,12 +79,16 @@ passport.deserializeUser(function(id, done) {
 
 /* Custom request initialization */
 app.use(function(req, res, next) {
-  debugger;
   req.data = {};
 
-  res.renderReact = function(Page, data) {
+  res.renderReact = function(pageName, data) {
+    var Page = React.createFactory(require('./components/scripts/dist/' + pageName));
+    data = data || {};
+    data.pageName = pageName;
     this.render('page', {
-      react: ReactDOM.renderToString(Page(data))
+      react: ReactDOM.renderToString(Page(data)),
+      pageName: pageName,
+      data: JSON.stringify(data)
     });
   };
 
@@ -92,7 +103,12 @@ app.use('/users', users);
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
-  next(err);
+
+  if (req.accepts('html')) {
+    res.render('404');
+  } else {
+    next(err);
+  }
 });
 
 // error handlers

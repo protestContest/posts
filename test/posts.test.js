@@ -39,6 +39,7 @@ describe('Post routes', function() {
         testPost = new Post({
           'title': 'Test Post',
           'body': 'Please ignore.',
+          'isPrivate': false,
           'owner': new mongoose.Types.ObjectId()
         });
 
@@ -108,6 +109,32 @@ describe('Post routes', function() {
 
           should.exist(res.body.url);
           done();
+        });
+    });
+
+    it('should create unique slugs for identically named posts', function(done) {
+      var req = request(app).post('/posts/');
+      req.cookies = cookies;
+      req.accept('json')
+        .send({ title: 'Unique Post', body: 'Body 1' })
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          should.exist(res.body.post.slug);
+          res.body.post.slug.should.equal('Unique-Post');
+
+          req = request(app).post('/posts/');
+          req.cookies = cookies;
+          req.accept('json')
+            .send({ title: 'Unique Post', body: 'Body 2' })
+            .end(function(err, res) {
+              if (err) return done(err);
+
+              should.exist(res.body.post.slug);
+              res.body.post.slug.should.not.equal('Unique-Post');
+
+              done();
+            });
         });
     });
   });
