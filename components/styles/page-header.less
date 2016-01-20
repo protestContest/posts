@@ -6,9 +6,20 @@
   border-bottom: 4px solid @c-primary;
   background-color: @c-background;
   box-sizing: border-box;
+  max-height: 100px;
+  transition: max-height 500ms, border-bottom 500ms;
 
   > .page-title {
     -webkit-flex: 1;
     flex: 1;
+  }
+
+  &.-hidden {
+    max-height: 0px;
+  }
+
+  &.-hidden > .page-title > .info {
+    transition: opacity 200ms;
+    opacity: 0;
   }
 }

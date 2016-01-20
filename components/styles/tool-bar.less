@@ -7,6 +7,8 @@
   align-items: baseline;
   border-top: 1px solid #ddd;
   overflow-x: auto;
+  max-height: 100px; /* for transition */
+  transition: max-height 500ms;
 
   > .toolbutton {
     display: -webkit-flex;
@@ -47,6 +49,10 @@
     border-top: none;
     box-sizing: border-box;
     align-items: center;
+  }
+
+  &.-hidden {
+    max-height: 0px;
   }
 
 }
