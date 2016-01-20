@@ -21,7 +21,7 @@ module.exports = React.createClass({
         <InputTitle form='editpostform' name='title' value={this.props.post.title} placeholder='My New Post' required />
         <EditPostForm id='editpostform' post={this.props.post} />
         <div className='tool-bar'>
-          <button className='toolbutton' type='submit' form='editpostform'>
+          <button className='toolbutton -action' type='submit' form='editpostform'>
             <i className='fa fa-2x fa-floppy-o'></i>
             Save
           </button>
