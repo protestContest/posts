@@ -3,9 +3,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var PostList = require('./PostList');
-if (process.env.BROWSER) require('../../styles/home-layout.less');
+if (process.env.BROWSER) require('../../styles/postlist-layout.less');
 
-var HomePage = module.exports = React.createClass({
+var PostListPage = module.exports = React.createClass({
   getInitialState: function() {
     return {
       posts: this.props.posts.map(function(post) {
@@ -20,7 +20,7 @@ var HomePage = module.exports = React.createClass({
 
   render: function() {
     return (
-      <div id='content' className='home-layout'>
+      <div id='content' className='postlist-layout'>
         <div className='page-header'>
           <div className='page-title'>
             <h1 className='title'>Posts</h1>
@@ -39,6 +39,6 @@ var HomePage = module.exports = React.createClass({
 
 });
 
-if (typeof window !== 'undefined' && data.pageName === 'HomePage') {
-  ReactDOM.render(<HomePage posts={data.posts} />, document.getElementById('react-root'));
+if (typeof window !== 'undefined' && data.pageName === 'PostListPage') {
+  ReactDOM.render(<PostListPage posts={data.posts} />, document.getElementById('react-root'));
 }

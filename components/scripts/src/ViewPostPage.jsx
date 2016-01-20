@@ -76,7 +76,7 @@ var ViewPostPage = module.exports = React.createClass({
         </div>
         <div ref='postText' className='post-text' dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
         <div ref='toolBar' className='tool-bar'>
-          <a className='toolbutton' href='/home'>
+          <a className='toolbutton' href='/posts'>
             <i className='fa fa-2x fa-list'></i>
             Posts
           </a>

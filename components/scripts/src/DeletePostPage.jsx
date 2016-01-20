@@ -9,7 +9,7 @@ module.exports = React.createClass({
           <h1 className='title'>Are you sure you want to delete <em>{this.props.post.title}</em>?</h1>
         </div>
         <div className='tool-bar'>
-          <button type='submit' form='deleteForm' className='toolbutton -danger-inverted' href='/home'>
+          <button type='submit' form='deleteForm' className='toolbutton -danger-inverted'>
             <i className='fa fa-2x fa-trash'></i>
             Delete
           </button>

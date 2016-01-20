@@ -15,7 +15,7 @@ module.exports = React.createClass({
           <h1 className='title'>{messageTextBefore}<em>{this.props.post.title}</em>{messageTextAfter}</h1>
         </div>
         <div className='tool-bar'>
-          <button type='submit' form='updateForm' className='toolbutton -action' href='/home'>
+          <button type='submit' form='updateForm' className='toolbutton -action'>
             <i className={'fa fa-2x ' + actionIcon}></i>
             {actionText}
           </button>

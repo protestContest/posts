@@ -11,19 +11,13 @@ var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPag
 
 router.get('/', function(req, res) {
   if (req.user) {
-    res.redirect('/home');
+    res.redirect('/posts');
   } else {
     res.render('page', {
       react: ReactDOM.renderToString(LoginPage())
     });
   }
 });
-
-router.get('/home',
-  UserController.loginOrContinue,
-  UserController.loadLoggedInUser,
-  PostController.loadByUser,
-  util.renderPage('HomePage'));
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
   if (req.accepts('html')) {

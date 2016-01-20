@@ -37,7 +37,9 @@ router.post('/',
   post.sendOne);
 
 router.get('/',
-  post.loadAllPublic,
+  user.loginOrContinue,
+  user.loadLoggedInUser,
+  post.loadByUser,
   post.sendAll);
 
 router.put('/:postIdentifier',
