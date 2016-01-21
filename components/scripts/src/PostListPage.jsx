@@ -19,11 +19,15 @@ var PostListPage = module.exports = React.createClass({
   },
 
   render: function() {
+    if (!this.props.loggedIn) {
+      var owners = this.props.user.username + '\'s ';
+    }
+
     return (
       <div id='content' className='postlist-layout'>
         <div className='page-header'>
           <div className='page-title'>
-            <h1 className='title'>Posts</h1>
+            <h1 className='title'>{owners}Posts</h1>
           </div>
           <div className='tool-bar'>
             <a href='/logout' className='toolbutton'>
@@ -40,5 +44,5 @@ var PostListPage = module.exports = React.createClass({
 });
 
 if (typeof window !== 'undefined' && data.pageName === 'PostListPage') {
-  ReactDOM.render(<PostListPage posts={data.posts} />, document.getElementById('react-root'));
+  ReactDOM.render(<PostListPage posts={data.posts} user={data.user} loggedIn={data.loggedIn} />, document.getElementById('react-root'));
 }
