@@ -1,6 +1,7 @@
 @import 'base';
 @import 'page-title';
 @import 'post-list';
+@import 'search-bar';
 
 .postlist-layout {
   display: -webkit-flex;
@@ -20,6 +21,12 @@
     flex: 1;
     width: 100%;
     box-sizing: border-box;
+  }
+
+  > .search-bar {
+    width: 100%;
+    text-align: center;
+    max-height: 0px;
   }
 
   > .tool-bar {

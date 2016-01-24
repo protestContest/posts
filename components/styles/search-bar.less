@@ -1,0 +1,21 @@
+@import (reference) 'base';
+
+.search-bar {
+  border-top: 1px solid #ddd;
+  overflow: hidden;
+  max-height: 50px;
+  transition: max-height 300ms;
+
+  > .search {
+    width: 70%;
+    margin: 8px;
+    padding: 4px;
+    border-radius: 4px;
+    border: 1px solid @c-primary;
+  }
+
+  > .search:focus {
+    outline: none;
+  }
+
+}

@@ -3,6 +3,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var PostList = require('./PostList');
+var SearchBar = require('./SearchBar');
 if (process.env.BROWSER) require('../../styles/postlist-layout.less');
 
 var PostListPage = module.exports = React.createClass({
@@ -15,8 +16,17 @@ var PostListPage = module.exports = React.createClass({
     };
   },
 
-  componentDidMount: function() {
-    // console.log('Viewing home page');
+  toggleSearch: function() {
+    var searchbar = ReactDOM.findDOMNode(this.refs.search);
+    var toggle = ReactDOM.findDOMNode(this.refs.searchToggle);
+
+    if (searchbar.style.maxHeight !== '0px' && searchbar.style.maxHeight !== '') {
+      searchbar.style.maxHeight = '0px';
+      toggle.classList.remove('-danger-inverted');
+    } else {
+      searchbar.style.maxHeight = '50px'
+      toggle.classList.add('-danger-inverted');
+    }
   },
 
   render: function() {
@@ -32,6 +42,7 @@ var PostListPage = module.exports = React.createClass({
           </div>
         </div>
         <PostList posts={this.props.posts} />
+        <SearchBar ref='search' />
         <div className='tool-bar'>
           <a className='toolbutton' href='/feed'>
             <i className='fa fa-2x fa-newspaper-o'></i>
@@ -41,6 +52,10 @@ var PostListPage = module.exports = React.createClass({
             <i className='fa fa-2x fa-plus-square'></i>
             New Post
           </a>
+          <div ref='searchToggle' className='toolbutton' onClick={this.toggleSearch}>
+            <i className='fa fa-2x fa-filter'></i>
+            Filter
+          </div>
           <a className='toolbutton' href='/settings'>
             <i className='fa fa-2x fa-cog'></i>
             Settings
