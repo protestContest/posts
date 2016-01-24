@@ -3,6 +3,8 @@ var router = express.Router();
 var passport = require('passport');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
+var userCon = require('../lib/UserController');
+var postCon = require('../lib/PostController');
 
 var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
 
@@ -15,6 +17,13 @@ router.get('/', function(req, res) {
     });
   }
 });
+
+router.get('/feed',
+  userCon.loginOrContinue,
+  userCon.loadLoggedInUser,
+  userCon.loadSubscribedPosts,
+  setTitle('Feed'),
+  postCon.sendAll);
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
   if (req.accepts('html')) {
@@ -39,5 +48,12 @@ router.get('/logout', function(req, res) {
     res.end();
   }
 });
+
+function setTitle(title) {
+  return function(req, res, next) {
+    req.data.title = title;
+    next();
+  };
+}
 
 module.exports = router;
