@@ -7,4 +7,26 @@
   background-color: @c-background;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
+  font-size: 18px;
+  line-height: 1.5;
+
+  & > p:last-child:after {
+    content: ' ■';
+  }
+
+  & > blockquote {
+    border-left: 4px solid #444;
+    margin: 0;
+    padding-left: 8px;
+  }
+
+  & > hr {
+    width: 80%;
+  }
+
+  & > img {
+    display: block;
+    max-width: 100%;
+    margin: auto;
+  }
 }
