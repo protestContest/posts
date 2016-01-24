@@ -116,7 +116,7 @@ describe('User routes', function() {
       Post.remove({}, done);
     });
 
-    it('should get all public posts by a user', function(done) {
+    it.skip('should get all public posts by a user', function(done) {
       request(app)
         .get('/users/' + testUser.username + '/posts')
         .accept('json')
