@@ -296,6 +296,24 @@ describe('Post routes', function() {
           done();
         });
     });
+
+    it('should update the published date when published', function(done) {
+      var updates = {
+        isPrivate: false
+      };
+
+      var req = request(app).put('/posts/' + ownPost._id);
+      req.cookies = cookies;
+      req.send(updates)
+        .accept('json')
+        .expect(200)
+        .end(function(err, res) {
+          if (err) return done(err);
+
+          should.exist(res.body.post.published);
+          done();
+        });
+    });
   });
 
   describe('DELETE /posts/:id', function() {
