@@ -124,7 +124,7 @@ var PostRow = React.createClass({
     return (
       <div className='postrow'>
         <a className='title' href={this.props.href} onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
-          {this.props.post.title}<br/>
+          {this.props.post.title}
           <small className='postdate'>{created} <i className={'fa fa-globe ' + hidePublicIcon}></i></small>
         </a>
         <div ref='buttons' className='tool-bar -offcanvas'>
