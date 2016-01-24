@@ -6,7 +6,7 @@ var PostList = require('./PostList');
 var SearchBar = require('./SearchBar');
 if (process.env.BROWSER) require('../../styles/postlist-layout.less');
 
-var PostListPage = module.exports = React.createClass({
+var FeedPage = module.exports = React.createClass({
   getInitialState: function() {
     return {
       posts: this.props.posts.map(function(post) {
@@ -67,6 +67,6 @@ var PostListPage = module.exports = React.createClass({
 
 });
 
-if (typeof window !== 'undefined' && data.pageName === 'PostListPage') {
-  ReactDOM.render(<PostListPage posts={data.posts} user={data.user} loggedIn={data.loggedIn} title={data.title} />, document.getElementById('react-root'));
+if (typeof window !== 'undefined' && data.pageName === 'FeedPage') {
+  ReactDOM.render(<FeedPage posts={data.posts} user={data.user} loggedIn={data.loggedIn} title={data.title} />, document.getElementById('react-root'));
 }
