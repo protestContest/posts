@@ -4,7 +4,7 @@ var passport = require('passport');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 var userCon = require('../lib/UserController');
-var postCon = require('../lib/PostController');
+var util = require('../lib/util');
 
 var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
 
@@ -23,7 +23,7 @@ router.get('/feed',
   userCon.loadLoggedInUser,
   userCon.loadSubscribedPosts,
   setTitle('Feed'),
-  postCon.sendAll);
+  util.renderPage('FeedPage'));
 
 router.post('/login', passport.authenticate('local'), function(req, res) {
   if (req.accepts('html')) {

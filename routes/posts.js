@@ -53,7 +53,7 @@ router.delete('/:postIdentifier',
   post.loadById,
   post.ownedByUser,
   post.remove,
-  post.redirect('/'),
+  util.redirect('/'),
   post.end);
 
 module.exports = router;

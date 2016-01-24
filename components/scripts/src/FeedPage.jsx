@@ -30,15 +30,11 @@ var FeedPage = module.exports = React.createClass({
   },
 
   render: function() {
-    if (!this.props.loggedIn) {
-      var owners = this.props.user.username + '\'s ';
-    }
-
     return (
       <div id='content' className='postlist-layout'>
         <div className='page-header'>
           <div className='page-title'>
-            <h1 className='title'>{owners}{this.props.title}</h1>
+            <h1 className='title'>Feed</h1>
           </div>
         </div>
         <PostList posts={this.props.posts} />
@@ -68,5 +64,5 @@ var FeedPage = module.exports = React.createClass({
 });
 
 if (typeof window !== 'undefined' && data.pageName === 'FeedPage') {
-  ReactDOM.render(<FeedPage posts={data.posts} user={data.user} loggedIn={data.loggedIn} title={data.title} />, document.getElementById('react-root'));
+  ReactDOM.render(<FeedPage posts={data.posts} user={data.user} title={data.title} />, document.getElementById('react-root'));
 }

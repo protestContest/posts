@@ -38,7 +38,7 @@ var PostListPage = module.exports = React.createClass({
       <div id='content' className='postlist-layout'>
         <div className='page-header'>
           <div className='page-title'>
-            <h1 className='title'>{owners}{this.props.title}</h1>
+            <h1 className='title'>{owners}Posts</h1>
           </div>
         </div>
         <PostList posts={this.props.posts} />

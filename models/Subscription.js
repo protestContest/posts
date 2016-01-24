@@ -7,6 +7,8 @@ var SubscriptionSchema = new Schema({
   filters: [String]
 });
 
+SubscriptionSchema.index({ owner: 1, target: 1}, {unique: true});
+
 mongoose.model('Subscription', SubscriptionSchema);
 var Subscription = mongoose.model('Subscription');
 module.exports = Subscription;

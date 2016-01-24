@@ -2,9 +2,11 @@ var express = require('express');
 var router = express.Router();
 var users = require('../lib/UserController');
 var posts = require('../lib/PostController');
+var subs = require('../lib/SubscriptionController');
 
 router.get('/:username',
   users.loadByUsername,
+  subs.loadUserSubscription,
   users.sendOne);
 
 router.post('/',

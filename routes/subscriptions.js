@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var user = require('../lib/UserController');
 var subs = require('../lib/SubscriptionController');
+var util = require('../lib/util');
 
 router.get('/:subId',
   user.loginOrContinue,
@@ -12,6 +13,7 @@ router.get('/:subId',
 
 router.post('/',
   subs.create,
+  util.redirect('/feed'),
   subs.sendOne);
 
 router.put('/:subId',
@@ -27,6 +29,7 @@ router.delete('/:subId',
   subs.loadByIdentifier,
   subs.ownedByUser,
   subs.remove,
+  util.redirect('/feed'),
   subs.end);
 
 module.exports = router;
