@@ -10,6 +10,7 @@ var PostListPage = module.exports = React.createClass({
     return {
       posts: this.props.posts.map(function(post) {
         post.created = new Date(post.created);
+        post.updated = new Date(post.updated);
       })
     };
   },
