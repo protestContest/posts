@@ -7,6 +7,7 @@ var subs = require('../lib/SubscriptionController');
 router.get('/:username',
   users.loadByUsername,
   subs.loadUserSubscription,
+  posts.loadByUser,
   users.sendOne);
 
 router.post('/',
