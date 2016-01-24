@@ -29,14 +29,22 @@ var PostListPage = module.exports = React.createClass({
           <div className='page-title'>
             <h1 className='title'>{owners}Posts</h1>
           </div>
-          <div className='tool-bar'>
-            <a href='/logout' className='toolbutton'>
-              <i className='fa fa-2x fa-sign-out'></i>
-              Log out
-            </a>
-          </div>
         </div>
         <PostList posts={this.props.posts} />
+        <div className='tool-bar'>
+          <a className='toolbutton' href='/feed'>
+            <i className='fa fa-2x fa-newspaper-o'></i>
+            Feed
+          </a>
+          <a className='toolbutton' href='/posts/new'>
+            <i className='fa fa-2x fa-plus-square'></i>
+            New Post
+          </a>
+          <a className='toolbutton' href='/settings'>
+            <i className='fa fa-2x fa-cog'></i>
+            Settings
+          </a>
+        </div>
       </div>
     );
   }
