@@ -7,6 +7,7 @@ module.exports = React.createClass({
   getDefaultProps: function() {
     return {
       post: {
+        slug: '',
         title: '',
         body: '',
         isPrivate: true,
