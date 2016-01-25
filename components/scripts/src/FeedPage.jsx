@@ -25,11 +25,11 @@ var FeedPage = module.exports = React.createClass({
         </div>
         <PostList posts={this.props.posts} readOnly='true' />
         <div className='tool-bar'>
-          <a className='toolbutton' href='/feed'>
+          <a className='toolbutton' href='/posts'>
             <i className='fa fa-2x fa-list'></i>
             Posts
           </a>
-          <a className='toolbutton' href='/posts/new'>
+          <a className='toolbutton' href={'/users/' + this.props.user.username + '/subscriptions'}>
             <i className='fa fa-2x fa-users'></i>
             Following
           </a>
