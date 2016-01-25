@@ -4,7 +4,7 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 if (process.env.BROWSER) require('../../styles/viewpost-layout.less');
 
-var ViewPostPage = module.exports = React.createClass({
+var ViewOwnPostPage = module.exports = React.createClass({
   getInitialState: function() {
     return {
       scrollTop: 0,
@@ -61,7 +61,11 @@ var ViewPostPage = module.exports = React.createClass({
   },
 
   render: function() {
-    var published = new Date(this.props.post.published).toDateString();
+    var publishIcon = this.props.post.isPrivate ? 'paragraph' : 'eye-slash';
+    var publishLabel = this.props.post.isPrivate ? 'Publish' : 'Unpublish';
+    var publicText = this.props.post.isPrivate ? 'Private' : 'Published ' + new Date(this.props.post.published).toDateString();
+    var publicIcon = this.props.post.isPrivate ? 'fa-lock' : 'fa-globe';
+    var updated = new Date(this.props.post.updated).toDateString();
 
     return (
       <div id='content' className='viewpost-layout'>
@@ -69,23 +73,27 @@ var ViewPostPage = module.exports = React.createClass({
           <div className='page-title'>
             <h1 className='title'>{this.props.post.title}</h1>
             <small className='info'>
-              <i className='fa fa-globe'></i> {published}
+              {updated} <i className={'fa ' + publicIcon}></i> {publicText}
             </small>
           </div>
         </div>
         <div ref='postText' className='post-text' dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
         <div ref='toolBar' className='tool-bar'>
-          <a className='toolbutton' href='/feed'>
-            <i className='fa fa-2x fa-newspaper-o'></i>
-            Feed
+          <a className='toolbutton' href='/posts'>
+            <i className='fa fa-2x fa-list'></i>
+            Posts
           </a>
-          <a className='toolbutton' href={'/users/' + this.props.post.owner.username}>
-            <i className='fa fa-2x fa-user'></i>
-            Author
+          <a className='toolbutton' href={this.props.post.slug + '/edit'}>
+            <i className='fa fa-2x fa-pencil'></i>
+            Edit
           </a>
-          <a className='toolbutton' href={'/posts/' + this.props.post.slug + '/reply'}>
-            <i className='fa fa-2x fa-pencil-square-o'></i>
-            Respond
+          <a className='toolbutton' href={this.props.post.slug + '/publish'}>
+            <i className={'fa fa-2x fa-' + publishIcon}></i>
+            {publishLabel}
+          </a>
+          <a className='toolbutton -danger' href={this.props.post.slug + '/delete'}>
+            <i className='fa fa-2x fa-trash'></i>
+            Delete
           </a>
         </div>
       </div>
@@ -94,6 +102,6 @@ var ViewPostPage = module.exports = React.createClass({
 
 });
 
-if (typeof window !== 'undefined' && data.pageName === 'ViewPostPage') {
-  ReactDOM.render(<ViewPostPage post={data.post} user={data.user} />, document.getElementById('react-root'));
+if (typeof window !== 'undefined' && data.pageName === 'ViewOwnPostPage') {
+  ReactDOM.render(<ViewOwnPostPage post={data.post} />, document.getElementById('react-root'));
 }
