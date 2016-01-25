@@ -9,6 +9,10 @@ module.exports = React.createClass({
     return {filterText: ''};  
   },
 
+  getDefaultProps: function() {
+    return {readOnly: false};
+  },
+
   handleInput: function(text) {
     this.setState({filterText: text.toLowerCase()});
   },
@@ -23,14 +27,16 @@ module.exports = React.createClass({
 
     var createRow = function(post) {
       var href = '/posts/' + post.slug;
-      return (<PostRow key={post._id} post={post} href={href} />);
+      return (<PostRow key={post._id} post={post} href={href} readOnly={that.props.readOnly} />);
     };
+
+    var newPostRow = this.props.readOnly ? '' : <NewPostRow /> ;
 
     return (
       <div className='post-list'>
         <SearchBar onUserInput={this.handleInput} />
         {posts.filter(filter).map(createRow)}
-        <NewPostRow />
+        {newPostRow}
       </div>
     );
   }
@@ -58,6 +64,7 @@ var PostRow = React.createClass({
   },
 
   onTouchStart: function(e) {
+    if (!this.refs.buttons) return;
     var pageX = e.touches[0].pageX;
 
     this.setState({
@@ -68,6 +75,7 @@ var PostRow = React.createClass({
   },
 
   onTouchEnd: function(e) {    
+    if (!this.refs.buttons) return;
     this.setState({
       dragging: false,
       rel: 0
@@ -90,7 +98,8 @@ var PostRow = React.createClass({
 
   },
 
-  onTouchMove: function(e) {    
+  onTouchMove: function(e) {
+    if (!this.refs.buttons) return;
     if (!this.state.dragging) return;
 
     var elem = ReactDOM.findDOMNode(this);
@@ -136,22 +145,26 @@ var PostRow = React.createClass({
     var updated = this.props.post.updated.toDateString();
     var hidePublicIcon = this.props.post.isPrivate ? '_hidden' : '';
     
+    var toolBar = this.props.readOnly ? '' : (
+      <div ref='buttons' className='tool-bar -offcanvas'>
+        <a href={this.props.href + '/edit'} className='toolbutton'>
+          <i className='fa fa-2x fa-pencil'></i>
+          Edit
+        </a>
+        <a href={this.props.href + '/delete'} className='toolbutton -danger'>
+          <i className='fa fa-2x fa-trash'></i>
+          Delete
+        </a>
+      </div>
+    );
+
     return (
       <div className='postrow'>
         <a className='title' href={this.props.href} onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
           {this.props.post.title}
           <small className='postdate'>{updated} <i className={'fa fa-globe ' + hidePublicIcon}></i></small>
         </a>
-        <div ref='buttons' className='tool-bar -offcanvas'>
-          <a href={this.props.href + '/edit'} className='toolbutton'>
-            <i className='fa fa-2x fa-pencil'></i>
-            Edit
-          </a>
-          <a href={this.props.href + '/delete'} className='toolbutton -danger'>
-            <i className='fa fa-2x fa-trash'></i>
-            Delete
-          </a>
-        </div>
+        {toolBar}
       </div>
     );
   }
