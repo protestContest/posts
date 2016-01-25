@@ -5,18 +5,31 @@ if (process.env.BROWSER) require('../../styles/post-list.less');
 
 module.exports = React.createClass({
 
+  getInitialState: function() {
+    return {filterText: ''};  
+  },
+
+  handleInput: function(text) {
+    this.setState({filterText: text.toLowerCase()});
+  },
+
   render: function() {
+    var that = this;
     var posts = this.props.posts || [];
+
+    var filter = function(post) {
+      return post.title.toLowerCase().indexOf(that.state.filterText) !== -1;
+    };
 
     var createRow = function(post) {
       var href = '/posts/' + post.slug;
-      return (<PostRow post={post} href={href} />);
+      return (<PostRow key={post._id} post={post} href={href} />);
     };
 
     return (
       <div className='post-list'>
-        <SearchBar />
-        {posts.map(createRow)}
+        <SearchBar onUserInput={this.handleInput} />
+        {posts.filter(filter).map(createRow)}
         <NewPostRow />
       </div>
     );

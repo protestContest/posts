@@ -2,11 +2,18 @@ var React = require('react');
 
 module.exports = React.createClass({
 
-  render: function() {
-    
+  getDefaultProps: function() {
+    return { onUserInput: function() {} };
+  },
+
+  onChange: function() {
+    this.props.onUserInput(this.refs.search.value);
+  },
+
+  render: function() {    
     return (
       <div className='search-bar'>
-        <input className='search' placeholder='Filter' />
+        <input ref='search' className='search' placeholder='Filter' onChange={this.onChange} />
       </div>
     );
   }
