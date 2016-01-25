@@ -63,9 +63,9 @@ var ViewPostPage = module.exports = React.createClass({
   render: function() {
     var publishIcon = this.props.post.isPrivate ? 'paragraph' : 'eye-slash';
     var publishLabel = this.props.post.isPrivate ? 'Publish' : 'Unpublish';
-    var publicText = this.props.post.isPrivate ? 'Private' : 'Public';
+    var publicText = this.props.post.isPrivate ? 'Private' : 'Published ' + new Date(this.props.post.published).toDateString();
     var publicIcon = this.props.post.isPrivate ? 'fa-lock' : 'fa-globe';
-    var updated = new Date(this.props.post.updated).toDateString();
+    var updated = this.props.ownPost ? new Date(this.props.post.updated).toDateString() : '';
 
     return (
       <div id='content' className='viewpost-layout'>
@@ -103,5 +103,5 @@ var ViewPostPage = module.exports = React.createClass({
 });
 
 if (typeof window !== 'undefined' && data.pageName === 'ViewPostPage') {
-  ReactDOM.render(<ViewPostPage post={data.post} />, document.getElementById('react-root'));
+  ReactDOM.render(<ViewPostPage post={data.post} ownPost={data.ownPost} />, document.getElementById('react-root'));
 }
