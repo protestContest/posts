@@ -1,14 +1,18 @@
 @import (reference) 'base';
 
 .search-bar {
+  display: -webkit-flex;
+  display: flex;
   border-top: 1px solid #ddd;
   overflow: hidden;
   max-height: 50px;
   transition: max-height 300ms;
+  padding: 8px;
+  box-sizing: border-box;
 
   > .search {
-    width: 70%;
-    margin: 8px;
+    -webkit-flex: 1;
+    flex: 1;
     padding: 4px;
     border-radius: 4px;
     border: 1px solid @c-primary;

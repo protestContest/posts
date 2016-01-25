@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var SearchBar = require('./SearchBar');
 if (process.env.BROWSER) require('../../styles/post-list.less');
 
 module.exports = React.createClass({
@@ -14,6 +15,7 @@ module.exports = React.createClass({
 
     return (
       <div className='post-list'>
+        <SearchBar />
         {posts.map(createRow)}
         <NewPostRow />
       </div>

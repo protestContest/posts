@@ -6,7 +6,7 @@ module.exports = React.createClass({
     
     return (
       <div className='search-bar'>
-        <input className='search'/>
+        <input className='search' placeholder='Filter' />
       </div>
     );
   }
