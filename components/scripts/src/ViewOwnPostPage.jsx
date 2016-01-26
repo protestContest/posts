@@ -65,7 +65,7 @@ var ViewOwnPostPage = module.exports = React.createClass({
     var publishLabel = this.props.post.isPrivate ? 'Publish' : 'Unpublish';
     var publicText = this.props.post.isPrivate ? 'Private' : 'Published ' + new Date(this.props.post.published).toDateString();
     var publicIcon = this.props.post.isPrivate ? 'fa-lock' : 'fa-globe';
-    var updated = new Date(this.props.post.updated).toDateString();
+    var updated = this.props.post.isPrivate ? 'Updated ' + new Date(this.props.post.updated).toDateString() : '';
 
     return (
       <div id='content' className='viewpost-layout'>
