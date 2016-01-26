@@ -4,6 +4,8 @@ var React = require('react');
 var ReactDOM = require('react-dom');
 var PostList = require('./PostList');
 var ScrollContent = require('./ScrollContent');
+var ToolBar = require('./ToolBar');
+var ToolButton = require('./ToolButton');
 if (process.env.BROWSER) require('../../styles/postlist-layout.less');
 
 var PostListPage = module.exports = React.createClass({
@@ -31,24 +33,12 @@ var PostListPage = module.exports = React.createClass({
         <ScrollContent>
           <PostList posts={this.props.posts} />
         </ScrollContent>
-        <div className='tool-bar'>
-          <div className='toolbutton -active'>
-            <i className='fa fa-2x fa-list'></i>
-            Posts
-          </div>
-          <a className='toolbutton' href='/feed'>
-            <i className='fa fa-2x fa-newspaper-o'></i>
-            Feed
-          </a>
-          <a className='toolbutton' href={'/users/' + this.props.user.username + '/subscriptions'}>
-            <i className='fa fa-2x fa-users'></i>
-            Following
-          </a>
-          <a className='toolbutton' href='/settings'>
-            <i className='fa fa-2x fa-cog'></i>
-            Settings
-          </a>
-        </div>
+        <ToolBar>
+          <ToolButton icon='list' label='Posts' active={true} />
+          <ToolButton icon='newspaper-o' label='Feed' href='/feed' />
+          <ToolButton icon='users' label='Following' href={'/users/' + this.props.user.username + '/subscriptions'} />
+          <ToolButton icon='cog' label='Settings' href='/settings' />
+        </ToolBar>
       </div>
     );
   }
