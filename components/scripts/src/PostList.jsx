@@ -143,7 +143,7 @@ var PostRow = React.createClass({
 
   render: function() {
     var updated = this.props.post.updated.toDateString();
-    var hidePublicIcon = this.props.post.isPrivate ? '_hidden' : '';
+    var icon = this.props.post.isPrivate ? 'edit' : 'globe';
     
     var toolBar = this.props.readOnly ? '' : (
       <div ref='buttons' className='tool-bar -offcanvas'>
@@ -162,7 +162,7 @@ var PostRow = React.createClass({
       <div className='postrow'>
         <a className='title' href={this.props.href} onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
           {this.props.post.title}
-          <small className='postdate'>{updated} <i className={'fa fa-globe ' + hidePublicIcon}></i></small>
+          <small className='postdate'><i className={'fa fa-' + icon}></i> {updated} </small>
         </a>
         {toolBar}
       </div>
