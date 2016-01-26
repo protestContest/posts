@@ -7,6 +7,7 @@ var userCon = require('../lib/UserController');
 var util = require('../lib/util');
 
 var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
+var SignupPage = React.createFactory(require('../components/scripts/dist/SignupPage'));
 
 router.get('/', function(req, res) {
   if (req.user) {
@@ -36,6 +37,12 @@ router.post('/login', passport.authenticate('local'), function(req, res) {
 router.get('/login', function(req, res) {
   res.render('page', {
     react: ReactDOM.renderToString(LoginPage())
+  });
+});
+
+router.get('/join', function(req, res) {
+  res.render('page', {
+    react: ReactDOM.renderToString(SignupPage())
   });
 });
 

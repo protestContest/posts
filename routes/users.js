@@ -3,6 +3,7 @@ var router = express.Router();
 var users = require('../lib/UserController');
 var posts = require('../lib/PostController');
 var subs = require('../lib/SubscriptionController');
+var util = require('../lib/util');
 
 router.get('/:username',
   users.loadByUsername,
@@ -12,6 +13,8 @@ router.get('/:username',
 
 router.post('/',
   users.create,
+  users.loginUser,
+  util.redirect('/posts'),
   users.sendOne);
 
 router.get('/',
