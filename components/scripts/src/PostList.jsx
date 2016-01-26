@@ -35,8 +35,8 @@ module.exports = React.createClass({
     return (
       <div className='post-list'>
         <SearchBar onUserInput={this.handleInput} />
-        {posts.filter(filter).map(createRow)}
         {newPostRow}
+        {posts.filter(filter).map(createRow)}
       </div>
     );
   }

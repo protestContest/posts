@@ -29,6 +29,10 @@ var FeedPage = module.exports = React.createClass({
             <i className='fa fa-2x fa-list'></i>
             Posts
           </a>
+          <div className='toolbutton -active'>
+            <i className='fa fa-2x fa-newspaper-o'></i>
+            Feed
+          </div>
           <a className='toolbutton' href={'/users/' + this.props.user.username + '/subscriptions'}>
             <i className='fa fa-2x fa-users'></i>
             Following

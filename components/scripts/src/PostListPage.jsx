@@ -3,6 +3,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var PostList = require('./PostList');
+var ScrollContent = require('./ScrollContent');
 if (process.env.BROWSER) require('../../styles/postlist-layout.less');
 
 var PostListPage = module.exports = React.createClass({
@@ -27,15 +28,21 @@ var PostListPage = module.exports = React.createClass({
             <h1 className='title'>{owners}Posts</h1>
           </div>
         </div>
-        <PostList posts={this.props.posts} />
+        <ScrollContent>
+          <PostList posts={this.props.posts} />
+        </ScrollContent>
         <div className='tool-bar'>
+          <div className='toolbutton -active'>
+            <i className='fa fa-2x fa-list'></i>
+            Posts
+          </div>
           <a className='toolbutton' href='/feed'>
             <i className='fa fa-2x fa-newspaper-o'></i>
             Feed
           </a>
-          <a className='toolbutton' href='/posts/new'>
-            <i className='fa fa-2x fa-pencil-square-o'></i>
-            New Post
+          <a className='toolbutton' href={'/users/' + this.props.user.username + '/subscriptions'}>
+            <i className='fa fa-2x fa-users'></i>
+            Following
           </a>
           <a className='toolbutton' href='/settings'>
             <i className='fa fa-2x fa-cog'></i>
