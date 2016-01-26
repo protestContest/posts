@@ -1,6 +1,6 @@
 @import (reference) 'base';
 
-.login-form {
+.vertical-form {
   > .inputrow {
     margin: 16px 24px;
     display: -webkit-flex;
@@ -12,6 +12,7 @@
       -webkit-flex: 1;
       flex: 1;
       font-size: 18px;
+      padding-right: 8px;
     }
 
     > .text {
@@ -45,10 +46,15 @@
       background-color: @c-primary;
       border: 1px solid @c-primary-dark;
       border-radius: 4px;
-      box-shadow: 0px 1px 8px #666;
+      // box-shadow: 0px 1px 8px #666;
       color: white;
+      font-size: 16px;
       text-decoration: none;
     }
+  }
+
+  > .bonuslink {
+    text-align: center;
   }
 
 }
