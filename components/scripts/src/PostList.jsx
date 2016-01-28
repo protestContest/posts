@@ -37,6 +37,7 @@ module.exports = React.createClass({
         <SearchBar onUserInput={this.handleInput} />
         {newPostRow}
         {posts.filter(filter).map(createRow)}
+        <EndRow />
       </div>
     );
   }
@@ -178,6 +179,14 @@ var NewPostRow = React.createClass({
           + New Post
         </a>
       </div>
+    );
+  }
+});
+
+var EndRow = React.createClass({
+  render: function() {
+    return (
+      <div className='postrow -endrow'>■</div>
     );
   }
 });
