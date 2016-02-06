@@ -40,7 +40,18 @@ describe('User routes', function() {
   });
 
   describe('POST /users', function() {
-    before(function(done) {
+    var newUser;
+
+    beforeEach(function(done) {
+      newUser = {
+        username: 'newUser',
+        password: 'asdf'
+      };
+
+      done();
+    });
+
+    afterEach(function(done) {
       User.remove({}, done);
     });
 
@@ -48,7 +59,7 @@ describe('User routes', function() {
       request(app)
         .post('/users/')
         .accept('json')
-        .send({ username: 'newUser', password: 'asdf' })
+        .send(newUser)
         .expect(200)
         .end(function(err) {
           if (err) return done(err);
@@ -60,13 +71,21 @@ describe('User routes', function() {
       request(app)
         .post('/users/')
         .accept('json')
-        .send({ username: testUser.username, password: 'qwer' })
-        .expect(400)
-        .end(function(err, res) {
+        .send(newUser)
+        .expect(200)
+        .end(function(err) {
           if (err) return done(err);
-          res.text.should.equal('User exists');
-          done();
-        });
+          request(app)
+            .post('/users/')
+            .accept('json')
+            .send(newUser)
+            .expect(400)
+            .end(function(err, res) {
+              if (err) return done(err);
+              res.text.should.equal('User exists');
+              done();
+            });
+      });
     });
   });
 
@@ -116,7 +135,7 @@ describe('User routes', function() {
       Post.remove({}, done);
     });
 
-    it.skip('should get all public posts by a user', function(done) {
+    it('should get all public posts by a user', function(done) {
       request(app)
         .get('/users/' + testUser.username + '/posts')
         .accept('json')
