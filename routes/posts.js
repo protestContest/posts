@@ -1,7 +1,10 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/User');
+var Subs = require('../models/Subscription');
+var Post = require('../models/Post');
 var post = require('../lib/PostController');
-var user = require('../lib/UserController');
+var user = require('../lib/UserController')(User, Subs, Post);
 var util = require('../lib/util');
 
 router.get('/new',

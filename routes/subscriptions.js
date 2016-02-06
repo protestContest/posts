@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
-var user = require('../lib/UserController');
+var User = require('../models/User');
+var Subs = require('../models/Subscription');
+var Post = require('../models/Post');
+var user = require('../lib/UserController')(User, Subs, Post);
 var subs = require('../lib/SubscriptionController');
 var util = require('../lib/util');
 
