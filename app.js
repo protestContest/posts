@@ -9,13 +9,16 @@ var RedisStore = require('connect-redis')(session);
 var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var User = require('./models/User');
 var React = require('react');
 var ReactDOM = require('react-dom/server');
 
-var routes = require('./routes/index');
-var posts = require('./routes/posts');
-var users = require('./routes/users');
+var User = require('./models/User');
+var Subs = require('./models/Subscription');
+var Post = require('./models/Post');
+
+var routes = require('./routes/index')(User, Subs, Post);
+var posts = require('./routes/posts')(User, Subs, Post);
+var users = require('./routes/users')(User, Subs, Post);
 var subscriptions = require('./routes/subscriptions');
 
 var app = express();

@@ -85,7 +85,7 @@ describe('User routes', function() {
               res.text.should.equal('User exists');
               done();
             });
-      });
+        });
     });
   });
 
