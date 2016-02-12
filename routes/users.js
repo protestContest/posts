@@ -9,7 +9,12 @@ module.exports = function(User, Subs, Post) {
   var users = require('../lib/UserController')(User, Subs, Post);
   
   router.get('/:username',
-    users.loadByUsername,
+    (req, res, next) => {
+      users.loadByUsername(req).then((user) => {
+        req.data.user = user;
+        next();
+      }).done();
+    },
     subs.loadUserSubscription,
     posts.loadByUser,
     users.sendOne);
@@ -25,17 +30,32 @@ module.exports = function(User, Subs, Post) {
     users.sendAll);
 
   router.get('/:username/posts',
-    users.loadByUsername,
+    (req, res, next) => {
+      users.loadByUsername(req).then((user) => {
+        req.data.user = user;
+        next();
+      }).done();
+    },
     posts.loadByUser,
     posts.sendAll);
 
   router.put('/:username',
-    users.loadByUsername,
+    (req, res, next) => {
+      users.loadByUsername(req).then((user) => {
+        req.data.user = user;
+        next();
+      }).done();
+    },
     users.update,
     users.sendOne);
 
   router.delete('/:username',
-    users.loadByUsername,
+    (req, res, next) => {
+      users.loadByUsername(req).then((user) => {
+        req.data.user = user;
+        next();
+      }).done();
+    },
     users.remove,
     users.end);
 

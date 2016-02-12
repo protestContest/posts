@@ -4,7 +4,7 @@ var should = require('chai').should();
 var User = require('../../models/User');
 var Post = require('../../models/Post');
 var mongoose = require('mongoose');
-var testUtils = require('./testUtils');
+var testUtils = require('../testUtils');
 mongoose.models = {};
 mongoose.modelSchemas = {};
 
