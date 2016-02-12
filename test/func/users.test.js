@@ -1,8 +1,8 @@
 var request = require('supertest');
-var app = require('../app');
+var app = require('../../app');
 var should = require('chai').should();
-var User = require('../models/User');
-var Post = require('../models/Post');
+var User = require('../../models/User');
+var Post = require('../../models/Post');
 var mongoose = require('mongoose');
 var testUtils = require('./testUtils');
 mongoose.models = {};

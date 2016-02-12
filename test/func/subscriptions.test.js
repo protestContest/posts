@@ -1,10 +1,10 @@
 var request = require('supertest');
-var app = require('../app');
-var Subscription = require('../models/Subscription');
-var User = require('../models/User');
-var Post = require('../models/Post');
+var app = require('../../app');
+var Subscription = require('../../models/Subscription');
+var User = require('../../models/User');
+var Post = require('../../models/Post');
 var mongoose = require('mongoose');
-var testUtils = require('./testUtils');
+var testUtils = require('../testUtils');
 mongoose.models = {};
 mongoose.modelSchemas = {};
 

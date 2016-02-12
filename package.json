@@ -20,9 +20,10 @@
     "start:debug": "node debug ./bin/www",
     "poststart:debug": "npm -s run clean",
     "pretest": "npm -s run build",
-    "test": "NODE_ENV=test ./node_modules/.bin/mocha",
-    "pretest:watch": "npm -s run build",
-    "test:watch": "NODE_ENV=test ./node_modules/.bin/mocha -w -R min"
+    "test": "npm run test:unit && npm run test:functional",
+    "test:watch": "NODE_ENV=test ./node_modules/.bin/mocha -w -R min",
+    "test:unit": "NODE_ENV=test ./node_modules/.bin/mocha test/unit",
+    "test:functional": "NODE_ENV=test ./node_modules/.bin/mocha test/func"
   },
   "dependencies": {
     "babel": "^5.8.29",
@@ -64,6 +65,7 @@
     "eslint-plugin-react": "^3.8.0",
     "less": "^2.5.3",
     "mocha": "^2.3.3",
+    "node-mocks-http": "^1.5.1",
     "node-notifier": "^4.4.0",
     "nodemon": "^1.8.1",
     "parallelshell": "^2.0.0",
