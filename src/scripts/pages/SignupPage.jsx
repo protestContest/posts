@@ -1,5 +1,5 @@
 var React = require('react');
-var SignupForm = require('./SignupForm');
+var SignupForm = require('../SignupForm');
 if (process.env.BROWSER) require('../../styles/index-layout.less');
 
 module.exports = React.createClass({

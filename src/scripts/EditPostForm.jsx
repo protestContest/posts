@@ -1,5 +1,5 @@
 var React = require('react');
-if (process.env.BROWSER) require('../../styles/editpost-form.less');
+if (process.env.BROWSER) require('../styles/editpost-form.less');
 
 var EditPostForm = React.createClass({
   render: function() {

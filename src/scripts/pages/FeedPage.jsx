@@ -2,11 +2,11 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-var PostList = require('./PostList');
-var ScrollContent = require('./ScrollContent');
-var ToolBar = require('./ToolBar');
-var ToolButton = require('./ToolButton');
-if (process.env.BROWSER) require('../../styles/postlist-layout.less');
+var PostList = require('../PostList');
+var ScrollContent = require('../ScrollContent');
+var ToolBar = require('../ToolBar');
+var ToolButton = require('../ToolButton');
+require('../../styles/postlist-layout.less');
 
 var FeedPage = module.exports = React.createClass({
   getInitialState: function() {

@@ -1,6 +1,6 @@
 var React = require('react');
-var InputTitle = require('./InputTitle');
-var EditPostForm = require('./EditPostForm');
+var InputTitle = require('../InputTitle');
+var EditPostForm = require('../EditPostForm');
 if (process.env.BROWSER) require('../../styles/editpostpage-layout.less');
 
 module.exports = React.createClass({

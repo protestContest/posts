@@ -1,5 +1,5 @@
 var React = require('react');
-if (process.env.BROWSER) require('../../styles/input-title.less');
+if (process.env.BROWSER) require('../styles/input-title.less');
 
 var InputTitle = React.createClass({
   render: function() {

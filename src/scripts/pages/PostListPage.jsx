@@ -2,10 +2,10 @@
 
 var React = require('react');
 var ReactDOM = require('react-dom');
-var PostList = require('./PostList');
-var ScrollContent = require('./ScrollContent');
-var ToolBar = require('./ToolBar');
-var ToolButton = require('./ToolButton');
+var PostList = require('../PostList');
+var ScrollContent = require('../ScrollContent');
+var ToolBar = require('../ToolBar');
+var ToolButton = require('../ToolButton');
 if (process.env.BROWSER) require('../../styles/postlist-layout.less');
 
 var PostListPage = module.exports = React.createClass({
