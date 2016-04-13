@@ -17,9 +17,9 @@ var Subs = require('./models/Subscription');
 var Post = require('./models/Post');
 
 var routes = require('./routes/index')(User, Subs, Post);
-var posts = require('./routes/posts')(User, Subs, Post);
-var users = require('./routes/users')(User, Subs, Post);
-var subscriptions = require('./routes/subscriptions');
+// var posts = require('./routes/posts')(User, Subs, Post);
+// var users = require('./routes/users')(User, Subs, Post);
+// var subscriptions = require('./routes/subscriptions');
 
 var app = express();
 
@@ -100,9 +100,9 @@ app.use(function(req, res, next) {
 });
 
 app.use('/', routes);
-app.use('/posts', posts);
-app.use('/users', users);
-app.use('/subscriptions', subscriptions);
+// app.use('/posts', posts);
+// app.use('/users', users);
+// app.use('/subscriptions', subscriptions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
