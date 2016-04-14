@@ -5,8 +5,8 @@ var React = require('react');
 var ReactDOM = require('react-dom/server');
 // var util = require('../lib/util');
 
-var LoginPage = React.createFactory(require('../build/Login'));
-var SignupPage = React.createFactory(require('../build/Signup'));
+var LoginPage = React.createFactory(require('../src/scripts/pages/LoginPage'));
+// var SignupPage = React.createFactory(require('../build/Signup'));
 
 module.exports = function() {
   // var userCon = require('../lib/UserController')(User, Subs, Post);
