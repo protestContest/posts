@@ -9,10 +9,11 @@
     "start": "node ./bin/www",
     "test": "npm run test:unit && npm run test:functional",
     "test:unit": "NODE_ENV=test ./node_modules/.bin/mocha test/unit",
-    "test:functional": "NODE_ENV=test ./node_modules/.bin/mocha test/func"
+    "test:func": "NODE_ENV=test ./node_modules/.bin/mocha test/func"
   },
   "dependencies": {
     "babel": "^5.8.29",
+    "babel-register": "^6.7.2",
     "body-parser": "~1.8.1",
     "bson": "^0.4.20",
     "connect-redis": "^3.0.1",

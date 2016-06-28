@@ -16,7 +16,10 @@
             2,
             "always"
         ],
-        "no-debugger": 1
+        "no-debugger": 1,
+        "react/jsx-uses-react": 2,
+        "react/jsx-uses-vars": 2,
+        "react/react-in-jsx-scope": 2
     },
     "env": {
         "es6": true,
@@ -27,6 +30,7 @@
     "extends": "eslint:recommended",
     "ecmaFeatures": {
         "jsx": true,
+        "modules": true,
         "experimentalObjectRestSpread": true
     },
     "plugins": [
