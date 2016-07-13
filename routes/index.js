@@ -6,7 +6,7 @@ var React = require('react');
 var ReactDOM = require('react-dom/server');
 // var util = require('../lib/util');
 
-var LoginPage = React.createFactory(require('../src/scripts/Pages/LoginPage'));
+var LoginPage = React.createFactory(require('../src/scripts/pages/LoginPage'));
 // var SignupPage = React.createFactory(require('../build/Signup'));
 
 module.exports = function() {
