@@ -1,12 +1,12 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
-var React = require('react');
-var ReactDOM = require('react-dom/server');
+// var React = require('react');
+// var ReactDOM = require('react-dom/server');
 var util = require('../lib/util');
 
-var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
-var SignupPage = React.createFactory(require('../components/scripts/dist/SignupPage'));
+// var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
+// var SignupPage = React.createFactory(require('../components/scripts/dist/SignupPage'));
 
 module.exports = function(User, Subs, Post) {
   var userCon = require('../lib/UserController')(User, Subs, Post);
@@ -15,9 +15,7 @@ module.exports = function(User, Subs, Post) {
     if (req.user) {
       res.redirect('/posts');
     } else {
-      res.render('page', {
-        react: ReactDOM.renderToString(LoginPage())
-      });
+      res.render('app');
     }
   });
 
@@ -36,17 +34,17 @@ module.exports = function(User, Subs, Post) {
     }
   });
 
-  router.get('/login', function(req, res) {
-    res.render('page', {
-      react: ReactDOM.renderToString(LoginPage())
-    });
-  });
+  // router.get('/login', function(req, res) {
+  //   res.render('page', {
+  //     react: ReactDOM.renderToString(LoginPage())
+  //   });
+  // });
 
-  router.get('/join', function(req, res) {
-    res.render('page', {
-      react: ReactDOM.renderToString(SignupPage())
-    });
-  });
+  // router.get('/join', function(req, res) {
+  //   res.render('page', {
+  //     react: ReactDOM.renderToString(SignupPage())
+  //   });
+  // });
 
   router.get('/logout', function(req, res) {
     req.logout();
