@@ -45,6 +45,20 @@ app.use(methodOverride(function(req){
 app.use(cookieParser('oddfellows'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+if (app.get('env') !== 'production') {
+  const webpack = require('webpack');
+  const wpConfig = require('./webpack.config');
+  const wpDevMiddleware = require('webpack-dev-middleware');
+  const wpHotMiddleware = require('webpack-hot-middleware');
+  const compiler = webpack(wpConfig);
+  
+  app.use(wpDevMiddleware(compiler, {
+    noInfo: true,
+    publicPath: wpConfig.output.publicPath
+  }));
+  app.use(wpHotMiddleware(compiler));
+}
+
 var redisUrl = 'redis://localhost:6379';
 if (app.get('env') === 'production') {
   redisUrl = process.env.REDIS_URL;

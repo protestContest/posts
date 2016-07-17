@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 
   output = {
     filename: 'app.js',
-    path: './public/',
+    path: __dirname + '/public/',
     publicPath: '/'
   };
 } else {
@@ -26,10 +26,11 @@ if (process.env.NODE_ENV === 'production') {
 
   output = {
     filename: 'app.js',
-    path: './public/',
+    path: __dirname + '/public/',
     publicPath: 'http://localhost:3000/'
   };
 
+  entry.push('webpack/hot/dev-server');
   entry.push('webpack-hot-middleware/client');
 }
 
