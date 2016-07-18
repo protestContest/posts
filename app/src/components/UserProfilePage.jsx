@@ -1,11 +1,10 @@
-/*global data*/
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+
+import React from 'react';
 var PostList = require('./PostList');
-if (process.env.BROWSER) require('../../styles/profile-layout.less');
+import '../../styles/profile-layout.less';
 
-var UserProfilePage = module.exports = React.createClass({
+var UserProfilePage = React.createClass({
 
   render: function() {
     var isSubscribed = this.props.subscription !== undefined && this.props.subscription !== null;
@@ -40,6 +39,4 @@ var UserProfilePage = module.exports = React.createClass({
 
 });
 
-if (typeof window !== 'undefined' && data.pageName === 'UserProfilePage') {
-  ReactDOM.render(<UserProfilePage user={data.user} posts={data.posts} subscription={data.subscription} />, document.getElementById('react-root'));
-}
+export default UserProfilePage;

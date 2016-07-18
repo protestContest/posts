@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "4a259301483a82f3a837"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "02688113ed795ae746e6"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -16478,15 +16478,15 @@
 	  }
 	};
 	
-	var _homeZackProjectsPostsNode_modulesBabelPresetReactHmreNode_modulesReactTransformHmrLibIndexJs2 = (0, _index6.default)({
-	  filename: '/home/zack/Projects/posts/app/src/components/EmptyComponent.jsx',
+	var _CUsersZackDocumentsGitHubPostsNode_modulesBabelPresetReactHmreNode_modulesReactTransformHmrLibIndexJs2 = (0, _index6.default)({
+	  filename: 'C:/Users/zack/Documents/GitHub/posts/app/src/components/EmptyComponent.jsx',
 	  components: _components,
 	  locals: [module],
 	  imports: [_react3.default]
 	});
 	
-	var _homeZackProjectsPostsNode_modulesBabelPresetReactHmreNode_modulesReactTransformCatchErrorsLibIndexJs2 = (0, _index4.default)({
-	  filename: '/home/zack/Projects/posts/app/src/components/EmptyComponent.jsx',
+	var _CUsersZackDocumentsGitHubPostsNode_modulesBabelPresetReactHmreNode_modulesReactTransformCatchErrorsLibIndexJs2 = (0, _index4.default)({
+	  filename: 'C:/Users/zack/Documents/GitHub/posts/app/src/components/EmptyComponent.jsx',
 	  components: _components,
 	  locals: [],
 	  imports: [_react3.default, _index2.default]
@@ -16494,7 +16494,7 @@
 	
 	function _wrapComponent(id) {
 	  return function (Component) {
-	    return _homeZackProjectsPostsNode_modulesBabelPresetReactHmreNode_modulesReactTransformHmrLibIndexJs2(_homeZackProjectsPostsNode_modulesBabelPresetReactHmreNode_modulesReactTransformCatchErrorsLibIndexJs2(Component, id), id);
+	    return _CUsersZackDocumentsGitHubPostsNode_modulesBabelPresetReactHmreNode_modulesReactTransformHmrLibIndexJs2(_CUsersZackDocumentsGitHubPostsNode_modulesBabelPresetReactHmreNode_modulesReactTransformCatchErrorsLibIndexJs2(Component, id), id);
 	  };
 	}
 	

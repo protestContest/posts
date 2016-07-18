@@ -1,22 +1,10 @@
-var React = require('react');
-var InputTitle = require('./InputTitle');
-var EditPostForm = require('./EditPostForm');
-if (process.env.BROWSER) require('../../styles/editpostpage-layout.less');
+import React, { PropTypes } from 'react';
+import InputTitle from './InputTitle';
+import EditPostForm from './EditPostForm';
+import '../../styles/editpostpage-layout.less';
 
-module.exports = React.createClass({
-  getDefaultProps: function() {
-    return {
-      post: {
-        slug: '',
-        title: '',
-        body: '',
-        isPrivate: true,
-        created: Date.now()
-      }
-    };
-  },
-
-  render: function() {
+export default class EditPostPage extends React.Component {
+  render() {
     return (
       <div id='content' className='editpostpage-layout'>
         <InputTitle form='editpostform' name='title' value={this.props.post.title} placeholder='My New Post' required />
@@ -34,5 +22,21 @@ module.exports = React.createClass({
       </div>
     );
   }
+}
 
-});
+EditPostPage.defaultProps = {
+  post: {
+    slug: '',
+    title: '',
+    body: '',
+    isPrivate: true,
+    created: Date.now()
+  }
+};
+
+EditPostPage.propTypes = {
+  post: PropTypes.shape({
+    slug: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+  }).isRequired
+};

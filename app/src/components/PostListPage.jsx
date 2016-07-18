@@ -1,14 +1,13 @@
-/*global data*/
 
-var React = require('react');
-var ReactDOM = require('react-dom');
+
+import React from 'react';
 var PostList = require('./PostList');
 var ScrollContent = require('./ScrollContent');
 var ToolBar = require('./ToolBar');
 var ToolButton = require('./ToolButton');
-if (process.env.BROWSER) require('../../styles/postlist-layout.less');
+import '../../styles/postlist-layout.less';
 
-var PostListPage = module.exports = React.createClass({
+var PostListPage = React.createClass({
   getInitialState: function() {
     return {
       posts: this.props.posts.map(function(post) {
@@ -45,6 +44,4 @@ var PostListPage = module.exports = React.createClass({
 
 });
 
-if (typeof window !== 'undefined' && data.pageName === 'PostListPage') {
-  ReactDOM.render(<PostListPage posts={data.posts} user={data.user} loggedIn={data.loggedIn} title={data.title} />, document.getElementById('react-root'));
-}
+export default PostListPage;

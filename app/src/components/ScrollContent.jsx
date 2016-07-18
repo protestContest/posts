@@ -1,5 +1,5 @@
-var React = require('react');
-if (process.env.BROWSER) require('../../styles/scroll-content.less');
+import React from 'react';
+import '../../styles/scroll-content.less';
 
 module.exports = React.createClass({
 

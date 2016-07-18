@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
 var LoginForm = require('./LoginForm');
-if (process.env.BROWSER) require('../../styles/index-layout.less');
+import '../../styles/index-layout.less';
 
 module.exports = React.createClass({
   render: function() {
