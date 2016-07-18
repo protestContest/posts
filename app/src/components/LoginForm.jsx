@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 
-var LoginForm = React.createClass({
-  render: function() {
+export default class LoginForm extends React.Component {
+  render() {
     return (
       <form className="vertical-form" method="post" action="/login">
         <div className="inputrow">
@@ -21,6 +21,4 @@ var LoginForm = React.createClass({
       </form>
     );
   }
-});
-
-module.exports = LoginForm;
+}

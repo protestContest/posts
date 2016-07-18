@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import reducers from './reducers';
 
-import EmptyComponent from './components/EmptyComponent';
+import LoginPage from './components/LoginPage';
 
 let store = createStore(reducers);
 
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
       <Router history={browserHistory}>
-        <Route path='/' component={EmptyComponent} />
+        <Route path='/' component={LoginPage} />
       </Router>
     </Provider>
   ), document.getElementById('root'));

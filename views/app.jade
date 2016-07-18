@@ -4,10 +4,11 @@ html
     meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=0")
     title= pageTitle || "Posts"
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Inconsolata', type='text/css')
-    link(rel='stylesheet', href='/dist/style.css')
+    link(rel='stylesheet' href='/styles/base.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
     script(src='/app.js')
 
   body
     #root
       .loading-screen
+        img.logo(src='/images/posts.png')

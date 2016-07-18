@@ -1,11 +1,11 @@
-var React = require('react');
-var LoginForm = require('./LoginForm');
-if (process.env.BROWSER) require('../../styles/index-layout.less');
+import React from 'react';
+import LoginForm from './LoginForm';
+import '../styles/login-layout.less';
 
-module.exports = React.createClass({
-  render: function() {
+export default class LoginPage extends React.Component {
+  render() {
     return (
-      <div id='content' className='index-layout'>
+      <div id='content' className='login-layout'>
         <div className='site-title'>
           <h1 className='header'>Posts</h1>
         </div>
@@ -13,4 +13,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}
