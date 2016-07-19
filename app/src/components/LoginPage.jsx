@@ -1,16 +1,16 @@
 import React from 'react';
-var LoginForm = require('./LoginForm');
-import '../../styles/index-layout.less';
+import LoginFormContainer from '../containers/LoginFormContainer';
+import '../styles/index-layout.less';
 
-module.exports = React.createClass({
-  render: function() {
+export default class Loginpage extends React.Component {
+  render() {
     return (
       <div id='content' className='index-layout'>
         <div className='site-title'>
           <h1 className='header'>Posts</h1>
         </div>
-        <LoginForm />
+        <LoginFormContainer />
       </div>
     );
   }
-});
+}
