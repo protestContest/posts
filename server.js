@@ -5,7 +5,6 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
 var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -61,17 +60,6 @@ if (app.get('env') !== 'production') {
   app.use(wpHotMiddleware(compiler));
 }
 
-var redisUrl = 'redis://localhost:6379';
-if (app.get('env') === 'production') {
-  redisUrl = process.env.REDIS_URL;
-}
-
-app.use(session({
-  secret:'oddfellows',
-  store: new RedisStore({ url: redisUrl }),
-  resave: false,
-  saveUninitialized: true
-}));
 app.use(passport.initialize());
 
 passport.use(new LocalStrategy(
