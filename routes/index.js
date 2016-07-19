@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var passport = require('passport');
+var jwt = require('jsonwebtoken');
 // var React = require('react');
 // var ReactDOM = require('react-dom/server');
 var util = require('../lib/util');
@@ -27,11 +28,15 @@ module.exports = function(User, Subs, Post) {
     util.renderPage('FeedPage'));
 
   router.post('/login', passport.authenticate('local'), function(req, res) {
-    if (req.accepts('html')) {
-      res.redirect('/');
-    } else {
-      res.end();
-    }
+    const token = jwt.sign(req.user, req.app.get('apiSecret'), {
+      subject: req.user._id,
+      expiresInMinutes: 1440
+    });
+    
+    res.json({
+      success: true,
+      token
+    });
   });
 
   // router.get('/login', function(req, res) {
