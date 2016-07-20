@@ -12,12 +12,13 @@ export default class LoginForm extends React.Component {
     this.props.login(username, password);
 
     event.preventDefault();
+    event.stopPropagation();
     return false;
   }
 
   render() {
     return (
-      <form className="vertical-form" onSubmit={() => this.onSubmit()}>
+      <form className="vertical-form">
         <div className="inputrow">
           <label className="label" htmlFor="ipt-username">Username</label>
           <input className="text" id="ipt-username" ref="username" required />
@@ -27,7 +28,7 @@ export default class LoginForm extends React.Component {
           <input className="text" id="ipt-password" ref="password" type="password" required />
         </div>
         <div className="submitrow">
-          <button className="submit" type="submit">Log in</button>
+          <button className="submit" type="button" onClick={this.onSubmit}>Log in</button>
         </div>
         <div className="bonuslink">
           <a href='/join'>Sign up</a>

@@ -4,7 +4,6 @@ var path = require('path');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var session = require('express-session');
 var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
@@ -64,6 +63,7 @@ app.use(passport.initialize());
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
+      debugger;
       User.findOne({username: username}, function(err, user) {
         if (err) return done(err);
         if (!user) {
@@ -76,11 +76,10 @@ passport.use(new LocalStrategy(
             if (err) return done(err, false);
             else return done(null, user);
           });
+        } else {
+          if (!user.validPassword(password)) return done(null, false, {message: 'Bad password'});
+          return done(null, user);
         }
-
-        if (!user.validPassword(password)) return done(null, false, {message: 'Bad password'});
-
-        return done(null, user);
       });
     })
 );
@@ -98,9 +97,9 @@ passport.use(new JwtStrategy({
 }));
 
 app.use('/', routes);
-app.use('/posts', posts);
-app.use('/users', users);
-app.use('/subscriptions', subscriptions);
+// app.use('/posts', posts);
+// app.use('/users', users);
+// app.use('/subscriptions', subscriptions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

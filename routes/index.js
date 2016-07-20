@@ -2,30 +2,21 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
-// var React = require('react');
-// var ReactDOM = require('react-dom/server');
-var util = require('../lib/util');
+// var util = require('../lib/util');
 
-// var LoginPage = React.createFactory(require('../components/scripts/dist/LoginPage'));
-// var SignupPage = React.createFactory(require('../components/scripts/dist/SignupPage'));
-
-module.exports = function(User, Subs, Post) {
-  var userCon = require('../lib/UserController')(User, Subs, Post);
+module.exports = function() {
+  // var userCon = require('../lib/UserController')(User, Subs, Post);
 
   router.get('/', function(req, res) {
-    if (req.user) {
-      res.redirect('/posts');
-    } else {
-      res.render('app');
-    }
+    res.render('app');
   });
 
-  router.get('/feed',
-    userCon.loginOrContinue,
-    userCon.loadLoggedInUser,
-    userCon.loadSubscribedPosts,
-    setTitle('Feed'),
-    util.renderPage('FeedPage'));
+  // router.get('/feed',
+  //   userCon.loginOrContinue,
+  //   userCon.loadLoggedInUser,
+  //   userCon.loadSubscribedPosts,
+  //   setTitle('Feed'),
+  //   util.renderPage('FeedPage'));
 
   router.post('/login', passport.authenticate('local'), function(req, res) {
     const token = jwt.sign(req.user, req.app.get('apiSecret'), {
@@ -61,12 +52,12 @@ module.exports = function(User, Subs, Post) {
     }
   });
 
-  function setTitle(title) {
-    return function(req, res, next) {
-      req.data.title = title;
-      next();
-    };
-  }
+  // function setTitle(title) {
+  //   return function(req, res, next) {
+  //     req.data.title = title;
+  //     next();
+  //   };
+  // }
 
   return router;
 };

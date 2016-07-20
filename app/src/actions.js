@@ -8,7 +8,7 @@ export function authenticate(username, password) {
     loginData.append('username', username);
     loginData.append('password', password);
 
-    fetch('/login', {
+    return fetch('/login', {
       method: 'post',
       body: loginData
     })
