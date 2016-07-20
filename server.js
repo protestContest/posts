@@ -15,9 +15,6 @@ var Subs = require('./models/Subscription');
 var Post = require('./models/Post');
 
 var routes = require('./routes/index')(User, Subs, Post);
-var posts = require('./routes/posts')(User, Subs, Post);
-var users = require('./routes/users')(User, Subs, Post);
-var subscriptions = require('./routes/subscriptions');
 
 var app = express();
 
@@ -63,7 +60,6 @@ app.use(passport.initialize());
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
-      debugger;
       User.findOne({username: username}, function(err, user) {
         if (err) return done(err);
         if (!user) {
