@@ -18,14 +18,14 @@ export default class LoginForm extends React.Component {
 
   render() {
     return (
-      <form className="vertical-form">
+      <div className="vertical-form">
         <div className="inputrow">
-          <label className="label" htmlFor="ipt-username">Username</label>
-          <input className="text" id="ipt-username" ref="username" required />
+          <label className="label">Username</label>
+          <input className="text" ref="username" />
         </div>
         <div className="inputrow">
-          <label className="label" htmlFor="ipt-password">Password</label>
-          <input className="text" id="ipt-password" ref="password" type="password" required />
+          <label className="label">Password</label>
+          <input className="text" ref="password" type="password" />
         </div>
         <div className="submitrow">
           <button className="submit" type="button" onClick={this.onSubmit}>Log in</button>
@@ -33,7 +33,7 @@ export default class LoginForm extends React.Component {
         <div className="bonuslink">
           <a href='/join'>Sign up</a>
         </div>
-      </form>
+      </div>
     );
   }
 }

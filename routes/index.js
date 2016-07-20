@@ -18,17 +18,17 @@ module.exports = function() {
   //   setTitle('Feed'),
   //   util.renderPage('FeedPage'));
 
-  router.post('/login', passport.authenticate('local'), function(req, res) {
-    const token = jwt.sign(req.user, req.app.get('apiSecret'), {
-      subject: req.user._id,
-      expiresInMinutes: 1440
+  router.post('/login', passport.authenticate('local', {session:false}),
+    function(req, res) {
+      const token = jwt.sign(req.user, req.app.get('apiSecret'), {
+        subject: req.user._id.toString()
+      });
+      
+      res.json({
+        success: true,
+        token
+      });
     });
-    
-    res.json({
-      success: true,
-      token
-    });
-  });
 
   // router.get('/login', function(req, res) {
   //   res.render('page', {

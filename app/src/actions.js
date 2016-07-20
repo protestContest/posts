@@ -3,8 +3,8 @@ export const types = {
 };
 
 export function authenticate(username, password) {
-  (dispatch) => {
-    return fetch('/login', {
+  return (dispatch) => {
+    fetch('/login', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
