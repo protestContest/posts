@@ -3,14 +3,13 @@ export const types = {
 };
 
 export function authenticate(username, password) {
-  return (dispatch) => {
-    let loginData = new FormData();
-    loginData.append('username', username);
-    loginData.append('password', password);
-
+  (dispatch) => {
     return fetch('/login', {
       method: 'post',
-      body: loginData
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ username, password })
     })
     .then((response) => {
       if (response.ok) {

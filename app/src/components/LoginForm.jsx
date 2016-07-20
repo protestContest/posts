@@ -7,8 +7,8 @@ export default class LoginForm extends React.Component {
   }
 
   onSubmit(event) {
-    const username = this.refs.username;
-    const password = this.refs.password;
+    const username = this.refs.username.value;
+    const password = this.refs.password.value;
     this.props.login(username, password);
 
     event.preventDefault();
