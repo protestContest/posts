@@ -16,7 +16,7 @@ var Post = require('./models/Post');
 
 var routes = require('./routes/index')(User, Subs, Post)
 
-var app = express();
+var app = express()
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
