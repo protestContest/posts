@@ -5,12 +5,11 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var RedisStore = require('connect-redis')(session);
 var methodOverride = require('method-override');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
-var React = require('react');
-var ReactDOM = require('react-dom/server');
+var JwtStrategy = require('passport-jwt').Strategy;
+var ExtractJwt = require('passport-jwt').ExtractJwt;
 
 var User = require('./models/User');
 var Subs = require('./models/Subscription');
@@ -26,6 +25,8 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
+
+app.set('apiSecret', 'TYqrmtO0z7cAoc43lgh323Yz02bcIkD8');
 
 // uncomment after placing your favicon in /public
 // app.use(favicon(__dirname + '/public/favicon.ico'));
@@ -59,25 +60,24 @@ if (app.get('env') !== 'production') {
   app.use(wpHotMiddleware(compiler));
 }
 
-var redisUrl = 'redis://localhost:6379';
-if (app.get('env') === 'production') {
-  redisUrl = process.env.REDIS_URL;
-}
-
-app.use(session({
-  secret:'oddfellows',
-  store: new RedisStore({ url: redisUrl }),
-  resave: false,
-  saveUninitialized: true
-}));
 app.use(passport.initialize());
-app.use(passport.session());
 
 passport.use(new LocalStrategy(
     function(username, password, done) {
       User.findOne({username: username}, function(err, user) {
         if (err) return done(err);
-        if (!user) return done(null, false, {message: 'No such user'});
+        if (!user) {
+          user = new User({
+            username,
+            password
+          });
+
+          user.save(function(err) {
+            if (err) return done(err, false);
+            else return done(null, user);
+          });
+        }
+
         if (!user.validPassword(password)) return done(null, false, {message: 'Bad password'});
 
         return done(null, user);
@@ -85,33 +85,17 @@ passport.use(new LocalStrategy(
     })
 );
 
-passport.serializeUser(function(user, done) {
-  done(null, user._id);
-});
-
-passport.deserializeUser(function(id, done) {
-  User.findById(id, function(err, user) {
-    done(err, user);
-  });
-});
-
-/* Custom request initialization */
-app.use(function(req, res, next) {
-  req.data = {};
-
-  res.renderReact = function(pageName, data) {
-    var Page = React.createFactory(require('./components/scripts/dist/' + pageName));
-    data = data || {};
-    data.pageName = pageName;
-    this.render('page', {
-      react: ReactDOM.renderToString(Page(data)),
-      pageName: pageName,
-      data: JSON.stringify(data)
-    });
-  };
-
-  next();
-});
+passport.use(new JwtStrategy({
+  jwtFromRequest: ExtractJwt.fromAuthHeader(),
+  secretOrKey: app.get('apiSecret')
+}, (payload, done) => {
+  User.findOne({token: payload.sub})
+    .then((user) => {
+      if (user) done(null, user);
+      else done(null, false);
+    })
+    .catch((err) => done(err, false));
+}));
 
 app.use('/', routes);
 app.use('/posts', posts);

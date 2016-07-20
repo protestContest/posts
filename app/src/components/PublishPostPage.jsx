@@ -1,5 +1,5 @@
-var React = require('react');
-if (process.env.BROWSER) require('../../styles/message-layout.less');
+import React from 'react';
+import '../../styles/message-layout.less';
 
 module.exports = React.createClass({
   render: function() {

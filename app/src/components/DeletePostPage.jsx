@@ -1,8 +1,8 @@
-var React = require('react');
-if (process.env.BROWSER) require('../../styles/message-layout.less');
+import React, { PropTypes } from 'react';
+import '../../styles/message-layout.less';
 
-module.exports = React.createClass({
-  render: function() {
+export default class DeletePostPage extends React.Component {
+  render() {
     return (
       <div id='content' className='message-layout'>
         <div className='full-message'>
@@ -24,5 +24,12 @@ module.exports = React.createClass({
       </div>
     );
   }
+}
 
-});
+DeletePostPage.propTypes = {
+  post: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    slug: PropTypes.string.isRequired
+  }).isRequired
+};

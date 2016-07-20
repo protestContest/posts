@@ -1,24 +1,21 @@
-/*global data*/
+import React, { PropTypes } from 'react';
+import PostList from './PostList';
+import ScrollContent from './ScrollContent';
+import ToolBar from './ToolBar';
+import ToolButton from './ToolButton';
+import '../../styles/postlist-layout.less';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var PostList = require('./PostList');
-var ScrollContent = require('./ScrollContent');
-var ToolBar = require('./ToolBar');
-var ToolButton = require('./ToolButton');
-if (process.env.BROWSER) require('../../styles/postlist-layout.less');
-
-var FeedPage = module.exports = React.createClass({
-  getInitialState: function() {
+export default class FeedPage extends React.Component {
+  getInitialState() {
     return {
       posts: this.props.posts.map(function(post) {
         post.created = new Date(post.created);
         post.updated = new Date(post.updated);
       })
     };
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <div id='content' className='postlist-layout'>
         <div className='page-header'>
@@ -39,8 +36,10 @@ var FeedPage = module.exports = React.createClass({
     );
   }
 
-});
-
-if (typeof window !== 'undefined' && data.pageName === 'FeedPage') {
-  ReactDOM.render(<FeedPage posts={data.posts} user={data.user} title={data.title} />, document.getElementById('react-root'));
 }
+
+FeedPage.propTypes = {
+  user: PropTypes.shape({
+    username: PropTypes.string.isRequired
+  }).isRequired
+};

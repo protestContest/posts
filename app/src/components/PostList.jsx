@@ -1,7 +1,7 @@
-var React = require('react');
+import React from 'react';
 var ReactDOM = require('react-dom');
 var SearchBar = require('./SearchBar');
-if (process.env.BROWSER) require('../../styles/post-list.less');
+import '../../styles/post-list.less';
 
 module.exports = React.createClass({
 

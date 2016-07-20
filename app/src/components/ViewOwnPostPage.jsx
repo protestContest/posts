@@ -1,10 +1,10 @@
-/*global data*/
 
-var React = require('react');
+
+import React from 'react';
 var ReactDOM = require('react-dom');
-if (process.env.BROWSER) require('../../styles/viewpost-layout.less');
+import '../../styles/viewpost-layout.less';
 
-var ViewOwnPostPage = module.exports = React.createClass({
+var ViewOwnPostPage = React.createClass({
   getInitialState: function() {
     return {
       scrollTop: 0,
@@ -102,6 +102,4 @@ var ViewOwnPostPage = module.exports = React.createClass({
 
 });
 
-if (typeof window !== 'undefined' && data.pageName === 'ViewOwnPostPage') {
-  ReactDOM.render(<ViewOwnPostPage post={data.post} />, document.getElementById('react-root'));
-}
+export default ViewOwnPostPage;

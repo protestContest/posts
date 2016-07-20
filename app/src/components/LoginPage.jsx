@@ -1,15 +1,15 @@
 import React from 'react';
-import LoginForm from './LoginForm';
-import '../styles/login-layout.less';
+import LoginFormContainer from '../containers/LoginFormContainer';
+import '../styles/index-layout.less';
 
-export default class LoginPage extends React.Component {
+export default class Loginpage extends React.Component {
   render() {
     return (
       <div id='content' className='login-layout'>
         <div className='site-title'>
           <h1 className='header'>Posts</h1>
         </div>
-        <LoginForm />
+        <LoginFormContainer />
       </div>
     );
   }

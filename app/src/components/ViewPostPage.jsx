@@ -1,24 +1,22 @@
-/*global data*/
+import React, { PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import '../../styles/viewpost-layout.less';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-if (process.env.BROWSER) require('../../styles/viewpost-layout.less');
-
-var ViewPostPage = module.exports = React.createClass({
-  getInitialState: function() {
+export default class ViewPostPage extends React.Component {
+  getInitialState() {
     return {
       scrollTop: 0,
       scrollDir: 'up'
     };
-  },
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     var node = ReactDOM.findDOMNode(this.refs.postText);
     node.addEventListener('touchmove', this.onScroll);
     node.addEventListener('touchend', this.onScroll);
-  },
+  }
 
-  onScroll: function() {
+  onScroll() {
     var node = ReactDOM.findDOMNode(this.refs.postText);
     var deltaScroll = node.scrollTop - this.state.scrollTop;
     var scrollThreshhold = 20;
@@ -44,23 +42,23 @@ var ViewPostPage = module.exports = React.createClass({
     }
 
     this.setState({scrollTop: node.scrollTop});
-  },
+  }
 
-  showBars: function() {
+  showBars() {
     var headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
     var toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
     headerNode.classList.remove('-hidden');
     toolbarNode.classList.remove('-hidden');
-  },
+  }
 
-  hideBars: function() {
+  hideBars() {
     var headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
     var toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
     headerNode.classList.add('-hidden');
     toolbarNode.classList.add('-hidden');
-  },
+  }
 
-  render: function() {
+  render() {
     var published = new Date(this.props.post.published).toDateString();
 
     return (
@@ -92,8 +90,16 @@ var ViewPostPage = module.exports = React.createClass({
     );
   }
 
-});
-
-if (typeof window !== 'undefined' && data.pageName === 'ViewPostPage') {
-  ReactDOM.render(<ViewPostPage post={data.post} user={data.user} />, document.getElementById('react-root'));
 }
+
+ViewPostPage.propTypes = {
+  post: PropTypes.shape({
+    published: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    body: PropTypes.string.isRequired,
+    owner: PropTypes.shape({
+      username: PropTypes.string.isRequired
+    }).isRequired,
+    slug: PropTypes.string.isRequired
+  }).isRequired
+};
