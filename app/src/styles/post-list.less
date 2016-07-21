@@ -2,6 +2,8 @@
 
 .post-list {
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 
   > .postrow {
     display: -webkit-flex;
@@ -24,7 +26,7 @@
     font-size: 18px;
     padding: 8px;
     text-decoration: none;
-    border-bottom: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
     color: black;
   }
 
@@ -61,6 +63,22 @@
   > .search-bar {
     width: 100%;
     text-align: center;
-    border-bottom: 2px solid #ddd;
+    border-top: 2px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+
+  > .empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: @c-muted;
+
+    > .title {
+      font-weight: bold;
+      font-size: 2em;
+      margin-bottom: 0.5em;
+    }
   }
 }
