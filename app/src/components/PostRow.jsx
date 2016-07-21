@@ -100,7 +100,10 @@ export default class PostRow extends React.Component {
   }
 
   render() {
-    var updated = this.props.post.updated.toDateString();
+    var updated = (this.props.post.updated instanceof Date)
+      ? this.props.post.updated.toDateString()
+      : this.props.post.updated;
+
     var icon = this.props.post.isPrivate ? 'edit' : 'globe';
     
     var toolBar = this.props.readOnly ? '' : (
