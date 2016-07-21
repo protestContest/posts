@@ -1,70 +1,70 @@
 import React from 'react';
-var ReactDOM = require('react-dom');
-var SearchBar = require('./SearchBar');
+import ReactDOM from 'react-dom';
+import SearchBar from './SearchBar';
 import '../styles/post-list.less';
 
-module.exports = React.createClass({
+export default class PostList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {filterText: ''};
+    this.handleInput = this.handleInput.bind(this);
+  }
 
-  getInitialState: function() {
-    return {filterText: ''};  
-  },
-
-  getDefaultProps: function() {
-    return {readOnly: false};
-  },
-
-  handleInput: function(text) {
+  handleInput(text) {
     this.setState({filterText: text.toLowerCase()});
-  },
+  }
 
-  render: function() {
-    var that = this;
-    var posts = this.props.posts || [];
+  render() {
+    const that = this;
+    const posts = this.props.posts || [];
 
-    var filter = function(post) {
+    const filter = function(post) {
       return post.title.toLowerCase().indexOf(that.state.filterText) !== -1;
     };
 
-    var createRow = function(post) {
-      var href = '/posts/' + post.slug;
+    const createRow = function(post) {
+      const href = '/posts/' + post.slug;
       return (<PostRow key={post._id} post={post} href={href} readOnly={that.props.readOnly} />);
     };
 
-    var newPostRow = this.props.readOnly ? '' : <NewPostRow /> ;
+    // var newPostRow = this.props.readOnly ? '' : <NewPostRow /> ;
 
     return (
       <div className='post-list'>
         <SearchBar onUserInput={this.handleInput} />
-        {newPostRow}
+        <NewPostRow />
         {posts.filter(filter).map(createRow)}
         <EndRow />
       </div>
     );
   }
 
-});
+}
 
-var PostRow = React.createClass({
-  getDefaultProps: function() {
-    return {
-      post: {
-        title: '',
-        created: new Date()
-      },
-      href: '#'
-    };
-  },
-
-  getInitialState: function() {
-    return { dragging: false,
+class PostRow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      dragging: false,
       offset: 0,
       rel: 0,
       open: false,
       buttonWidth: 0
     };
-  },
 
-  onTouchStart: function(e) {
+    this.onTouchStart = this.onTouchStart.bind(this);
+    this.onTouchEnd = this.onTouchEnd.bind(this);
+    this.onTouchMove = this.onTouchMove.bind(this);
+    this.open = this.open.bind(this);
+    this.close = this.close.bind(this);
+
+  }
+
+  getDefaultProps() {
+
+  }
+
+  onTouchStart(e) {
     if (!this.refs.buttons) return;
     var pageX = e.touches[0].pageX;
 
@@ -73,9 +73,9 @@ var PostRow = React.createClass({
       offset: 0,
       rel: pageX - ReactDOM.findDOMNode(this).getBoundingClientRect().left
     });
-  },
+  }
 
-  onTouchEnd: function(e) {    
+  onTouchEnd(e) {    
     if (!this.refs.buttons) return;
     this.setState({
       dragging: false,
@@ -97,9 +97,9 @@ var PostRow = React.createClass({
       e.preventDefault();
     }
 
-  },
+  }
 
-  onTouchMove: function(e) {
+  onTouchMove(e) {
     if (!this.refs.buttons) return;
     if (!this.state.dragging) return;
 
@@ -114,9 +114,9 @@ var PostRow = React.createClass({
     });
 
     elem.style.transform = 'translate(' + offset + 'px)';
-  },
+  }
 
-  close: function() {
+  close() {
     var elem = ReactDOM.findDOMNode(this);
 
     elem.addEventListener('transitionend', function() {
@@ -126,9 +126,9 @@ var PostRow = React.createClass({
 
     elem.style.transform = 'translate(0)';
     this.setState({ open: false });
-  },
+  }
 
-  open: function() {
+  open() {
     var elem = ReactDOM.findDOMNode(this);
     var buttons = ReactDOM.findDOMNode(this.refs.buttons);
     var buttonsWidth = buttons.offsetWidth;
@@ -140,9 +140,9 @@ var PostRow = React.createClass({
 
     elem.style.transform = 'translate(-' + buttonsWidth + 'px)';
     this.setState({ open: true });
-  },
+  }
 
-  render: function() {
+  render() {
     var updated = this.props.post.updated.toDateString();
     var icon = this.props.post.isPrivate ? 'edit' : 'globe';
     
@@ -169,10 +169,17 @@ var PostRow = React.createClass({
       </div>
     );
   }
-});
+}
+PostRow.defaultProps = {
+  post: {
+    title: '',
+    created: new Date()
+  },
+  href: '#'
+};
 
-var NewPostRow = React.createClass({
-  render: function() {
+class NewPostRow extends React.Component {
+  render() {
     return (
       <div className='postrow -newpost'>
         <a className='title' href='/posts/new'>
@@ -181,12 +188,12 @@ var NewPostRow = React.createClass({
       </div>
     );
   }
-});
+}
 
-var EndRow = React.createClass({
-  render: function() {
+class EndRow extends React.Component{
+  render() {
     return (
       <div className='postrow -endrow'>■</div>
     );
   }
-});
+}

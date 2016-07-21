@@ -1,16 +1,16 @@
 import React from 'react';
 
-module.exports = React.createClass({
+export default class SearchBar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.onChange = this.onChange.bind(this);
+  }
 
-  getDefaultProps: function() {
-    return { onUserInput: function() {} };
-  },
-
-  onChange: function() {
+  onChange() {
     this.props.onUserInput(this.refs.search.value);
-  },
+  }
 
-  render: function() {    
+  render() {    
     return (
       <div className='search-bar'>
         <input ref='search' className='search' placeholder='Filter' onChange={this.onChange} />
@@ -18,4 +18,6 @@ module.exports = React.createClass({
     );
   }
 
-});
+}
+
+SearchBar.defaultProps = { onUserInput: () => {} };

@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/tool-bar.less';
 
 module.exports = React.createClass({
 
