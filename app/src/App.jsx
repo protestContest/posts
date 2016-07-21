@@ -8,14 +8,26 @@ import reducers from './reducers';
 
 import './styles/base.less';
 import LoginPage from './components/LoginPage';
+import PostListPage from './components/PostListPage';
 
-let store = createStore(reducers, applyMiddleware(thunk));
+const store = createStore(reducers, {}, applyMiddleware(thunk));
+
+function requireAuth(nextState, replace) {
+  const state = store.getState();
+  if (!state || !state.user) {
+    replace({
+      pathname: '/',
+      state: { nextPathname: nextState.location.pathname }
+    });
+  }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
       <Router history={browserHistory}>
         <Route path='/' component={LoginPage} />
+        <Route path='/posts' component={PostListPage} onEnter={requireAuth} />
       </Router>
     </Provider>
   ), document.getElementById('root'));

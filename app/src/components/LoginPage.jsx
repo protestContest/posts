@@ -9,7 +9,12 @@ export default class LoginPage extends React.Component {
   }
 
   onLogin() {
-    this.props.history.push('/posts');
+    const { location } = this.props;
+    if (location.state && location.state.nextPathname) {
+      this.props.history.push(location.state.nextPathname);
+    } else {
+      this.props.history.push('/asdf');
+    }
   }
 
   render() {
