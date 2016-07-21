@@ -26,10 +26,10 @@ export default class EditPostPage extends React.Component {
   }
 
   extractTitle(text) {
-    const re = /^#? ?(.+?)\n/;
+    const re = /^#? *(.+?)\n/;
     const matches = text.match(re);
     if (matches && matches.length >= 2) {
-      return matches[1];
+      return matches[1].trim();
     } else {
       return 'Note from ' + Date.now();
     }
