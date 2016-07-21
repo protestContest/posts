@@ -1,8 +1,6 @@
 var express = require('express');
 var path = require('path');
-// var favicon = require('serve-favicon');
 var logger = require('morgan');
-var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var passport = require('passport');
@@ -11,10 +9,9 @@ var JwtStrategy = require('passport-jwt').Strategy;
 var ExtractJwt = require('passport-jwt').ExtractJwt;
 
 var User = require('./models/User');
-var Subs = require('./models/Subscription');
-var Post = require('./models/Post');
 
-var routes = require('./routes/index')(User, Subs, Post);
+var routes = require('./routes/index');
+var apiRoutes = require('./routes/api');
 
 var app = express();
 
@@ -24,8 +21,6 @@ app.set('view engine', 'jade');
 
 app.set('apiSecret', 'TYqrmtO0z7cAoc43lgh323Yz02bcIkD8');
 
-// uncomment after placing your favicon in /public
-// app.use(favicon(__dirname + '/public/favicon.ico'));
 if (app.get('env') === 'development') {
   app.use(logger('dev'));
 }
@@ -39,8 +34,6 @@ app.use(methodOverride(function(req){
     return method;
   }
 }));
-app.use(cookieParser('oddfellows'));
-app.use(express.static(path.join(__dirname, 'public')));
 
 if (app.get('env') !== 'production') {
   const webpack = require('webpack');
@@ -55,6 +48,8 @@ if (app.get('env') !== 'production') {
   }));
   app.use(wpHotMiddleware(compiler));
 }
+
+app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 
@@ -84,7 +79,7 @@ passport.use(new JwtStrategy({
   jwtFromRequest: ExtractJwt.fromAuthHeader(),
   secretOrKey: app.get('apiSecret')
 }, (payload, done) => {
-  User.findOne({token: payload.sub})
+  User.findById(payload.sub)
     .then((user) => {
       if (user) done(null, user);
       else done(null, false);
@@ -93,9 +88,7 @@ passport.use(new JwtStrategy({
 }));
 
 app.use('/', routes);
-// app.use('/posts', posts);
-// app.use('/users', users);
-// app.use('/subscriptions', subscriptions);
+app.use('/api', apiRoutes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -135,3 +128,4 @@ app.use(function(err, req, res) {
 
 
 module.exports = app;
+debugger;
