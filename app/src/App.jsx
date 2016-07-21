@@ -9,7 +9,7 @@ import reducers from './reducers';
 import './styles/base.less';
 import LoginPage from './components/LoginPage';
 import PostListPage from './components/PostListPage';
-import EditPostPage from './components/EditPostPage';
+import EditPostPageContainer from './containers/EditPostPageContainer';
 
 const store = createStore(reducers, {}, applyMiddleware(thunk));
 
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <Router history={browserHistory}>
         <Route path='/' component={LoginPage} />
         <Route path='/posts' component={PostListPage} onEnter={requireAuth} />
-        <Route path='/posts/new' component={EditPostPage} />
+        <Route path='/posts/new' component={EditPostPageContainer} />
       </Router>
     </Provider>
   ), document.getElementById('root'));

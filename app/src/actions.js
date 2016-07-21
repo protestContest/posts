@@ -37,3 +37,17 @@ export function fetchPosts() {
     });
   };
 }
+
+export function updatePost(post) {
+  return (dispatch, getState) => {
+    const { apiToken } = getState();
+    const postId = post._id || '';
+
+    fetch(`/posts/${postId}`, {
+      method: 'post',
+      headers: new Headers({'Authorization': `JWT ${apiToken}`})
+    }).then(() => {
+      dispatch({ type: types.UPDATE_POST, posts: post });
+    });
+  };
+}
