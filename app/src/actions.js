@@ -1,10 +1,11 @@
 export const types = {
-  AUTHENTICATE: 'AUTHENTICATE'
+  AUTHENTICATE: 'AUTHENTICATE',
+  FETCH_POSTS: 'FETCH_POSTS'
 };
 
 export function authenticate(username, password) {
   return (dispatch) => {
-    fetch('/login', {
+    return fetch('/login', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json'
@@ -17,10 +18,22 @@ export function authenticate(username, password) {
       }
     })
     .then((response) => {
-      dispatch({ type: types.AUTHENTICATE, token: response.token });
-    })
-    .catch((/*error*/) => {
-      // error :(
+      dispatch({ type: types.AUTHENTICATE, user: username, token: response.token });
+    });
+  };
+}
+
+export function fetchPosts() {
+  return (dispatch, getState) => {
+    const { apiToken, user } = getState();
+    const headers = new Headers({
+      'Authorization': `JWT ${apiToken}`
+    });
+
+    return fetch(`/api/users/${user}/posts`, {headers})
+    .then((response) => response.json())
+    .then((response) => {
+      dispatch({ type: types.FETCH_POSTS, posts: response.posts });
     });
   };
 }
