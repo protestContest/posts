@@ -21,10 +21,6 @@ export default class PostRow extends React.Component {
 
   }
 
-  getDefaultProps() {
-
-  }
-
   onTouchStart(e) {
     if (!this.refs.buttons) return;
     var pageX = e.touches[0].pageX;
@@ -132,6 +128,7 @@ export default class PostRow extends React.Component {
     );
   }
 }
+
 PostRow.defaultProps = {
   post: {
     title: '',
