@@ -121,10 +121,11 @@ export default class PostRow extends React.Component {
 
     return (
       <div className='postrow'>
-        <a className='title' href={this.props.href} onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
+        <Link className='title' to={this.props.href} 
+            onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
           {this.props.post.title}
           <small className='postdate'><i className={'fa fa-' + icon}></i> {updated} </small>
-        </a>
+        </Link>
         {toolBar}
       </div>
     );

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 import PostRow from './PostRow';
 import SearchBar from './SearchBar';
 import '../styles/post-list.less';
@@ -55,9 +56,9 @@ class NewPostRow extends React.Component {
   render() {
     return (
       <div className='postrow -newpost'>
-        <a className='title' href='/posts/new'>
+        <Link className='title' to='/posts/new'>
           + New Post
-        </a>
+        </Link>
       </div>
     );
   }
