@@ -9,6 +9,8 @@ import Cache from './cache';
 import { clearError } from './actions';
 
 import './styles/base.less';
+import 'whatwg-fetch';
+
 import LoginPage from './components/LoginPage';
 import PostListPage from './components/PostListPage';
 import EditPostPageContainer from './containers/EditPostPageContainer';
