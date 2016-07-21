@@ -1,12 +1,19 @@
 import { connect } from 'react-redux';
 import EditPostPage from '../components/EditPostPage';
-import { updatePost } from '../actions';
+import { createPost } from '../actions';
 
-const mapDispatchToProps = (dispatch) => {
+const mapStateToProps = (state) => {
   return {
-    updatePost: (post) => dispatch(updatePost(post))
+    error: state.currentError
   };
 };
 
-const EditPostPageContainer = connect(null, mapDispatchToProps)(EditPostPage);
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    createPost: (post) => dispatch(createPost(post)),
+    goBack: ownProps.history.goBack
+  };
+};
+
+const EditPostPageContainer = connect(mapStateToProps, mapDispatchToProps)(EditPostPage);
 export default EditPostPageContainer;

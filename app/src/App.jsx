@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 import Cache from './cache';
+import { clearError } from './actions';
 
 import './styles/base.less';
 import LoginPage from './components/LoginPage';
@@ -26,10 +27,14 @@ function requireAuth(nextState, replace) {
   }
 }
 
+function onRouteUpdate() {
+  store.dispatch(clearError());
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
-      <Router history={browserHistory}>
+      <Router history={browserHistory} onUpdate={onRouteUpdate}>
         <Route path='/' component={LoginPage} />
         <Route path='/posts' component={PostListPage} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} />

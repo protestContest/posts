@@ -1,12 +1,12 @@
 import React, { PropTypes } from 'react';
 import '../styles/editpostpage-layout.less';
 import '../styles/editpost-form.less';
+import '../styles/error-bar.less';
 
 export default class EditPostPage extends React.Component {
   constructor(props) {
     super(props);
     this.save = this.save.bind(this);
-    this.goBack = this.goBack.bind(this);
     this.extractTitle = this.extractTitle.bind(this);
   }
 
@@ -18,11 +18,7 @@ export default class EditPostPage extends React.Component {
       body: body
     };
 
-    this.props.updatePost(post);
-  }
-
-  goBack() {
-
+    this.props.createPost(post);
   }
 
   extractTitle(text) {
@@ -36,17 +32,24 @@ export default class EditPostPage extends React.Component {
   }
 
   render() {
+    const errorMessage = (this.props.error)
+      ? (<div className='error-bar'>
+          {this.props.error}
+        </div>)
+      : '';
+
     return (
       <div id='content' className='editpostpage-layout'>
+        {errorMessage}
         <div className='editpost-form'>
-          <textarea ref='post' className='text' name='body' required>{this.props.post.body}</textarea>
+          <textarea ref='post' className='text' name='body' required defaultValue={this.props.post.body}></textarea>
         </div>
         <div className='tool-bar'>
           <button className='toolbutton -action' onClick={this.save}>
             <i className='fa fa-2x fa-floppy-o'></i>
             Save
           </button>
-          <a className='toolbutton' onClick={this.goBack}>
+          <a className='toolbutton' onClick={this.props.goBack}>
             <i className='fa fa-2x fa-times'></i>
             Cancel
           </a>
