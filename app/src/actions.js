@@ -19,7 +19,7 @@ export function authenticate(username, password) {
       }
     })
     .then((response) => {
-      dispatch({ type: types.AUTHENTICATE, user: username, token: response.token });
+      dispatch({ type: types.AUTHENTICATE, user: response.user, token: response.token });
     });
   };
 }
@@ -29,7 +29,7 @@ export function fetchPosts() {
     const { apiToken, user } = getState();
     const headers = new Headers({'Authorization': `JWT ${apiToken}`});
 
-    return fetch(`/api/users/${user}/posts`, {headers})
+    return fetch(`/api/users/${user.username}/posts`, {headers})
     .then((response) => response.json())
     .then((response) => {
       dispatch({ type: types.FETCH_POSTS, posts: response.posts });
@@ -39,23 +39,22 @@ export function fetchPosts() {
 
 export function createPost(post) {
   return (dispatch, getState) => {
-    const { apiToken } = getState();
+    const { apiToken, user } = getState();
 
-    fetch('/api/posts', {
+    post.owner = user._id;
+
+    return fetch('/api/posts', {
       method: 'post',
       headers: new Headers({
         'Content-Type': 'application/json',
         'Authorization': `JWT ${apiToken}`
       }),
       body: JSON.stringify({ post })
-    }).then((response) => {
-      if (response.ok) {
-        dispatch({ type: types.CREATE_POST, posts: post });
-      } else {
-        return response.json();
-      }
-    }).then((data) => {
-      dispatch({ type: types.SET_ERROR, error: data.error.message });
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) return dispatch({ type: types.SET_ERROR, error: data.error.message });
+      if (data.post) return dispatch({ type: types.CREATE_POST, posts: data.post });
     });
   };
 }

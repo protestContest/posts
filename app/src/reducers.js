@@ -12,7 +12,13 @@ export default function(state, action) {
   case types.FETCH_POSTS:
     return {
       ...state,
-      posts: action.posts
+      posts: action.posts.map((post) => {
+        return {
+          ...post,
+          updated: new Date(post.updated),
+          created: new Date(post.created)
+        };
+      })
     };
 
   case types.SET_ERROR:

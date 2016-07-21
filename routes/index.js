@@ -11,7 +11,8 @@ router.post('/login', passport.authenticate('local', {session:false}),
     
     res.json({
       success: true,
-      token
+      token,
+      user: req.user
     });
   });
 

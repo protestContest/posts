@@ -10,7 +10,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createPost: (post) => dispatch(createPost(post)),
+    createPost: (post) => {
+      dispatch(createPost(post))
+        .then(() => ownProps.history.goBack());
+    },
     goBack: ownProps.history.goBack
   };
 };
