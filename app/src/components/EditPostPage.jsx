@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import InputTitle from './InputTitle';
 import EditPostForm from './EditPostForm';
-import '../../styles/editpostpage-layout.less';
+import '../styles/editpostpage-layout.less';
 
 export default class EditPostPage extends React.Component {
   render() {

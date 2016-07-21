@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../styles/editpost-form.less';
+import '../styles/editpost-form.less';
 
 export default class EditPostForm extends React.Component {
   render() {

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../styles/message-layout.less';
+import '../styles/message-layout.less';
 
 export default class DeletePostPage extends React.Component {
   render() {

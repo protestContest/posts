@@ -2,7 +2,7 @@
 
 import React from 'react';
 var PostList = require('./PostList');
-import '../../styles/profile-layout.less';
+import '../styles/profile-layout.less';
 
 var UserProfilePage = React.createClass({
 

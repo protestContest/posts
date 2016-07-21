@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/input-title.less';
+import '../styles/input-title.less';
 
 export default class InputTitle extends React.component {
   render() {

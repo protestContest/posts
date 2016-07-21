@@ -2,7 +2,7 @@
 
 import React from 'react';
 var ReactDOM = require('react-dom');
-import '../../styles/viewpost-layout.less';
+import '../styles/viewpost-layout.less';
 
 var ViewOwnPostPage = React.createClass({
   getInitialState: function() {

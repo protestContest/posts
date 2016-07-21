@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/message-layout.less';
+import '../styles/message-layout.less';
 
 module.exports = React.createClass({
   render: function() {

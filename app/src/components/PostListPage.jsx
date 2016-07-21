@@ -1,23 +1,21 @@
-
-
 import React from 'react';
 var PostList = require('./PostList');
 var ScrollContent = require('./ScrollContent');
 var ToolBar = require('./ToolBar');
 var ToolButton = require('./ToolButton');
-import '../../styles/postlist-layout.less';
+import '../styles/postlist-layout.less';
 
-var PostListPage = React.createClass({
-  getInitialState: function() {
+export default class PostListPage extends React.Component {
+  getInitialState() {
     return {
       posts: this.props.posts.map(function(post) {
         post.created = new Date(post.created);
         post.updated = new Date(post.updated);
       })
     };
-  },
+  }
 
-  render: function() {
+  render() {
     if (!this.props.loggedIn) {
       var owners = this.props.user.username + '\'s ';
     }
@@ -42,6 +40,4 @@ var PostListPage = React.createClass({
     );
   }
 
-});
-
-export default PostListPage;
+}

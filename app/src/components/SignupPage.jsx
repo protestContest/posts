@@ -1,6 +1,6 @@
 import React from 'react';
 var SignupForm = require('./SignupForm');
-import '../../styles/index-layout.less';
+import '../styles/index-layout.less';
 
 module.exports = React.createClass({
   render: function() {

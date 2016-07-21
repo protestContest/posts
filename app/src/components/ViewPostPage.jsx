@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import '../../styles/viewpost-layout.less';
+import '../styles/viewpost-layout.less';
 
 export default class ViewPostPage extends React.Component {
   getInitialState() {

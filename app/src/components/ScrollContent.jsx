@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/scroll-content.less';
+import '../styles/scroll-content.less';
 
 module.exports = React.createClass({
 

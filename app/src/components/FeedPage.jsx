@@ -3,7 +3,7 @@ import PostList from './PostList';
 import ScrollContent from './ScrollContent';
 import ToolBar from './ToolBar';
 import ToolButton from './ToolButton';
-import '../../styles/postlist-layout.less';
+import '../styles/postlist-layout.less';
 
 export default class FeedPage extends React.Component {
   getInitialState() {
