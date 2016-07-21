@@ -8,6 +8,10 @@ export default class PostList extends React.Component {
     super(props);
     this.state = {filterText: ''};
     this.handleInput = this.handleInput.bind(this);
+
+    if (!props.posts) {
+      props.fetchPosts();
+    }
   }
 
   handleInput(text) {

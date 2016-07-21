@@ -1,5 +1,5 @@
 import React from 'react';
-import PostList from './PostList';
+import PostListContainer from '../containers/PostListContainer';
 import ToolBar from './ToolBar';
 import ToolButton from './ToolButton';
 import '../styles/postlist-layout.less';
@@ -13,7 +13,7 @@ export default class PostListPage extends React.Component {
             <h1 className='title'>Posts</h1>
           </div>
         </div>
-        <PostList />
+        <PostListContainer />
         <ToolBar>
           <ToolButton icon='list' label='Posts' active={true} />
           <ToolButton icon='newspaper-o' label='Feed' href='/feed' />

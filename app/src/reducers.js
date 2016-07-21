@@ -8,5 +8,12 @@ export default function(state, action) {
       user: action.user,
       apiToken: action.token
     };
+  case types.FETCH_POSTS:
+    return {
+      ...state,
+      posts: action.posts
+    };
+  default:
+    return state;
   }
 }
