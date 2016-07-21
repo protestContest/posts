@@ -30,8 +30,8 @@ export default class LoginForm extends React.Component {
         <div className="submitrow">
           <button className="submit" type="button" onClick={this.onSubmit}>Log in</button>
         </div>
-        <div className="bonuslink">
-          <a href='/join'>Sign up</a>
+        <div className="info">
+          An account will be created if it doesn't exist
         </div>
       </div>
     );
