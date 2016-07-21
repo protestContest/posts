@@ -5,13 +5,16 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
+import Cache from './cache';
 
 import './styles/base.less';
 import LoginPage from './components/LoginPage';
 import PostListPage from './components/PostListPage';
 import EditPostPageContainer from './containers/EditPostPageContainer';
 
-const store = createStore(reducers, {}, applyMiddleware(thunk));
+const cache = new Cache();
+const store = createStore(reducers, cache.restore(), applyMiddleware(thunk));
+store.subscribe(() => cache.persistState(store.getState()));
 
 function requireAuth(nextState, replace) {
   const state = store.getState();
