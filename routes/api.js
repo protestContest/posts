@@ -16,4 +16,18 @@ router.get('/users/:username/posts',
     }
   });
 
+router.post('/posts',
+  passport.authenticate('jwt', {session: false}),
+  function(req, res) {
+    if (!req.body.post) return res.status(400).end();
+    
+    const post = new Post(req.body.post);
+
+    post.save().then(() => {
+      res.json({post});
+    }).catch((error) => {
+      res.status(400).json({ error });
+    });
+  });
+
 module.exports = router;

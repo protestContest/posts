@@ -14,7 +14,7 @@ export default class EditPostPage extends React.Component {
     const body = this.refs.post.value;
 
     const post = {
-      tite: this.extractTitle(body),
+      title: this.extractTitle(body),
       body: body
     };
 
