@@ -30,10 +30,13 @@ export function fetchPosts() {
     const headers = new Headers({'Authorization': `JWT ${apiToken}`});
 
     return fetch(`/api/users/${user.username}/posts`, {headers})
-    .then((response) => response.json())
-    .then((response) => {
-      dispatch({ type: types.FETCH_POSTS, posts: response.posts });
-    });
+      .then((response) => response.json())
+      .then((response) => {
+        dispatch({ type: types.FETCH_POSTS, posts: response.posts });
+      })
+      .catch((error) => {
+        console.log('error');
+      });
   };
 }
 
