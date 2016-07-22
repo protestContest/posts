@@ -1,34 +1,15 @@
 import React from 'react';
 import PostRow, { NewPostRow, EndRow } from './PostRow';
-import SearchBar from './SearchBar';
 import '../styles/post-list.less';
 
 export default class PostList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {filterText: ''};
-    this.handleInput = this.handleInput.bind(this);
-  }
-
   componentDidMount() {
     this.props.fetchPosts();
-  }
-
-  componentWillReceiveProps() {
-    
-  }
-
-  handleInput(text) {
-    this.setState({filterText: text.toLowerCase()});
   }
 
   render() {
     const that = this;
     const posts = this.props.posts || [];
-
-    const filter = function(post) {
-      return post.title.toLowerCase().indexOf(that.state.filterText) !== -1;
-    };
 
     const createRow = function(post) {
       const href = '/posts/' + post.slug;
@@ -45,9 +26,8 @@ export default class PostList extends React.Component {
 
     return (
       <div className='post-list'>
-        <SearchBar onUserInput={this.handleInput} />
         <NewPostRow />
-        {posts.filter(filter).map(createRow)}
+        {posts.map(createRow)}
         {lastItem}
       </div>
     );
