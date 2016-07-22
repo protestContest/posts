@@ -3,6 +3,7 @@ import PostListContainer from '../containers/PostListContainer';
 import ToolBar from './ToolBar';
 import ToolButton from './ToolButton';
 import '../styles/postlist-layout.less';
+import '../styles/page-title.less';
 
 export default class PostListPage extends React.Component {
   render() {

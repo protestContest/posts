@@ -1,6 +1,8 @@
 import React from 'react';
 import LoginFormContainer from '../containers/LoginFormContainer';
 import '../styles/login-layout.less';
+import '../styles/site-title.less';
+import '../styles/vertical-form.less';
 
 export default class LoginPage extends React.Component {
   constructor(props) {
