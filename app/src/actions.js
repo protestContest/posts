@@ -33,9 +33,6 @@ export function fetchPosts() {
       .then((response) => response.json())
       .then((response) => {
         dispatch({ type: types.FETCH_POSTS, posts: response.posts });
-      })
-      .catch((error) => {
-        console.log('error');
       });
   };
 }
