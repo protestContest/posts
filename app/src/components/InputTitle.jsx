@@ -1,10 +1,23 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import '../styles/input-title.less';
 
-export default class InputTitle extends React.component {
+export default class InputTitle extends React.Component {
   render() {
     return (
-      <input className="input-title" name={this.props.name} form={this.props.form} placeholder={this.props.placeholder} defaultValue={this.props.value} required />
+      <input className='input-title'
+        placeholder={this.props.placeholder} 
+        value={this.props.value}
+        onChange={this.props.onChange} />
     );
   }
 }
+
+InputTitle.propTypes = {
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  onChange: PropTypes.func.isRequired
+};
+
+InputTitle.defaultProps = {
+  placeholder: 'Title'
+};
