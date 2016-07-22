@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
+import '../styles/post-row.less';
 
 export default class PostRow extends React.Component {
   constructor(props) {
@@ -18,7 +19,8 @@ export default class PostRow extends React.Component {
     this.onTouchMove = this.onTouchMove.bind(this);
     this.open = this.open.bind(this);
     this.close = this.close.bind(this);
-
+    this.formatDate = this.formatDate.bind(this);
+    this.getPreview = this.getPreview.bind(this);
   }
 
   onTouchStart(e) {
@@ -99,14 +101,29 @@ export default class PostRow extends React.Component {
     this.setState({ open: true });
   }
 
-  render() {
-    var updated = (this.props.post.updated instanceof Date)
-      ? this.props.post.updated.toDateString()
-      : this.props.post.updated;
+  formatDate(date) {
+    if (date instanceof Date === false) {
+      date = new Date(date);
+    }
 
-    var icon = this.props.post.isPrivate ? 'edit' : 'globe';
-    
-    var toolBar = this.props.readOnly ? '' : (
+    const year = date.getFullYear().toString().substring(2);
+
+    return `${date.getMonth() + 1}/${date.getDate()}/${year}`;
+  }
+
+  getPreview(post) {
+    const bodyTitle = '# ' + post.title;
+
+    if (post.body.indexOf(bodyTitle) === 0) {
+      return post.body.substring(bodyTitle.length).trim();
+    } else {
+      return post.body.trim();
+    }
+  }
+
+  render() {
+    const updated = this.formatDate(this.props.post.updated);
+    const toolBar = this.props.readOnly ? '' : (
       <div ref='buttons' className='tool-bar -offcanvas'>
         <a href={this.props.href + '/edit'} className='toolbutton'>
           <i className='fa fa-2x fa-pencil'></i>
@@ -119,12 +136,19 @@ export default class PostRow extends React.Component {
       </div>
     );
 
+    const preview = this.getPreview(this.props.post);
+
     return (
-      <div className='postrow'>
-        <Link className='title' to={this.props.href} 
+      <div className='post-row'>
+        <Link className='display' to={this.props.href} 
             onTouchStart={this.onTouchStart} onTouchEnd={this.onTouchEnd} onTouchMove={this.onTouchMove}>
-          {this.props.post.title}
-          <small className='postdate'><i className={'fa fa-' + icon}></i> {updated} </small>
+          <div className='info'>
+            <span className='title'>{this.props.post.title}</span>
+            <small className='postdate'>{updated} </small>
+          </div>
+          <div className='preview'>
+            {preview}
+          </div>
         </Link>
         {toolBar}
       </div>
@@ -139,3 +163,24 @@ PostRow.defaultProps = {
   },
   href: '#'
 };
+
+
+export class NewPostRow extends React.Component {
+  render() {
+    return (
+      <div className='post-row -newpost'>
+        <Link className='display' to='/posts/new'>
+          <span className='title'>+ New Post</span>
+        </Link>
+      </div>
+    );
+  }
+}
+
+export class EndRow extends React.Component{
+  render() {
+    return (
+      <div className='post-row -endrow'>■</div>
+    );
+  }
+}

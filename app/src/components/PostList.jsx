@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
-import PostRow from './PostRow';
+import PostRow, { NewPostRow, EndRow } from './PostRow';
 import SearchBar from './SearchBar';
 import '../styles/post-list.less';
 
@@ -54,24 +53,4 @@ export default class PostList extends React.Component {
     );
   }
 
-}
-
-class NewPostRow extends React.Component {
-  render() {
-    return (
-      <div className='postrow -newpost'>
-        <Link className='title' to='/posts/new'>
-          + New Post
-        </Link>
-      </div>
-    );
-  }
-}
-
-class EndRow extends React.Component{
-  render() {
-    return (
-      <div className='postrow -endrow'>■</div>
-    );
-  }
 }
