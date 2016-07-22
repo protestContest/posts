@@ -1,4 +1,7 @@
 .postlist-layout {
+  display: flex;
+  flex-direction: column;
+
   > .page-header {
     width: 100%;
     box-sizing: border-box;
@@ -8,13 +11,13 @@
     -webkit-flex: 1;
     width: 100%;
     box-sizing: border-box;
-    margin-bottom: 60px;
+
+    /* momentum scroll */
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
   }
 
   > .tool-bar {
     width: 100%;
-    position: fixed;
-    bottom: 0;
-    height: 60px;
   }
 }
