@@ -1,8 +1,12 @@
 doctype html
 html
   head
-    meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=0")
     title= pageTitle || "Posts"
+    meta(name="viewport", content="width=device-width, initial-scale=1, user-scalable=0")
+    meta(name='apple-mobile-web-app-capable', content='yes')
+    link(rel="apple-touch-icon", href="/images/posts.png")
+    link(rel="apple-touch-startup-image", href="/images/posts.png")
+
     link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Inconsolata', type='text/css')
     link(rel='stylesheet' href='/styles/base.css')
     link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css')
