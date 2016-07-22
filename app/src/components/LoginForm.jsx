@@ -21,7 +21,7 @@ export default class LoginForm extends React.Component {
       <div className="vertical-form">
         <div className="inputrow">
           <label className="label">Username</label>
-          <input className="text" ref="username" />
+          <input className="text" ref="username" autocapitalize="none" />
         </div>
         <div className="inputrow">
           <label className="label">Password</label>
