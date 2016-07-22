@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import InputTitle from './InputTitle';
+import ErrorBar from './ErrorBar';
 import '../styles/editpostpage-layout.less';
 import '../styles/editpost-form.less';
-import '../styles/error-bar.less';
 
 export default class EditPostPage extends React.Component {
   constructor(props) {
@@ -52,15 +52,9 @@ export default class EditPostPage extends React.Component {
   }
 
   render() {
-    const errorMessage = (this.props.error)
-      ? (<div className='error-bar'>
-          {this.props.error}
-        </div>)
-      : '';
-
     return (
       <div id='content' className='editpostpage-layout'>
-        {errorMessage}
+        <ErrorBar />
         <InputTitle ref='title' onChange={this.updateTitle} value={this.state.title} />
         <div className='editpost-form'>
           <textarea className='text' name='body' 
