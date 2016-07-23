@@ -3,11 +3,14 @@ export const types = {
   FETCH_POSTS: 'FETCH_POSTS',
   CREATE_POST: 'CREATE_POST',
   SET_ERROR: 'SET_ERROR',
-  CLEAR_ERROR: 'CLEAR_ERROR'
+  CLEAR_ERROR: 'CLEAR_ERROR',
+  SYNC_STATUS: 'SYNC_STATUS'
 };
 
 export function authenticate(username, password) {
   return (dispatch) => {
+    dispatch({ type: types.SYNC_STATUS, message: 'Authenticating...' });
+
     return fetch('/login', {
       method: 'post',
       headers: new Headers({'Content-Type': 'application/json'}),
@@ -30,10 +33,14 @@ export function fetchPosts() {
     const headers = new Headers({'Authorization': `JWT ${apiToken}`});
 
     return fetch(`/api/users/${user.username}/posts`, {headers})
-    .then((response) => response.json())
-    .then((response) => {
-      dispatch({ type: types.FETCH_POSTS, posts: response.posts });
-    });
+      .then((response) => response.json())
+      .then((response) => {
+        dispatch({ type: types.SYNC_STATUS, message: null });
+        dispatch({ type: types.FETCH_POSTS, posts: response.posts });
+      })
+      .catch(() => {
+        dispatch({ type: types.SET_ERROR, error: 'Network error' });
+      });
   };
 }
 

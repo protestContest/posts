@@ -12,8 +12,9 @@ import './styles/base.less';
 import 'whatwg-fetch';
 
 import LoginPage from './components/LoginPage';
-import PostListPage from './components/PostListPage';
+import PostListPageContainer from './containers/PostListPageContainer';
 import EditPostPageContainer from './containers/EditPostPageContainer';
+import NotFoundPage from './components/NotFoundPage';
 
 const cache = new Cache();
 const store = createStore(reducers, cache.restore(), applyMiddleware(thunk));
@@ -38,8 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={store}>
       <Router history={browserHistory} onUpdate={onRouteUpdate}>
         <Route path='/login' component={LoginPage} />
-        <Route path='/' component={PostListPage} onEnter={requireAuth} />
+        <Route path='/' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} />
+        <Route path='*' component={NotFoundPage} />
       </Router>
     </Provider>
   ), document.getElementById('root'));

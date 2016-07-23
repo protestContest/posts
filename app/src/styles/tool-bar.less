@@ -9,6 +9,7 @@
   overflow-x: auto;
   max-height: 100px; /* for transition */
   transition: max-height 500ms;
+  background: @c-background;
 
   > .toolbutton {
     display: -webkit-flex;
@@ -55,13 +56,13 @@
   &.-offcanvas {
     position: absolute;
     height: 100%;
-    border-bottom: 2px solid #ddd;
     border-left: 1px solid #ddd;
     border-top: none;
     box-sizing: border-box;
     align-items: center;
     max-height: none;
     overflow-y: hidden;
+    margin-left: 8px;
   }
 
   &.-hidden {

@@ -1,7 +1,9 @@
+@import 'colors';
+
 .search-bar {
+  position: relative;
   display: -webkit-flex;
   display: flex;
-  border-top: 1px solid #ddd;
   overflow: hidden;
   max-height: 50px;
   transition: max-height 300ms;
@@ -19,6 +21,19 @@
   > .search:focus {
     outline: none;
     box-shadow: inset 0px 0px 4px @c-primary;
+  }
+
+  > .delete {
+    position: absolute;
+    right: 8px;
+    top: ~"calc(50% - 0.8em + 1px)";
+    padding: 4px;
+    color: @c-muted;
+    transform: scale(0.8);
+  }
+
+  > .delete.-hidden {
+    display: none;
   }
   
 }

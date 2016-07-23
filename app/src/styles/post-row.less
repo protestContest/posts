@@ -1,0 +1,73 @@
+@import 'colors';
+
+.post-row {
+  display: -webkit-flex;
+  display: flex;
+  position: relative;
+  min-height: 50px;
+
+  > .display {
+    width: 100%;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    padding: 8px;
+    color: black;
+  }
+
+  > .display > .info {
+    display: -webkit-flex;
+    display: flex;
+    font-size: 18px;
+  }
+
+  > .display > .preview {
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.8em;
+    color: @c-muted;
+  }
+
+  &:last-child > .display {
+    border-bottom: none;
+  }
+
+  &:last-child .tool-bar {
+    border-bottom: none;
+  }
+
+  > .display > .info > .title {
+    flex: 1;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+
+  > .display > .info > .postdate {
+    flex-shrink: 0;
+    font-size: 0.6em;
+    color: @c-muted;
+    margin-left: auto;
+    padding-left: 1em;
+    align-self: flex-start;
+  }
+
+  &.-newpost {
+    min-height: 32px;
+  }
+
+  &.-newpost > .display {
+    text-align: center;
+    justify-content: center;
+    color: @c-muted;
+  }
+
+  &.-endrow {
+    min-height: 40px;
+    padding-bottom: 10px;
+    justify-content: center;
+    align-items: center;
+    color: @c-muted;
+  }
+}
