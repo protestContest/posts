@@ -1,0 +1,24 @@
+@import 'colors';
+
+.message-bar {
+  box-sizing: border-box;
+  text-align: center;
+  font-size: 14px;
+  height: 1.5em;
+  line-height: 1.5em;
+  transition: height 500ms;
+
+  &.-error {
+    background: @c-primary;
+    color: white;
+  }
+
+  &.-info {
+    background: @c-action;
+    color: white;
+  }
+
+  &.-hidden {
+    height: 0;
+  }
+}

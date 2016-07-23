@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import InputTitle from './InputTitle';
-import ErrorBar from './ErrorBar';
+import MessageAreaContainer from '../containers/MessageAreaContainer';
 import '../styles/editpostpage-layout.less';
 import '../styles/editpost-form.less';
 
@@ -54,7 +54,7 @@ export default class EditPostPage extends React.Component {
   render() {
     return (
       <div id='content' className='editpostpage-layout'>
-        <ErrorBar />
+        <MessageAreaContainer />
         <InputTitle ref='title' onChange={this.updateTitle} value={this.state.title} />
         <div className='editpost-form'>
           <textarea className='text' name='body' 

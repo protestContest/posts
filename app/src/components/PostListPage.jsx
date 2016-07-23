@@ -3,7 +3,7 @@ import SearchBar from './SearchBar';
 import PostListContainer from '../containers/PostListContainer';
 import ToolBar from './ToolBar';
 import ToolButton from './ToolButton';
-import ErrorBar from './ErrorBar';
+import MessageAreaContainer from '../containers/MessageAreaContainer';
 import '../styles/postlist-layout.less';
 import '../styles/page-title.less';
 import '../styles/page-header.less';
@@ -24,7 +24,7 @@ export default class PostListPage extends React.Component {
 
     return (
       <div id='content' className='postlist-layout'>
-        <ErrorBar />
+        <MessageAreaContainer />
         <div className='page-header'>
           <div className='page-title'>
             <h1 className='title'>Posts</h1>
