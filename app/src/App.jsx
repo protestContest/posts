@@ -23,7 +23,7 @@ function requireAuth(nextState, replace) {
   const state = store.getState();
   if (!state || !state.user) {
     replace({
-      pathname: '/',
+      pathname: '/login',
       state: { nextPathname: nextState.location.pathname }
     });
   }
@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
       <Router history={browserHistory} onUpdate={onRouteUpdate}>
-        <Route path='/' component={LoginPage} />
-        <Route path='/posts' component={PostListPage} onEnter={requireAuth} />
+        <Route path='/login' component={LoginPage} />
+        <Route path='/' component={PostListPage} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} />
       </Router>
     </Provider>
