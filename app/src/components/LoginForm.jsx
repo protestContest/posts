@@ -18,7 +18,7 @@ export default class LoginForm extends React.Component {
 
   render() {
     return (
-      <div className="vertical-form">
+      <form className="vertical-form" onSubmit={this.onSubmit}>
         <div className="inputrow">
           <label className="label">Username</label>
           <input className="text" ref="username" />
@@ -28,12 +28,12 @@ export default class LoginForm extends React.Component {
           <input className="text" ref="password" type="password" />
         </div>
         <div className="submitrow">
-          <button className="submit" type="button" onClick={this.onSubmit}>Log in</button>
+          <button className="submit" type="submit">Log in</button>
         </div>
         <div className="info">
           An account will be created if it doesn't exist
         </div>
-      </div>
+      </form>
     );
   }
 }
