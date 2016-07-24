@@ -3,13 +3,12 @@ export const types = {
   FETCH_POSTS: 'FETCH_POSTS',
   CREATE_POST: 'CREATE_POST',
   SET_ERROR: 'SET_ERROR',
-  CLEAR_ERROR: 'CLEAR_ERROR',
-  SYNC_STATUS: 'SYNC_STATUS'
+  SET_MESSAGE: 'SET_MESSAGE'
 };
 
 export function authenticate(username, password) {
   return (dispatch) => {
-    dispatch({ type: types.SYNC_STATUS, message: 'Authenticating...' });
+    dispatch({ type: types.SET_MESSAGE, message: 'Authenticating...' });
 
     return fetch('/login', {
       method: 'post',
@@ -23,6 +22,7 @@ export function authenticate(username, password) {
     })
     .then((response) => {
       dispatch({ type: types.AUTHENTICATE, user: response.user, token: response.token });
+      dispatch({ type: types.SET_MESSAGE, message: null });
     });
   };
 }
@@ -32,10 +32,12 @@ export function fetchPosts() {
     const { apiToken, user } = getState();
     const headers = new Headers({'Authorization': `JWT ${apiToken}`});
 
+    dispatch({ type: types.SET_MESSAGE, message: 'Syncing...' });
+
     return fetch(`/api/users/${user.username}/posts`, {headers})
       .then((response) => response.json())
       .then((response) => {
-        dispatch({ type: types.SYNC_STATUS, message: null });
+        dispatch({ type: types.SET_MESSAGE, message: null });
         dispatch({ type: types.FETCH_POSTS, posts: response.posts });
       })
       .catch(() => {

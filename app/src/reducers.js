@@ -27,7 +27,7 @@ export default function(state, action) {
       currentError: action.error
     };
 
-  case types.SYNC_STATUS:
+  case types.SET_MESSAGE:
     return {
       ...state,
       syncStatus: action.message
