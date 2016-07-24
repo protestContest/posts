@@ -74,7 +74,7 @@ export default class ViewPostPage extends React.Component {
             <ToolButton icon='edit' label='Edit' href={`/posts/${this.props.post.slug}/edit`} />
           </ToolBar>
         </div>
-        <div ref='postText' className='post-text' 
+        <div ref='postText' className='post-text'
           onTouchMove={this.onScroll} onTouchEnd={this.onScroll}
           dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
         <NavBar ref='toolBar' />
