@@ -3,7 +3,7 @@ import PostListPage from '../components/PostListPage';
 
 const mapStateToProps = (state) => {
   return {
-    posts: state.posts
+    posts: state.posts.sort((postA, postB) => postB.updated - postA.updated)
   };
 };
 
