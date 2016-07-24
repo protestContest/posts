@@ -21,7 +21,7 @@ export default class LoginForm extends React.Component {
       <form className="vertical-form" onSubmit={this.onSubmit}>
         <div className="inputrow">
           <label className="label">Username</label>
-          <input className="text" ref="username" autocapitalize="none" />
+          <input className="text" ref="username" autoCapitalize="none" />
         </div>
         <div className="inputrow">
           <label className="label">Password</label>

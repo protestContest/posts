@@ -10,7 +10,7 @@ export default class EditPostForm extends React.Component {
 
     return (
       <form id={this.props._id} className='editpost-form' method='post' action={action}>
-        <input type='hidden' name='_method' value={method} autocapitalize="words" />
+        <input type='hidden' name='_method' value={method} autoCapitalize="words" />
         <textarea className='text' name='body' required>{this.props.post.body}</textarea>
       </form>
     );
