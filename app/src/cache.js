@@ -1,7 +1,12 @@
 export default class Cache {
-  restore() {
-    if (!localStorage.appState) return {};
-    return JSON.parse(localStorage.appState);
+  restore(initialState) {
+    if (!localStorage.appState) return initialState;
+    const state = JSON.parse(localStorage.appState);
+
+    return {
+      ...state,
+      posts: state.posts || []
+    };
   }
 
   persistState(state) {

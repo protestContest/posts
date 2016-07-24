@@ -6,6 +6,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import reducers from './reducers';
 import Cache from './cache';
+import initialState from './initialState';
 import { clearError } from './actions';
 
 import './styles/base.less';
@@ -18,7 +19,7 @@ import ViewPostPageContainer from './containers/ViewPostPageContainer';
 import NotFoundPage from './components/NotFoundPage';
 
 const cache = new Cache();
-const store = createStore(reducers, cache.restore(), applyMiddleware(thunk));
+const store = createStore(reducers, cache.restore(initialState), applyMiddleware(thunk));
 store.subscribe(() => cache.persistState(store.getState()));
 
 function requireAuth(nextState, replace) {
