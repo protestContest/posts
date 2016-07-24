@@ -14,6 +14,8 @@ export default class ViewPostPage extends React.Component {
     };
 
     this.onScroll = this.onScroll.bind(this);
+    this.hideBars = this.hideBars.bind(this);
+    this.showBars = this.showBars.bind(this);
   }
 
   onScroll() {
@@ -75,7 +77,7 @@ export default class ViewPostPage extends React.Component {
         <div ref='postText' className='post-text' 
           onTouchMove={this.onScroll} onTouchEnd={this.onScroll}
           dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
-        <NavBar />
+        <NavBar ref='toolBar' />
       </div>
     );
   }
