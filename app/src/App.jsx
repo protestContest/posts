@@ -14,6 +14,7 @@ import 'whatwg-fetch';
 import LoginPage from './components/LoginPage';
 import PostListPageContainer from './containers/PostListPageContainer';
 import EditPostPageContainer from './containers/EditPostPageContainer';
+import ViewPostPageContainer from './containers/ViewPostPageContainer';
 import NotFoundPage from './components/NotFoundPage';
 
 const cache = new Cache();
@@ -39,8 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={store}>
       <Router history={browserHistory} onUpdate={onRouteUpdate}>
         <Route path='/login' component={LoginPage} />
-        <Route path='/' component={PostListPageContainer} onEnter={requireAuth} />
+        <Route path='/posts' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} />
+        <Route path='/posts/:slug' component={ViewPostPageContainer} />
         <Route path='*' component={NotFoundPage} />
       </Router>
     </Provider>

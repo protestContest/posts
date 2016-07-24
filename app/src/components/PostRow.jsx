@@ -90,7 +90,7 @@ export default class PostRow extends React.Component {
   open() {
     var elem = ReactDOM.findDOMNode(this);
     var buttons = ReactDOM.findDOMNode(this.refs.buttons);
-    var buttonsWidth = buttons.offsetWidth;
+    var buttonsWidth = buttons.offsetWidth + 8;
 
     elem.addEventListener('transitionend', function() {
       elem.style.transition = 'none';

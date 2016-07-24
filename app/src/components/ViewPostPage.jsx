@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import '../styles/viewpost-layout.less';
 
 export default class ViewPostPage extends React.Component {
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       scrollTop: 0,
-      scrollDir: 'up'
+      scrollDir: 'up'      
     };
   }
 
@@ -94,7 +95,7 @@ export default class ViewPostPage extends React.Component {
 
 ViewPostPage.propTypes = {
   post: PropTypes.shape({
-    published: PropTypes.string.isRequired,
+    published: PropTypes.string,
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
     owner: PropTypes.shape({
