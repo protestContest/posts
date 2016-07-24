@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, Redirect, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
       <Router history={browserHistory} onUpdate={onRouteUpdate}>
+        <Redirect from='/' to='/posts' />
         <Route path='/login' component={LoginPage} />
         <Route path='/posts' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} />
