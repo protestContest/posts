@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
+import ToolBar from './ToolBar';
+import ToolButton from './ToolButton';
+import NavBar from './NavBar';
 import '../styles/viewpost-layout.less';
 
 export default class ViewPostPage extends React.Component {
@@ -9,12 +12,8 @@ export default class ViewPostPage extends React.Component {
       scrollTop: 0,
       scrollDir: 'up'      
     };
-  }
 
-  componentDidMount() {
-    var node = ReactDOM.findDOMNode(this.refs.postText);
-    node.addEventListener('touchmove', this.onScroll);
-    node.addEventListener('touchend', this.onScroll);
+    this.onScroll = this.onScroll.bind(this);
   }
 
   onScroll() {
@@ -60,33 +59,23 @@ export default class ViewPostPage extends React.Component {
   }
 
   render() {
-    var published = new Date(this.props.post.published).toDateString();
+    var published = new Date(this.props.post.updated).toDateString();
 
     return (
       <div id='content' className='viewpost-layout'>
         <div ref='pageHeader' className='page-header'>
           <div className='page-title'>
             <h1 className='title'>{this.props.post.title}</h1>
-            <small className='info'>
-              <i className='fa fa-globe'></i> {published}
-            </small>
+            <small className='info'>{published}</small>
           </div>
+          <ToolBar>
+            <ToolButton icon='edit' label='Edit' href={`/posts/${this.props.post.slug}/edit`} />
+          </ToolBar>
         </div>
-        <div ref='postText' className='post-text' dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
-        <div ref='toolBar' className='tool-bar'>
-          <a className='toolbutton' href='/feed'>
-            <i className='fa fa-2x fa-newspaper-o'></i>
-            Feed
-          </a>
-          <a className='toolbutton' href={'/users/' + this.props.post.owner.username}>
-            <i className='fa fa-2x fa-user'></i>
-            Author
-          </a>
-          <a className='toolbutton' href={'/posts/' + this.props.post.slug + '/reply'}>
-            <i className='fa fa-2x fa-pencil-square-o'></i>
-            Respond
-          </a>
-        </div>
+        <div ref='postText' className='post-text' 
+          onTouchMove={this.onScroll} onTouchEnd={this.onScroll}
+          dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+        <NavBar />
       </div>
     );
   }
@@ -98,9 +87,6 @@ ViewPostPage.propTypes = {
     published: PropTypes.string,
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
-    owner: PropTypes.shape({
-      username: PropTypes.string.isRequired
-    }).isRequired,
     slug: PropTypes.string.isRequired
   }).isRequired
 };

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ViewPostPage from '../components/ViewOwnPostPage';
+import ViewPostPage from '../components/ViewPostPage';
 
 const mapStateToProps = (state, ownProps) => {
   return {

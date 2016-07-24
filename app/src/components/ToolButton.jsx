@@ -1,23 +1,29 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 
-module.exports = React.createClass({
-
-  stopClick: function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-  },
-
-  render: function() {
-    var classes = 'toolbutton' + (this.props.active ? ' -active' : '');
-    var href = this.props.href || '#';
-    var onClick = this.props.active ? this.stopClick : '';
+export default class ToolButton extends React.Component {
+  render() {
+    const activeClass = this.props.active ? ' -active' : '';
 
     return (
-      <a className={classes} href={href} onClick={onClick}>
+      <Link className={`toolbutton ${activeClass}`} to={this.props.href}>
         <i className={'fa fa-2x fa-' + this.props.icon}></i>
         {this.props.label}
-      </a>
+      </Link>
     );
   }
+}
 
-});
+ToolButton.propTypes = {
+  active: PropTypes.bool,
+  href: PropTypes.string,
+  icon: PropTypes.string,
+  label: PropTypes.string
+};
+
+ToolButton.defaultProps = {
+  active: false,
+  href: '/posts',
+  icon: 'link',
+  label: 'Button'
+};

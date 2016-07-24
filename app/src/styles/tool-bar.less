@@ -5,7 +5,6 @@
   display: flex;
   -webkit-align-items: center;
   align-items: baseline;
-  border-top: 1px solid #ddd;
   overflow-x: auto;
   max-height: 100px; /* for transition */
   transition: max-height 500ms;
@@ -37,6 +36,7 @@
   > .toolbutton.-active {
     color: @c-primary;
     border-top: 4px solid @c-primary;
+    pointer-events: none;
   }
 
   > .toolbutton.-action {
@@ -51,6 +51,10 @@
   > .toolbutton.-action-inverted {
     background: @c-action;
     color: @c-background;
+  }
+
+  &.-nav {
+    border-top: 1px solid #ddd;
   }
 
   &.-offcanvas {

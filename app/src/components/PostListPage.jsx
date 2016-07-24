@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
 import SearchBar from './SearchBar';
 import PostListContainer from '../containers/PostListContainer';
-import ToolBar from './ToolBar';
-import ToolButton from './ToolButton';
+import NavBar from './NavBar';
 import MessageAreaContainer from '../containers/MessageAreaContainer';
 import '../styles/postlist-layout.less';
 import '../styles/page-title.less';
@@ -32,12 +31,7 @@ export default class PostListPage extends React.Component {
           <SearchBar onUserInput={this.handleInput} />          
         </div>
         <PostListContainer posts={this.props.posts.filter(filter)} />
-        <ToolBar>
-          <ToolButton icon='list' label='Posts' active={true} />
-          <ToolButton icon='newspaper-o' label='Feed' href='/feed' />
-          <ToolButton icon='users' label='Following' href='/users/' />
-          <ToolButton icon='cog' label='Settings' href='/settings' />
-        </ToolBar>
+        <NavBar currentPage='posts' />
       </div>
     );
   }
