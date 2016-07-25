@@ -58,8 +58,11 @@ export function fetchPosts() {
 
 export function createPost(post) {
   return (dispatch, getState) => {
-    const { apiToken, user } = getState();
+    if (!post.title || post.title.length === 0) {
+      return dispatch({ type: types.SET_ERROR, error: 'Title is required' });
+    }
 
+    const { apiToken, user } = getState();
     post.owner = user._id;
 
     return fetch('/api/posts', {

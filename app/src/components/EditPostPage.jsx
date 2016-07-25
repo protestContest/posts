@@ -19,15 +19,9 @@ export default class EditPostPage extends React.Component {
   }
 
   save() {
-    const title = (this.state.title.length === 0)
-      ? this.extractTitle(this.state.body) : this.state.title;
-
-    const body = (this.state.title.length === 0)
-      ? this.state.body : `# ${this.state.title}\n\n${this.state.body}`;
-
     const post = {
-      title: title,
-      body: body
+      title: this.state.title,
+      body: this.state.body
     };
 
     this.props.createPost(post);
