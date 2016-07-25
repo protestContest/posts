@@ -5,6 +5,7 @@ export const types = {
   FETCH_POSTS_START: 'FETCH_POSTS_START',
   FETCH_POSTS_END: 'FETCH_POSTS_END',
   CREATE_POST: 'CREATE_POST',
+  UPDATE_POST: 'UPDATE_POST',
   SET_ERROR: 'SET_ERROR',
   SET_MESSAGE: 'SET_MESSAGE'
 };
@@ -62,8 +63,7 @@ export function createPost(post) {
       return dispatch({ type: types.SET_ERROR, error: 'Title is required' });
     }
 
-    const { apiToken, user } = getState();
-    post.owner = user._id;
+    const { apiToken } = getState();
 
     return fetch('/api/posts', {
       method: 'post',
@@ -76,8 +76,33 @@ export function createPost(post) {
     .then((response) => response.json())
     .then((data) => {
       if (data.error) return dispatch({ type: types.SET_ERROR, error: data.error.message });
-      if (data.post) return dispatch({ type: types.CREATE_POST, posts: data.post });
+      if (data.post) return dispatch({ type: types.CREATE_POST, post: data.post });
     });
+  };
+}
+
+export function updatePost(post) {
+  return (dispatch, getState) => {
+    if (!post.title || post.title.length === 0) {
+      return dispatch({ type: types.SET_ERROR, error: 'Title is required' });
+    }
+
+    const { apiToken } = getState();
+
+    return fetch(`/api/posts/${post.slug}`, {
+      method: 'put',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${apiToken}`
+      }),
+      body: JSON.stringify({ post })
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.error) return dispatch({ type: types.SET_ERROR, error: data.error.message });
+      if (data.post) return dispatch({ type: types.UPDATE_POST, post: data.post });
+    });
+
   };
 }
 
