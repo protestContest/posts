@@ -56,6 +56,24 @@ export default function(state, action) {
       }
     };
 
+  case types.CREATE_POST:
+    return {
+      ...state,
+      posts: [
+        ...state.posts,
+        action.post
+      ]
+    };
+
+  case types.UPDATE_POST:
+    return {
+      ...state,
+      posts: state.posts.map((post) => {
+        if (post._id !== action.post._id) return post;
+        else return action.post;
+      })
+    };
+
   case types.SET_ERROR:
     return {
       ...state,
