@@ -3,13 +3,25 @@ import React, { PropTypes } from 'react';
 export default class LoginForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { disabled: false };
     this.onSubmit = this.onSubmit.bind(this);
   }
 
   onSubmit(event) {
-    const username = this.refs.username.value;
-    const password = this.refs.password.value;
-    this.props.login(username, password);
+    if (!this.state.disabled) {
+      this.setState({ disabled: true });
+      this.props.showError('');
+
+      const username = this.refs.username.value;
+      const password = this.refs.password.value;
+
+      this.props.login(username, password)
+        .catch((error) => {
+          this.setState({ disabled: false });
+          if (error.status === 401) this.props.showError('Wrong password');
+          else this.props.showError('Login failed');
+        });
+    }
 
     event.preventDefault();
     event.stopPropagation();
@@ -39,5 +51,6 @@ export default class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  showError: PropTypes.func.isRequired
 };

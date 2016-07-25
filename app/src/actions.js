@@ -22,8 +22,14 @@ export function authenticate(username, password) {
       if (response.ok) {
         return response.json();
       } else {
-        dispatch({ type: types.SET_ERROR, error: 'Could not log in' });
-        dispatch({ type: types.AUTHENTICATE_FAIL });
+        return new Promise((resolve, reject) => {
+          dispatch({ type: types.SET_ERROR, error: 'Could not log in' });
+          dispatch({ type: types.AUTHENTICATE_FAIL });
+          reject({
+            status: response.status,
+            statusText: response.statusText
+          });
+        });
       }
     })
     .then((response) => {

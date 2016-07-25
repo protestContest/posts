@@ -5,7 +5,7 @@ import LoginForm from '../components/LoginForm';
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     login: (username, password) => {
-      dispatch(authenticate(username, password))
+      return dispatch(authenticate(username, password))
         .then(() => ownProps.onLogin());
     }
   };

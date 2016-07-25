@@ -8,7 +8,9 @@ import '../styles/vertical-form.less';
 export default class LoginPage extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { error: '' };
     this.onLogin = this.onLogin.bind(this);
+    this.showError = this.showError.bind(this);
   }
 
   onLogin() {
@@ -20,14 +22,21 @@ export default class LoginPage extends React.Component {
     }
   }
 
+  showError(error) {
+    this.setState({ error });
+  }
+
   render() {
     return (
       <div id='content' className='login-layout'>
         <div className='site-title'>
           <h1 className='header'>Posts</h1>
         </div>
-        <Spinner hidden={!this.props.loggingIn} />
-        <LoginFormContainer onLogin={this.onLogin} />
+        <div className='info'>
+          <Spinner hidden={!this.props.loggingIn} />
+          <div className='error'>{this.state.error}</div>
+        </div>
+        <LoginFormContainer onLogin={this.onLogin} showError={this.showError} />
       </div>
     );
   }
