@@ -4,7 +4,7 @@
   display: -webkit-flex;
   display: flex;
   align-items: center;
-  border-bottom: 1px solid @c-border;
+  border-bottom: 1px solid @c-primary;
   background-color: @c-background;
   box-sizing: border-box;
   max-height: 100px;
@@ -21,6 +21,11 @@
   }
 
   &.-hidden > .page-title {
+    transition: opacity 200ms;
+    opacity: 0;
+  }
+
+  &.-hidden > .tool-bar {
     transition: opacity 200ms;
     opacity: 0;
   }
