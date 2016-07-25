@@ -99,11 +99,18 @@ export function updatePost(post) {
     })
     .then((response) => response.json())
     .then((data) => {
-      if (data.error) return dispatch({ type: types.SET_ERROR, error: data.error.message });
+      if (data.error) {
+        return Promise.reject(data.error.message);
+      }
+
       if (data.post) return dispatch({ type: types.UPDATE_POST, post: data.post });
     });
 
   };
+}
+
+export function setError(error) {
+  return { type: types.SET_ERROR, error };
 }
 
 export function clearError() {

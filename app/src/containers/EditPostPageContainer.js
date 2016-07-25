@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import EditPostPage from '../components/EditPostPage';
-import { createPost, updatePost } from '../actions';
+import { createPost, updatePost, setError } from '../actions';
 
 const mapStateToProps = (state, ownProps) => {
   const post = (ownProps.params.slug) ? state.posts.find((post) => post.slug === ownProps.params.slug)
@@ -8,6 +8,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     post: post,
+    isNew: post === undefined,
     error: state.currentError
   };
 };
@@ -20,7 +21,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     updatePost: (post) => {
       dispatch(updatePost(post))
-        .then(() => ownProps.history.goBack());
+        .then(() => ownProps.history.goBack())
+        .catch((error) => dispatch(setError(error)));
     },
     goBack: ownProps.history.goBack
   };
