@@ -13,7 +13,8 @@ const mapStateToProps = (state, ownProps) => {
     : '';
 
   return {
-    post: renderedPost
+    post: renderedPost,
+    readOnly: state.user._id !== post.owner
   };
 };
 

@@ -7,25 +7,37 @@
   background-color: @c-background;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  font-size: 18px;
-  line-height: 1.5;
 
-  & > p:last-child:after {
+  > .header > .title {
+    font-size: 1.5em;
+  }
+
+  > .header > .date {
+    font-size: 0.8em;
+    margin: 1em 0;
+  }
+
+  > .body {
+    font-size: 18px;
+    line-height: 1.5;    
+  }
+
+  > .body > p:last-child:after {
     color: @c-muted;
     content: ' ■';
   }
 
-  & > blockquote {
+  > .body > blockquote {
     border-left: 4px solid #444;
     margin: 0;
     padding-left: 8px;
   }
 
-  & > hr {
+  > .body > hr {
     width: 80%;
   }
 
-  & > p > img {
+  > .body > p > img {
     display: block;
     max-width: 100%;
     margin: auto;

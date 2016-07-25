@@ -47,36 +47,40 @@ export default class ViewPostPage extends React.Component {
   }
 
   showBars() {
-    var headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
-    var toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
-    headerNode.classList.remove('-hidden');
+    const headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
+    const toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
+    if (headerNode) headerNode.classList.remove('-hidden');
     toolbarNode.classList.remove('-hidden');
   }
 
   hideBars() {
-    var headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
-    var toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
-    headerNode.classList.add('-hidden');
+    const headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
+    const toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
+    if (headerNode) headerNode.classList.add('-hidden');
     toolbarNode.classList.add('-hidden');
   }
 
   render() {
-    var published = new Date(this.props.post.updated).toDateString();
+    const published = new Date(this.props.post.updated).toDateString();
+    const headerHidden = (this.props.readOnly) ? '-hidden' : '';
 
     return (
       <div id='content' className='viewpost-layout'>
-        <div ref='pageHeader' className='page-header'>
-          <div className='page-title'>
-            <h1 className='title'>{this.props.post.title}</h1>
-            <small className='info'>{published}</small>
-          </div>
+        <div ref='pageHeader' className={'page-header ' + headerHidden}>
           <ToolBar>
             <ToolButton icon='edit' label='Edit' href={`/posts/${this.props.post.slug}/edit`} />
+            <ToolButton icon='globe' label='Publish' />
+            <ToolButton icon='trash' label='Delete' />
           </ToolBar>
         </div>
         <div ref='postText' className='post-text'
-          onTouchMove={this.onScroll} onTouchEnd={this.onScroll}
-          dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+            onTouchMove={this.onScroll} onTouchEnd={this.onScroll}>
+          <div className='header'>
+            <div className='title'>{this.props.post.title}</div>
+            <div className='date'>{published}</div>
+          </div>
+          <div className='body' dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
+        </div>
         <NavBar ref='toolBar' />
       </div>
     );
@@ -90,5 +94,6 @@ ViewPostPage.propTypes = {
     title: PropTypes.string.isRequired,
     body: PropTypes.string.isRequired,
     slug: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  readOnly: PropTypes.bool.isRequired
 };
