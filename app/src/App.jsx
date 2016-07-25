@@ -12,7 +12,7 @@ import { clearError } from './actions';
 import './styles/base.less';
 import 'whatwg-fetch';
 
-import LoginPage from './components/LoginPage';
+import LoginPageContainer from './containers/LoginPageContainer';
 import PostListPageContainer from './containers/PostListPageContainer';
 import EditPostPageContainer from './containers/EditPostPageContainer';
 import ViewPostPageContainer from './containers/ViewPostPageContainer';
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
     <Provider store={store}>
       <Router history={browserHistory} onUpdate={onRouteUpdate}>
         <Redirect from='/' to='/posts' />
-        <Route path='/login' component={LoginPage} />
+        <Route path='/login' component={LoginPageContainer} />
         <Route path='/posts' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} />
         <Route path='/posts/:slug' component={ViewPostPageContainer} />

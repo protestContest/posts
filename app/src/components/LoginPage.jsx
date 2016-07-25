@@ -1,5 +1,6 @@
 import React from 'react';
 import LoginFormContainer from '../containers/LoginFormContainer';
+import Spinner from './Spinner';
 import '../styles/login-layout.less';
 import '../styles/site-title.less';
 import '../styles/vertical-form.less';
@@ -25,6 +26,7 @@ export default class LoginPage extends React.Component {
         <div className='site-title'>
           <h1 className='header'>Posts</h1>
         </div>
+        <Spinner hidden={!this.props.loggingIn} />
         <LoginFormContainer onLogin={this.onLogin} />
       </div>
     );

@@ -55,23 +55,25 @@ app.use(passport.initialize());
 
 passport.use(new LocalStrategy(
   function(username, password, done) {
-    User.findOne({username: username}, function(err, user) {
-      if (err) return done(err);
-      if (!user) {
-        user = new User({
-          username,
-          password
-        });
+    setTimeout(() => {
+      User.findOne({username: username}, function(err, user) {
+        if (err) return done(err);
+        if (!user) {
+          user = new User({
+            username,
+            password
+          });
 
-        user.save(function(err) {
-          if (err) return done(err, false);
-          else return done(null, user);
-        });
-      } else {
-        if (!user.validPassword(password)) return done(null, false, {message: 'Bad password'});
-        return done(null, user);
-      }
-    });
+          user.save(function(err) {
+            if (err) return done(err, false);
+            else return done(null, user);
+          });
+        } else {
+          if (!user.validPassword(password)) return done(null, false, {message: 'Bad password'});
+          return done(null, user);
+        }
+      });
+    }, 3000);
   })
 );
 
