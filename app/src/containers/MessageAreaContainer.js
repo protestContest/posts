@@ -2,9 +2,12 @@ import { connect } from 'react-redux';
 import MessageArea from '../components/MessageArea';
 
 const mapStateToProps = (state) => {
+  const syncStatus = state.sync.fetchingPosts ? 'Loading posts...'
+    : '';
+
   return {
     error: state.currentError,
-    syncStatus: state.syncStatus
+    syncStatus: syncStatus
   };
 };
 
