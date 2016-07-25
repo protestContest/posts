@@ -34,7 +34,7 @@ router.post('/posts',
 router.put('/posts/:slug',
   passport.authenticate('jwt', {session: false}),
   function(req, res) {
-    if (req.body.post._id !== req.user._id.toString()) return res.status(403).end();
+    if (req.body.post.owner !== req.user._id.toString()) return res.status(403).json({ error: { message: 'Forbidden' } });
     if (!req.body.post) return res.status(400).end();
 
     Post.findOne({ slug: req.params.slug })

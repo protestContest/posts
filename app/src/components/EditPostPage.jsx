@@ -20,6 +20,7 @@ export default class EditPostPage extends React.Component {
 
   save() {
     const post = {
+      ...this.props.post,
       title: this.state.title,
       body: this.state.body
     };
