@@ -2,14 +2,45 @@ import { types } from './actions';
 
 export default function(state, action) {
   switch(action.type) {
-  case types.AUTHENTICATE:
+  case types.AUTHENTICATE_START:
+    return {
+      ...state,
+      sync: {
+        ...state.sync,
+        authenticating: true
+      }
+    };
+
+  case types.AUTHENTICATE_FAIL:
+    return {
+      ...state,
+      sync: {
+        ...state.sync,
+        authenticating: false
+      }
+    };
+
+  case types.AUTHENTICATE_PASS:
     return {
       ...state,
       user: action.user,
-      apiToken: action.token
+      apiToken: action.token,
+      sync: {
+        ...state.sync,
+        authenticating: false
+      }
+    };
+
+  case types.FETCH_POST_START:
+    return {
+      ...state,
+      sync: {
+        ...state.sync,
+        fetchingPosts: true
+      }
     };
     
-  case types.FETCH_POSTS:
+  case types.FETCH_POSTS_END:
     return {
       ...state,
       posts: action.posts.map((post) => {
@@ -18,7 +49,11 @@ export default function(state, action) {
           updated: new Date(post.updated),
           created: new Date(post.created)
         };
-      })
+      }),
+      sync: {
+        ...state.sync,
+        fetchingPosts: false
+      }
     };
 
   case types.SET_ERROR:
