@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <Route path='/posts' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} />
         <Route path='/posts/:slug' component={ViewPostPageContainer} />
+        <Route path='/posts/:slug/edit' component={EditPostPageContainer} />
         <Route path='*' component={NotFoundPage} />
       </Router>
     </Provider>

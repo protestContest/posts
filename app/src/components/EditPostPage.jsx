@@ -8,8 +8,8 @@ export default class EditPostPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      title: 'Note from ' + new Date().toDateString(),
-      body: '' 
+      title: this.props.post.title,
+      body: this.props.post.body 
     };
 
     this.save = this.save.bind(this);
@@ -24,7 +24,8 @@ export default class EditPostPage extends React.Component {
       body: this.state.body
     };
 
-    this.props.createPost(post);
+    if (this.props.isNew) this.props.createPost(post);
+    else this.props.updatePost(post);
   }
 
   extractTitle(text) {
@@ -51,11 +52,11 @@ export default class EditPostPage extends React.Component {
         <MessageAreaContainer />
         <InputTitle ref='title' onChange={this.updateTitle} value={this.state.title} />
         <div className='editpost-form'>
-          <textarea className='text' name='body' 
-            defaultValue={this.props.post.body}
+          <textarea className='text' name='body'
+            value={this.state.body}
             onChange={this.updateBody}></textarea>
         </div>
-        <div className='tool-bar'>
+        <div className='tool-bar -bottom'>
           <button className='toolbutton -action' onClick={this.save}>
             <i className='fa fa-2x fa-floppy-o'></i>
             Save
@@ -73,16 +74,21 @@ export default class EditPostPage extends React.Component {
 EditPostPage.defaultProps = {
   post: {
     slug: '',
-    title: '',
+    title: 'Note from ' + new Date().toDateString(),
     body: '',
     isPrivate: true,
     created: Date.now()
-  }
+  },
+  isNew: true
 };
 
 EditPostPage.propTypes = {
   post: PropTypes.shape({
     slug: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  isNew: PropTypes.bool,
+  createPost: PropTypes.func.isRequired,
+  updatePost: PropTypes.func.isRequired,
+  goBack: PropTypes.func.isRequired
 };
