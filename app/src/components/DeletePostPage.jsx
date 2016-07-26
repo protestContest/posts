@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { deletePost } from '../actions';
+import { deletePost, setError } from '../actions';
 import MessageArea from './MessageArea';
 import '../styles/message-layout.less';
 
@@ -44,7 +44,10 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     deletePost: (postId) => dispatch(deletePost(postId))
-      .then(() => ownProps.history.push('/posts')),
+      .then(() => ownProps.history.push('/posts'))
+      .catch((error) => {
+        return dispatch(setError(error));
+      }),
     goBack: () => ownProps.history.goBack()
   };
 };

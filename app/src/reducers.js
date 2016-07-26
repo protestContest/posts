@@ -74,6 +74,12 @@ export default function(state, action) {
       })
     };
 
+  case types.DELETE_POST:
+    return {
+      ...state,
+      posts: state.posts.filter((post) => post.id !== action.id)
+    };
+
   case types.SET_ERROR:
     return {
       ...state,

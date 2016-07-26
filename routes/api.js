@@ -55,4 +55,15 @@ router.put('/posts/:slug',
       });
   });
 
+router.delete('/posts/:id',
+  passport.authenticate('jwt', {session: false}),
+  function(req, res) {
+    Post.findById(req.params.id)
+      .then((post) => {
+        if (!post) return res.status(404).end();
+        if (post.owner.toString() !== req.user._id.toString()) return res.status(403).json({ error: { message: 'Forbidden' } });
+        post.remove().then(() => res.status(200).end());
+      });
+  });
+
 module.exports = router;

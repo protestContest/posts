@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import SearchBar from './SearchBar';
 import PostListContainer from '../containers/PostListContainer';
 import NavBar from './NavBar';
-import MessageAreaContainer from '../containers/MessageAreaContainer';
+import MessageArea from './MessageArea';
 import '../styles/postlist-layout.less';
 import '../styles/page-title.less';
 import '../styles/page-header.less';
@@ -23,7 +23,7 @@ export default class PostListPage extends React.Component {
 
     return (
       <div id='content' className='postlist-layout'>
-        <MessageAreaContainer />
+        <MessageArea />
         <div className='page-header'>
           <div className='page-title'>
             <h1 className='title'>Posts</h1>

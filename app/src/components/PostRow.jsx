@@ -129,10 +129,10 @@ export default class PostRow extends React.Component {
           <i className='fa fa-2x fa-pencil'></i>
           Edit
         </Link>
-        <a href={this.props.href + '/delete'} className='toolbutton -danger'>
+        <Link to={this.props.href + '/delete'} className='toolbutton -danger'>
           <i className='fa fa-2x fa-trash'></i>
           Delete
-        </a>
+        </Link>
       </div>
     );
 

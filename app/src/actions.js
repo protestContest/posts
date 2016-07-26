@@ -6,6 +6,7 @@ export const types = {
   FETCH_POSTS_END: 'FETCH_POSTS_END',
   CREATE_POST: 'CREATE_POST',
   UPDATE_POST: 'UPDATE_POST',
+  DELETE_POST: 'DELETE_POST',
   SET_ERROR: 'SET_ERROR',
   SET_MESSAGE: 'SET_MESSAGE'
 };
@@ -128,16 +129,23 @@ export function deletePost(id) {
         'Authorization': `JWT ${apiToken}`
       })
     })
-    .then((data) => {
+    .catch(() => {
+      dispatch({ type: types.SET_MESSAGE, message: null });
+      dispatch({ type: types.SET_ERROR, error: 'Network error' });
+      return Promise.reject('Network error');
+    })
+    .then((response) => {
       dispatch({ type: types.SET_MESSAGE, message: null });
 
-      if (data.error) {
-        return Promise.reject(data.error.message);
-      } else {
+      if (response.ok) {
         return dispatch({ type: types.DELETE_POST, id: id });
+      } else {
+        const error = (response.statusText && response.statusText.length > 0)
+          ? response.statusText : 'Could not delete post';
+          
+        return Promise.reject(error);
       }
-    })
-    .catch(() => dispatch({ type: types.SET_ERROR, error: 'Network error' }));
+    });
   };
 }
 

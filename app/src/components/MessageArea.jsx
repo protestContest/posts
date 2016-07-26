@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import MessageBar from './MessageBar';
 
 export default class MessageArea extends React.Component {
@@ -19,3 +20,16 @@ MessageArea.propTypes = {
   message: PropTypes.string,
   error: PropTypes.string
 };
+
+const mapStateToProps = (state) => {
+  const message = state.sync.fetchingPosts ? 'Loading posts...'
+    : (state.message && state.message.length > 0) ? state.message
+    : '';
+
+  return {
+    error: state.currentError,
+    message: message
+  };
+};
+
+export default connect(mapStateToProps)(MessageArea);
