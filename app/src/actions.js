@@ -63,6 +63,8 @@ export function createPost(post) {
       return dispatch({ type: types.SET_ERROR, error: 'Title is required' });
     }
 
+    dispatch({ type: types.SET_MESSAGE, message: 'Saving...' });
+
     const { apiToken } = getState();
 
     return fetch('/api/posts', {
@@ -75,6 +77,7 @@ export function createPost(post) {
     })
     .then((response) => response.json())
     .then((data) => {
+      dispatch({ type: types.SET_MESSAGE, message: null });
       if (data.error) return dispatch({ type: types.SET_ERROR, error: data.error.message });
       if (data.post) return dispatch({ type: types.CREATE_POST, post: data.post });
     });
@@ -86,6 +89,8 @@ export function updatePost(post) {
     if (!post.title || post.title.length === 0) {
       return dispatch({ type: types.SET_ERROR, error: 'Title is required' });
     }
+
+    dispatch({ type: types.SET_MESSAGE, message: 'Saving...' });
 
     const { apiToken } = getState();
 
@@ -99,6 +104,8 @@ export function updatePost(post) {
     })
     .then((response) => response.json())
     .then((data) => {
+      dispatch({ type: types.SET_MESSAGE, message: null });
+
       if (data.error) {
         return Promise.reject(data.error.message);
       }

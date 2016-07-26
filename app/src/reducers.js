@@ -83,7 +83,7 @@ export default function(state, action) {
   case types.SET_MESSAGE:
     return {
       ...state,
-      syncStatus: action.message
+      message: action.message
     };
 
   default:

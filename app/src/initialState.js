@@ -5,6 +5,7 @@ export default {
     fetchingPosts: false
   },
   currentError: null,
+  message: null,
   user: null,
   apiToken: ''
 };
