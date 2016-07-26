@@ -125,10 +125,10 @@ export default class PostRow extends React.Component {
     const updated = this.formatDate(this.props.post.updated);
     const toolBar = this.props.readOnly ? '' : (
       <div ref='buttons' className='tool-bar -offcanvas'>
-        <a href={this.props.href + '/edit'} className='toolbutton'>
+        <Link to={this.props.href + '/edit'} className='toolbutton'>
           <i className='fa fa-2x fa-pencil'></i>
           Edit
-        </a>
+        </Link>
         <a href={this.props.href + '/delete'} className='toolbutton -danger'>
           <i className='fa fa-2x fa-trash'></i>
           Delete
