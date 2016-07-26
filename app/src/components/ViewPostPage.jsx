@@ -64,6 +64,11 @@ export default class ViewPostPage extends React.Component {
 
   render() {
     const published = new Date(this.props.post.updated).toDateString();
+    const actions = (!this.props.readOnly) ? (
+      <div className='actions'>
+        <div className='text-link' onClick={this.showOptions}>Options</div>
+      </div>
+      ) : '';
 
     return (
       <div id='content' className='viewpost-layout'>
@@ -74,14 +79,12 @@ export default class ViewPostPage extends React.Component {
             <div className='title'>{this.props.post.title}</div>
             <div className='info'>
               <div className='date'>{published}</div>
-              <div className='actions'>
-                <div className='text-link' onClick={this.showOptions}>Options</div>
-              </div>
+              {actions}
             </div>
           </div>
           <div className='body' dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
         </div>
-        <NavBar ref='toolBar' />
+        <NavBar ref='toolBar' type='fixed' />
 
         <ModalMenu ref='options'>
           <div className='title'>Options</div>

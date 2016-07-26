@@ -5,7 +5,7 @@ import ToolButton from './ToolButton';
 export default class NavBar extends React.Component {
   render() {
     return (
-      <ToolBar type='-bottom'>
+      <ToolBar type={`-${this.props.type}`}>
         <ToolButton icon='list' label='Posts' active={this.props.currentPage === 'posts'} />
         <ToolButton icon='newspaper-o' label='Feed' href='/feed'  active={this.props.currentPage === 'feed'}/>
         <ToolButton icon='users' label='Following' href='/users/' active={this.props.currentPage === 'following'} />
@@ -15,6 +15,11 @@ export default class NavBar extends React.Component {
   }
 }
 
+NavBar.defaultProps = {
+  type: 'bottom'
+};
+
 NavBar.propTypes = {
-  currentPage: PropTypes.string
+  currentPage: PropTypes.string,
+  type: PropTypes.oneOf(['bottom', 'fixed'])
 };

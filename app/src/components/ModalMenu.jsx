@@ -17,11 +17,12 @@ export default class ModalMenu extends React.Component {
 
   hide() {
     const node = ReactDOM.findDOMNode(this);
-    node.classList.remove('-active');
     node.addEventListener('transitionend', function remove() {
       node.classList.add('_hidden');
       node.removeEventListener('transitionend', remove);
     });
+    
+    node.classList.remove('-active');
   }
 
   render() {
