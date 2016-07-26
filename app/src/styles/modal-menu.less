@@ -1,27 +1,35 @@
 @import 'colors';
 
 .modal-menu {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 80%;
-  padding: 0 0 1em 0;
-  transform: translateX(-50%) translateY(-50%);
-  border: 1px solid @c-border;
-  border-radius: 8px;
-  background: @c-background;
-  box-shadow: 0 8px 32px -8px @c-muted;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   opacity: 0;
   transition: opacity 300ms;
 
-  > .close {
+  > .content {
+    width: 80%;
+    padding: 0 0 1em 0;
+    border: 1px solid @c-border;
+    border-radius: 8px;
+    background: @c-background;
+    box-shadow: 0 8px 32px -8px @c-muted;
+  }
+
+  > .content > .close {
     color: @c-muted;
     position: absolute;
     top: 0.25em;
     right: 0.5em;
   }
 
-  > .title {
+  > .content > .title {
     text-align: center;
     font-size: 0.7em;
     padding: 0.5em 0;

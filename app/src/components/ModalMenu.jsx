@@ -26,9 +26,10 @@ export default class ModalMenu extends React.Component {
 
   render() {
     return (
-      <div className='modal-menu _hidden'>
-        <span onClick={this.hide} className='close'>&times;</span>
-        {this.props.children}
+      <div className='modal-menu _hidden' onClick={this.hide}>
+        <div className='content' onClick={(e) => e.stopPropagation()}>
+          {this.props.children}
+        </div>
       </div>
     );
   }
