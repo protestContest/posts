@@ -51,9 +51,7 @@ export function fetchPosts() {
       .then((response) => {
         dispatch({ type: types.FETCH_POSTS_END, posts: response.posts });
       })
-      .catch(() => {
-        dispatch({ type: types.SET_ERROR, error: 'Network error' });
-      });
+      .catch(() => dispatch({ type: types.SET_ERROR, error: 'Network error' }));
   };
 }
 
@@ -80,7 +78,8 @@ export function createPost(post) {
       dispatch({ type: types.SET_MESSAGE, message: null });
       if (data.error) return dispatch({ type: types.SET_ERROR, error: data.error.message });
       if (data.post) return dispatch({ type: types.CREATE_POST, post: data.post });
-    });
+    })
+    .catch(() => dispatch({ type: types.SET_ERROR, error: 'Network error' }));
   };
 }
 
@@ -111,8 +110,8 @@ export function updatePost(post) {
       }
 
       if (data.post) return dispatch({ type: types.UPDATE_POST, post: data.post });
-    });
-
+    })
+    .catch(() => dispatch({ type: types.SET_ERROR, error: 'Network error' }));
   };
 }
 
