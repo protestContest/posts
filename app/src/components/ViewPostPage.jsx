@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import ToolBar from './ToolBar';
-import ToolButton from './ToolButton';
 import NavBar from './NavBar';
+import ModalMenu from './ModalMenu';
+import ModalItem from './ModalItem';
 import '../styles/viewpost-layout.less';
+import '../styles/text-link.less';
 
 export default class ViewPostPage extends React.Component {
   constructor(props) {
@@ -16,6 +17,7 @@ export default class ViewPostPage extends React.Component {
     this.onScroll = this.onScroll.bind(this);
     this.hideBars = this.hideBars.bind(this);
     this.showBars = this.showBars.bind(this);
+    this.showOptions = this.showOptions.bind(this);
   }
 
   onScroll() {
@@ -47,41 +49,46 @@ export default class ViewPostPage extends React.Component {
   }
 
   showBars() {
-    const headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
     const toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
-    if (headerNode) headerNode.classList.remove('-hidden');
     toolbarNode.classList.remove('-hidden');
   }
 
   hideBars() {
-    const headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
     const toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
-    if (headerNode) headerNode.classList.add('-hidden');
     toolbarNode.classList.add('-hidden');
+  }
+
+  showOptions() {
+    this.refs.options.show();
   }
 
   render() {
     const published = new Date(this.props.post.updated).toDateString();
-    const headerHidden = (this.props.readOnly) ? '-hidden' : '';
 
     return (
       <div id='content' className='viewpost-layout'>
-        <div ref='pageHeader' className={'page-header ' + headerHidden}>
-          <ToolBar>
-            <ToolButton icon='edit' label='Edit' href={`/posts/${this.props.post.slug}/edit`} />
-            <ToolButton icon='globe' label='Publish' />
-            <ToolButton icon='trash' label='Delete' />
-          </ToolBar>
-        </div>
+        <div ref='pageHeader' className='page-header -hidden'></div>
         <div ref='postText' className='post-text'
             onTouchMove={this.onScroll} onTouchEnd={this.onScroll}>
-          <div className='header'>
+          <div className='post-header'>
             <div className='title'>{this.props.post.title}</div>
-            <div className='date'>{published}</div>
+            <div className='info'>
+              <div className='date'>{published}</div>
+              <div className='actions'>
+                <div className='text-link' onClick={this.showOptions}>Options</div>
+              </div>
+            </div>
           </div>
           <div className='body' dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
         </div>
         <NavBar ref='toolBar' />
+
+        <ModalMenu ref='options'>
+          <div className='title'>Options</div>
+          <ModalItem icon='edit' label='Edit' link={`/posts/${this.props.post.slug}/edit`} />
+          <ModalItem icon='globe' label='Publish' />
+          <ModalItem icon='trash' label='Delete' />
+        </ModalMenu>
       </div>
     );
   }
