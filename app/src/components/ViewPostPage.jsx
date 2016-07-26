@@ -90,7 +90,7 @@ export default class ViewPostPage extends React.Component {
           <div className='title'>Options</div>
           <ModalItem icon='edit' label='Edit' link={`/posts/${this.props.post.slug}/edit`} />
           <ModalItem icon='globe' label='Publish' />
-          <ModalItem icon='trash' label='Delete' />
+          <ModalItem icon='trash' label='Delete' link={`/posts/${this.props.post.slug}/delete`} />
         </ModalMenu>
       </div>
     );

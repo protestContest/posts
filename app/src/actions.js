@@ -115,6 +115,32 @@ export function updatePost(post) {
   };
 }
 
+export function deletePost(id) {
+  return (dispatch, getState) => {
+    dispatch({ type: types.SET_MESSAGE, message: 'Deleting...' });
+    
+    const { apiToken } = getState();
+
+    return fetch(`/api/posts/${id}`, {
+      method: 'delete',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${apiToken}`
+      })
+    })
+    .then((data) => {
+      dispatch({ type: types.SET_MESSAGE, message: null });
+
+      if (data.error) {
+        return Promise.reject(data.error.message);
+      } else {
+        return dispatch({ type: types.DELETE_POST, id: id });
+      }
+    })
+    .catch(() => dispatch({ type: types.SET_ERROR, error: 'Network error' }));
+  };
+}
+
 export function setError(error) {
   return { type: types.SET_ERROR, error };
 }

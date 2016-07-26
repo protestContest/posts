@@ -1,26 +1,27 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { deletePost } from '../actions';
+import MessageArea from './MessageArea';
 import '../styles/message-layout.less';
 
-export default class DeletePostPage extends React.Component {
+class DeletePostPage extends React.Component {
   render() {
     return (
       <div id='content' className='message-layout'>
+        <MessageArea />
         <div className='full-message'>
           <h1 className='title'>Are you sure you want to delete <em>{this.props.post.title}</em>?</h1>
         </div>
-        <div className='tool-bar'>
-          <button type='submit' form='deleteForm' className='toolbutton -danger-inverted'>
+        <div className='tool-bar -bottom'>
+          <div className='toolbutton -danger-inverted' onClick={() => this.props.deletePost(this.props.post._id)}>
             <i className='fa fa-2x fa-trash'></i>
             Delete
-          </button>
-          <a className='toolbutton' href={'/posts/' + this.props.post.slug}>
+          </div>
+          <div className='toolbutton' onClick={this.props.goBack}>
             <i className='fa fa-2x fa-times'></i>
             Cancel
-          </a>
+          </div>
         </div>
-        <form id='deleteForm' className='_hidden' method='post' action={'/posts/' + this.props.post._id}>
-          <input type='hidden' name='_method' value='delete' />
-        </form>
       </div>
     );
   }
@@ -33,3 +34,19 @@ DeletePostPage.propTypes = {
     slug: PropTypes.string.isRequired
   }).isRequired
 };
+
+const mapStateToProps = (state, ownProps) => {
+  return {
+    post: state.posts.find((post) => post.slug === ownProps.params.slug)
+  };
+};
+
+const mapDispatchToProps = (dispatch, ownProps) => {
+  return {
+    deletePost: (postId) => dispatch(deletePost(postId))
+      .then(() => ownProps.history.push('/posts')),
+    goBack: () => ownProps.history.goBack()
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DeletePostPage);
