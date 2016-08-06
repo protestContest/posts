@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 var Schema = mongoose.Schema;
+var bcrypt = require('bcrypt');
 
 var UserSchema = new Schema({
   username: { type: String, unique: true },
@@ -8,12 +9,21 @@ var UserSchema = new Schema({
   created: {type: Date, default: Date.now}
 });
 
+UserSchema.static('create', function(username, password) {
+  var hash = bcrypt.hashSync(password, 12);
+  return new User({
+    username,
+    password: hash
+  });
+});
+
 UserSchema.method('validPassword', function(password) {
-  return password === this.password;
+  return bcrypt.compare(password, this.password);
 });
 
 UserSchema.method('setPassword', function(password) {
-  this.password = password;
+  var hash = bcrypt.hashSync(password, 12);
+  this.password = hash;
   return this.save();
 });
 

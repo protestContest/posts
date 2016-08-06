@@ -58,11 +58,7 @@ passport.use(new LocalStrategy(
     User.findOne({username: username}, function(err, user) {
       if (err) return done(err);
       if (!user) {
-        user = new User({
-          username,
-          password
-        });
-
+        user = User.create(username, password);
         user.save(function(err) {
           if (err) return done(err, false);
           else return done(null, user);
