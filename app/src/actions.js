@@ -150,6 +150,14 @@ export function deletePost(id) {
   };
 }
 
+export function setMessage(message) {
+  return { type: types.SET_MESSAGE, message };
+}
+
+export function clearMessage() {
+  return { type: types.SET_MESSAGE, message: null };
+}
+
 export function setError(error) {
   return { type: types.SET_ERROR, error };
 }
@@ -162,5 +170,28 @@ export function logout() {
   return (dispatch) => {
     dispatch({ type: types.LOGOUT });
     return Promise.resolve();
+  };
+}
+
+export function changePassword(password) {
+  return (dispatch, getState) => {
+    const { user, apiToken } = getState();
+    dispatch(clearError());
+    dispatch(setMessage('Resetting password'));
+
+    fetch(`/api/users/${user.username}/password`, {
+      method: 'put',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Authorization': `JWT ${apiToken}`
+      }),
+      body: JSON.stringify({ password })
+    })
+    .then((response) => {
+      dispatch(clearMessage());
+      if (!response.ok) {
+        dispatch(setError('Could not reset password'));
+      }
+    });
   };
 }

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var passport = require('passport');
 var Post = require('../models/Post');
+var User = require('../models/User');
 
 router.get('/users/:username/posts',
   passport.authenticate('jwt', {session: false}),
@@ -12,7 +13,31 @@ router.get('/users/:username/posts',
           res.json({posts});
         });
     } else {
-      res.status(404).end();
+      res.status(403).end();
+    }
+  });
+
+router.put('/users/:username/password',
+  passport.authenticate('jwt', {session: false}),
+  function(req, res) {
+    if (!req.body.password) {
+      return res.status(400).json({
+        error: {
+          message: 'Password is required'
+        }
+      });
+    }
+
+    if (req.user.username === req.params.username) {
+      User.findOne({username: req.params.username})
+        .then((user) => {
+          return user.setPassword(req.body.password);
+        })
+        .then(() => {
+          res.end();
+        });
+    } else {
+      res.status(403).end();
     }
   });
 

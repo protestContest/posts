@@ -12,6 +12,11 @@ UserSchema.method('validPassword', function(password) {
   return password === this.password;
 });
 
+UserSchema.method('setPassword', function(password) {
+  this.password = password;
+  return this.save();
+});
+
 mongoose.model('User', UserSchema);
 var User = mongoose.model('User');
 module.exports = User;
