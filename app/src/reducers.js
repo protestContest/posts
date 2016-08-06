@@ -92,6 +92,13 @@ export default function(state, action) {
       message: action.message
     };
 
+  case types.LOGOUT:
+    return {
+      ...state,
+      apiToken: null,
+      user: null
+    };
+
   default:
     return state;
   }

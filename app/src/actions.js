@@ -8,7 +8,8 @@ export const types = {
   UPDATE_POST: 'UPDATE_POST',
   DELETE_POST: 'DELETE_POST',
   SET_ERROR: 'SET_ERROR',
-  SET_MESSAGE: 'SET_MESSAGE'
+  SET_MESSAGE: 'SET_MESSAGE',
+  LOGOUT: 'LOGOUT'
 };
 
 export function authenticate(username, password) {
@@ -155,4 +156,11 @@ export function setError(error) {
 
 export function clearError() {
   return { type: types.SET_ERROR, error: null };
+}
+
+export function logout() {
+  return (dispatch) => {
+    dispatch({ type: types.LOGOUT });
+    return Promise.resolve();
+  };
 }

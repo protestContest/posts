@@ -17,6 +17,7 @@ import PostListPageContainer from './containers/PostListPageContainer';
 import EditPostPageContainer from './containers/EditPostPageContainer';
 import ViewPostPageContainer from './containers/ViewPostPageContainer';
 import DeletePostPage from './components/DeletePostPage';
+import SettingsPage from './components/SettingsPage';
 import NotFoundPage from './components/NotFoundPage';
 
 const cache = new Cache();
@@ -48,6 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <Route path='/posts/:slug' component={ViewPostPageContainer} />
         <Route path='/posts/:slug/edit' component={EditPostPageContainer} />
         <Route path='/posts/:slug/delete' component={DeletePostPage} />
+        <Route path='/settings' component={SettingsPage} />
         <Route path='*' component={NotFoundPage} />
       </Router>
     </Provider>
