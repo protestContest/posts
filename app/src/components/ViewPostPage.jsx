@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
 import NavBar from './NavBar';
-import ModalMenu from './ModalMenu';
-import ModalItem from './ModalItem';
+import ToolBar from './ToolBar';
+import ToolButton from './ToolButton';
 import '../styles/viewpost-layout.less';
 import '../styles/text-link.less';
 
@@ -50,16 +50,21 @@ export default class ViewPostPage extends React.Component {
 
   showBars() {
     const toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
+    const headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
     toolbarNode.classList.remove('-hidden');
+    headerNode.classList.remove('-hidden');
   }
 
   hideBars() {
     const toolbarNode = ReactDOM.findDOMNode(this.refs.toolBar);
+    const headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
     toolbarNode.classList.add('-hidden');
+    headerNode.classList.add('-hidden');
   }
 
   showOptions() {
-    this.refs.options.show();
+    const headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
+    headerNode.classList.remove('-hidden');
   }
 
   render() {
@@ -72,7 +77,13 @@ export default class ViewPostPage extends React.Component {
 
     return (
       <div id='content' className='viewpost-layout'>
-        <div ref='pageHeader' className='page-header -hidden'></div>
+        <div ref='pageHeader' className='page-header -hidden'>
+          <ToolBar>
+            <ToolButton icon='edit' label='Edit' href={`/posts/${this.props.post.slug}/edit`} />
+            <ToolButton icon='globe' label='Publish' />
+            <ToolButton icon='trash' label='Delete' href={`/posts/${this.props.post.slug}/delete`} />
+          </ToolBar>
+        </div>
         <div ref='postText' className='post-text'
             onTouchMove={this.onScroll} onTouchEnd={this.onScroll}>
           <div className='post-header'>
@@ -85,13 +96,6 @@ export default class ViewPostPage extends React.Component {
           <div className='body' dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
         </div>
         <NavBar ref='toolBar' type='fixed' />
-
-        <ModalMenu ref='options'>
-          <div className='title'>Options</div>
-          <ModalItem icon='edit' label='Edit' link={`/posts/${this.props.post.slug}/edit`} />
-          <ModalItem icon='globe' label='Publish' />
-          <ModalItem icon='trash' label='Delete' link={`/posts/${this.props.post.slug}/delete`} />
-        </ModalMenu>
       </div>
     );
   }
