@@ -51,11 +51,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <Redirect from='/' to={firstPage} />
         <Route path='/login' component={LoginPageContainer} />
         <Route path='/posts' component={PostListPageContainer} onEnter={requireAuth} />
-        <Route path='/posts/new' component={EditPostPageContainer} />
+        <Route path='/posts/new' component={EditPostPageContainer} onEnter={requireAuth} />
         <Route path='/posts/:slug' component={ViewPostPageContainer} />
-        <Route path='/posts/:slug/edit' component={EditPostPageContainer} />
-        <Route path='/posts/:slug/delete' component={DeletePostPage} />
-        <Route path='/settings' component={SettingsPage} />
+        <Route path='/posts/:slug/edit' component={EditPostPageContainer} onEnter={requireAuth} />
+        <Route path='/posts/:slug/delete' component={DeletePostPage} onEnter={requireAuth} />
+        <Route path='/settings' component={SettingsPage} onEnter={requireAuth} />
         <Route path='*' component={NotFoundPage} />
       </Router>
     </Provider>
