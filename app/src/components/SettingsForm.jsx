@@ -23,6 +23,11 @@ class SettingsForm extends React.Component {
             Log out
           </div>
         </div>
+        <div className='group'>
+          <div className='label'>App Version
+            <div className='value'>{this.props.appVersion}</div>
+          </div>
+        </div>
       </div>
     );
   }
@@ -30,7 +35,8 @@ class SettingsForm extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
+    appVersion: state.appVersion
   };
 };
 

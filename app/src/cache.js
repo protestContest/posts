@@ -4,8 +4,8 @@ export default class Cache {
     const state = JSON.parse(localStorage.appState);
 
     return {
-      ...state,
-      posts: state.posts || []
+      ...initialState,
+      ...state
     };
   }
 
