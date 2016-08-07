@@ -30,6 +30,7 @@ export default class PostRow extends React.Component {
     this.setState({
       dragging: true,
       offset: 0,
+      touchStart: pageX,
       rel: pageX - ReactDOM.findDOMNode(this).getBoundingClientRect().left
     });
   }
@@ -38,6 +39,7 @@ export default class PostRow extends React.Component {
     if (!this.refs.buttons) return;
     this.setState({
       dragging: false,
+      touchStart: 0,
       rel: 0
     });
     
@@ -68,11 +70,13 @@ export default class PostRow extends React.Component {
     var offset = e.touches[0].pageX - this.state.rel;
     offset = Math.min(0, Math.max(-buttons.offsetWidth, offset));
 
+    var touchOffset = Math.abs(e.touches[0].pageX - this.state.touchStart);
+
     this.setState({
       offset: offset
     });
 
-    elem.style.transform = 'translate(' + offset + 'px)';
+    if (touchOffset > 20) elem.style.transform = 'translate(' + offset + 'px)';
   }
 
   close() {
