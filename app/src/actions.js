@@ -9,7 +9,8 @@ export const types = {
   DELETE_POST: 'DELETE_POST',
   SET_ERROR: 'SET_ERROR',
   SET_MESSAGE: 'SET_MESSAGE',
-  LOGOUT: 'LOGOUT'
+  LOGOUT: 'LOGOUT',
+  SET_CURRENT_PAGE: 'SET_CURRENT_PAGE'
 };
 
 export function authenticate(username, password) {
@@ -194,4 +195,8 @@ export function changePassword(password) {
       }
     });
   };
+}
+
+export function setCurrentPage(location) {
+  return { type: types.SET_CURRENT_PAGE, location };
 }

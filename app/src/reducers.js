@@ -99,6 +99,15 @@ export default function(state, action) {
       user: null
     };
 
+  case types.SET_CURRENT_PAGE:
+    return {
+      ...state,
+      startCache: {
+        ...state.startCache,
+        location: action.location
+      }
+    };
+
   default:
     return state;
   }

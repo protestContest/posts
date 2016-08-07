@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import reducers from './reducers';
 import Cache from './cache';
 import initialState from './initialState';
-import { clearError } from './actions';
+import { clearError, setCurrentPage } from './actions';
 
 import './styles/base.less';
 import 'whatwg-fetch';
@@ -21,8 +21,13 @@ import SettingsPage from './components/SettingsPage';
 import NotFoundPage from './components/NotFoundPage';
 
 const cache = new Cache();
-const store = createStore(reducers, cache.restore(initialState), applyMiddleware(thunk));
+const initialStore = cache.restore(initialState);
+const store = createStore(reducers, initialStore, applyMiddleware(thunk));
 store.subscribe(() => cache.persistState(store.getState()));
+
+const firstPage = (initialStore.startCache.location && initialStore.startCache.location !== '/') 
+  ? initialStore.startCache.location
+  : '/posts';
 
 function requireAuth(nextState, replace) {
   const state = store.getState();
@@ -36,13 +41,14 @@ function requireAuth(nextState, replace) {
 
 function onRouteUpdate() {
   store.dispatch(clearError());
+  store.dispatch(setCurrentPage(this.state.location.pathname));
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
-      <Router history={browserHistory} onUpdate={onRouteUpdate}>
-        <Redirect from='/' to='/posts' />
+      <Router history={browserHistory} onUpdate={onRouteUpdate} >
+        <Redirect from='/' to={firstPage} />
         <Route path='/login' component={LoginPageContainer} />
         <Route path='/posts' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} />

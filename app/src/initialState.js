@@ -1,4 +1,5 @@
 export default {
+  appVersion: '1.0.12',
   posts: [],
   sync: {
     authenticating: false,
@@ -7,5 +8,8 @@ export default {
   currentError: null,
   message: null,
   user: null,
-  apiToken: ''
+  apiToken: '',
+  startCache: {
+    location: '/'
+  }
 };
