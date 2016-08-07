@@ -18,7 +18,7 @@ UserSchema.static('create', function(username, password) {
 });
 
 UserSchema.method('validPassword', function(password) {
-  return bcrypt.compare(password, this.password);
+  return bcrypt.compareSync(password, this.password);
 });
 
 UserSchema.method('setPassword', function(password) {
