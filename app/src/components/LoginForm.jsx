@@ -29,6 +29,10 @@ export default class LoginForm extends React.Component {
   }
 
   render() {
+    const installMessage = (window.navigator.standalone)
+      ? null
+      : <div className='installmessage'>Posts works better when you add it to your home screen, through the "share" menu.</div>;
+
     return (
       <form className="vertical-form" onSubmit={this.onSubmit}>
         <div className="inputrow">
@@ -43,7 +47,8 @@ export default class LoginForm extends React.Component {
           <button className="submit" type="submit">Log in</button>
         </div>
         <div className="info">
-          An account will be created if it doesn't exist
+          <p>An account will be created if it doesn't exist</p>
+          {installMessage}
         </div>
       </form>
     );
