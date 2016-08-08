@@ -76,7 +76,10 @@ export default class PostRow extends React.Component {
       offset: offset
     });
 
-    if (touchOffset > 20) elem.style.transform = 'translate(' + offset + 'px)';
+    if (touchOffset > 20) {
+      e.preventDefault();
+      elem.style.transform = 'translate(' + offset + 'px)';
+    }
   }
 
   close() {

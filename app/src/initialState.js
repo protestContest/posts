@@ -1,5 +1,5 @@
 export default {
-  appVersion: '1.0.14',
+  appVersion: '1.0.15',
   posts: [],
   sync: {
     authenticating: false,
