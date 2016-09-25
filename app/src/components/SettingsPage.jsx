@@ -1,6 +1,8 @@
 import React from 'react';
 import MessageArea from './MessageArea';
 import SettingsForm from './SettingsForm';
+import ToolBar from './ToolBar';
+import ToolButton from './ToolButton';
 import '../styles/settings-page.less';
 
 export default class SettingsPage extends React.Component {
@@ -12,6 +14,9 @@ export default class SettingsPage extends React.Component {
           <div className='page-title'>
             <div className='title'>Settings</div>
           </div>
+          <ToolBar>
+            <ToolButton icon='home' href='/posts' label='' />
+          </ToolBar>
         </div>
         <SettingsForm />
       </div>

@@ -17,7 +17,7 @@ export default class ViewPostPage extends React.Component {
     this.onScroll = this.onScroll.bind(this);
     this.hideBars = this.hideBars.bind(this);
     this.showBars = this.showBars.bind(this);
-    this.showOptions = this.showOptions.bind(this);
+    this.toggleOptions = this.toggleOptions.bind(this);
   }
 
   onScroll() {
@@ -62,16 +62,16 @@ export default class ViewPostPage extends React.Component {
     headerNode.classList.add('-hidden');
   }
 
-  showOptions() {
+  toggleOptions() {
     const headerNode = ReactDOM.findDOMNode(this.refs.pageHeader);
-    headerNode.classList.remove('-hidden');
+    headerNode.classList.toggle('-hidden');
   }
 
   render() {
     const published = new Date(this.props.post.updated).toDateString();
     const actions = (!this.props.readOnly) ? (
       <div className='actions'>
-        <div className='text-link' onClick={this.showOptions}>Options</div>
+        <div className='text-link' onClick={this.toggleOptions}>Options</div>
       </div>
       ) : '';
 
