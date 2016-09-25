@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, Redirect, browserHistory } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
@@ -25,10 +25,6 @@ const initialStore = cache.restore(initialState);
 const store = createStore(reducers, initialStore, applyMiddleware(thunk));
 store.subscribe(() => cache.persistState(store.getState()));
 
-const firstPage = (initialStore.startCache.location && initialStore.startCache.location !== '/') 
-  ? initialStore.startCache.location
-  : '/posts';
-
 function requireAuth(nextState, replace) {
   const state = store.getState();
   if (!state || !state.user) {
@@ -48,7 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
       <Router history={browserHistory} onUpdate={onRouteUpdate} >
-        <Redirect from='/' to={firstPage} />
+        <Route path='/' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/login' component={LoginPageContainer} />
         <Route path='/posts' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} onEnter={requireAuth} />
