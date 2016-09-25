@@ -29,9 +29,15 @@ export default class LoginForm extends React.Component {
   }
 
   render() {
-    const installMessage = (window.navigator.standalone)
-      ? null
-      : <div className='installmessage'>Posts works better when you add it to your home screen, through the "share" menu.</div>;
+    const message = (window.navigator.standalone)
+      ? <p>An account will be created if it doesn't exist</p>
+      : (
+        <div>
+          Posts works better when you add it to your home screen, through the "share" menu.<br/>
+          <br/>
+          <i className='fa fa-2x fa-arrow-down'></i>
+        </div>
+      );
 
     return (
       <form className="vertical-form" onSubmit={this.onSubmit}>
@@ -47,8 +53,7 @@ export default class LoginForm extends React.Component {
           <button className="submit" type="submit">Log in</button>
         </div>
         <div className="info">
-          <p>An account will be created if it doesn't exist</p>
-          {installMessage}
+          {message}
         </div>
       </form>
     );
