@@ -1,7 +1,6 @@
 import React from 'react';
 import MessageArea from './MessageArea';
 import SettingsForm from './SettingsForm';
-import NavBar from './NavBar';
 import '../styles/settings-page.less';
 
 export default class SettingsPage extends React.Component {
@@ -15,7 +14,6 @@ export default class SettingsPage extends React.Component {
           </div>
         </div>
         <SettingsForm />
-        <NavBar currentPage='settings' />
       </div>
     );
   }

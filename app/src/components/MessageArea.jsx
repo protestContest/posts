@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import MessageBar from './MessageBar';
 
-export default class MessageArea extends React.Component {
+class MessageArea extends React.Component {
   render() {
     const hideMessage = !Boolean(this.props.message);
     const hideError = !Boolean(this.props.error);

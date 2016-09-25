@@ -1,6 +1,6 @@
 var webpack = require('webpack');
 
-var babelPresets = ['es2015', 'react', 'stage-2'];
+var babelPresets = ['react', 'es2015', 'stage-2'];
 var plugins = [];
 var output = {};
 var entry = ['./app/src/App.jsx'];
@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
     publicPath: '/'
   };
 } else {
-  babelPresets = ['es2015', 'react', 'react-hmre', 'stage-2'];
+  babelPresets = ['react', 'es2015', 'react-hmre', 'stage-2'];
   plugins = [
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),

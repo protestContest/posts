@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import ReactDOM from 'react-dom';
-import NavBar from './NavBar';
 import ToolBar from './ToolBar';
 import ToolButton from './ToolButton';
+import BackButton from './BackButton';
 import '../styles/viewpost-layout.less';
 import '../styles/text-link.less';
 
@@ -79,6 +79,7 @@ export default class ViewPostPage extends React.Component {
       <div id='content' className='viewpost-layout'>
         <div ref='pageHeader' className='page-header -hidden'>
           <ToolBar>
+            <BackButton />
             <ToolButton icon='edit' label='Edit' href={`/posts/${this.props.post.slug}/edit`} />
             <ToolButton icon='globe' label='Publish' />
             <ToolButton icon='trash' label='Delete' href={`/posts/${this.props.post.slug}/delete`} />
@@ -95,7 +96,6 @@ export default class ViewPostPage extends React.Component {
           </div>
           <div className='body' dangerouslySetInnerHTML={{__html: this.props.post.body}}></div>
         </div>
-        <NavBar ref='toolBar' type='fixed' />
       </div>
     );
   }
