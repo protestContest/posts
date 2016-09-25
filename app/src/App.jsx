@@ -12,6 +12,7 @@ import { clearError, setCurrentPage } from './actions';
 import './styles/base.less';
 import 'whatwg-fetch';
 
+import IndexPage from './components/IndexPage';
 import LoginPageContainer from './containers/LoginPageContainer';
 import PostListPageContainer from './containers/PostListPageContainer';
 import EditPostPageContainer from './containers/EditPostPageContainer';
@@ -44,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
   render((
     <Provider store={store}>
       <Router history={browserHistory} onUpdate={onRouteUpdate} >
-        <Route path='/' component={PostListPageContainer} onEnter={requireAuth} />
+        <Route path='/' component={IndexPage} />
         <Route path='/login' component={LoginPageContainer} />
         <Route path='/posts' component={PostListPageContainer} onEnter={requireAuth} />
         <Route path='/posts/new' component={EditPostPageContainer} onEnter={requireAuth} />
