@@ -24,7 +24,7 @@ export default class SearchBar extends React.Component {
 
     return (
       <div className='search-bar'>
-        <input ref='search' className='search' placeholder='Filter' 
+        <input ref='search' className='search' placeholder='Search' 
           onChange={this.onChange} value={this.state.searchText} />
         <i className={'delete fa fa-times-circle' + hidden} onClick={this.clear}></i>
       </div>

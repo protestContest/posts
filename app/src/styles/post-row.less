@@ -53,14 +53,16 @@
     align-self: flex-start;
   }
 
-  &.-newpost {
+  &.-aux {
     min-height: 40px;
+    justify-content: center;
   }
 
-  &.-newpost > .display {
+  &.-aux > * {
     text-align: center;
     justify-content: center;
     color: @c-muted;
+    flex: 1;
   }
 
   &.-endrow {

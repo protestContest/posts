@@ -172,13 +172,11 @@ PostRow.defaultProps = {
 };
 
 
-export class NewPostRow extends React.Component {
+export class AuxRow extends React.Component {
   render() {
     return (
-      <div className='post-row -newpost'>
-        <Link className='display' to='/posts/new'>
-          <span className='title'>+ New Post</span>
-        </Link>
+      <div className='post-row -aux'>
+        {this.props.children}
       </div>
     );
   }
